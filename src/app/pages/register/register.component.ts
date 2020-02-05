@@ -2,7 +2,7 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FnParam } from '@angular/compiler/src/output/output_ast';
-import { APIService } from 'src/app/services/api.service';
+import { APIService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +11,7 @@ import { APIService } from 'src/app/services/api.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  invalid = false;
+  invalid = false; // custom validator for password comfirmation
   constructor(private apiService: APIService) {
     this.registerForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
 
   onClickSubmit() {
     console.log(JSON.stringify(this.registerForm.value));
-    this.apiService.register(this.registerForm.value).subscribe((reponse) => {
+    this.apiService.register(this.registerForm.value).subscribe((reponse) => { // sends post request to the apiService
       console.log(reponse);
     });
   }
