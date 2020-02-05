@@ -1,0 +1,55 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Edit Profile</h4>
+                  </div>
+                  <div class="card-body">
+                      <form [formGroup]="updateForm" (ngSubmit)="updateUser()">
+                          <div class="row">
+                              <div class="col-md-3">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput formControlName="username" placeholder="Username">
+                                  </mat-form-field>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Email address" formControlName="email"  type="email">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-3">
+                              <mat-form-field class="example-full-width">
+                                <input matInput formControlName="role" placeholder="role">
+                              </mat-form-field>
+                          </div>
+                      </div>
+                        <div class="row">
+                          <div class="col-md-4">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Password" formControlName="password"  type="password">
+                              </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Confirm Password" formControlName="confpassword" type="password">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
