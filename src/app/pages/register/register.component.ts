@@ -48,6 +48,7 @@ export class RegisterComponent implements OnInit {
     console.log(JSON.stringify(this.registerForm.value));
     this.apiService.register(this.registerForm.value).subscribe((reponse) => { // sends post request to the apiService
       console.log(reponse);
+      this.registerForm.reset();
     });
   }
 
