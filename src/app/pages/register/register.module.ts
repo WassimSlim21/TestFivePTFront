@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 
 import {
@@ -28,6 +30,7 @@ import {
     MatFormFieldModule,
     MatTooltipModule,
     MatSelectModule,
+    MatSnackBarModule,
   ]
 })
 export class RegisterModule { }

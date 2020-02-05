@@ -1,8 +1,9 @@
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { FnParam } from '@angular/compiler/src/output/output_ast';
 import { APIService } from 'src/app/core/services/api.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ import { APIService } from 'src/app/core/services/api.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   invalid = false; // custom validator for password comfirmation
-  constructor(private apiService: APIService) {
+  constructor(private apiService: APIService, private snackBar: MatSnackBar) {
     this.registerForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.email, Validators.required]),
@@ -20,8 +21,6 @@ export class RegisterComponent implements OnInit {
       cpassword: new FormControl(null, [Validators.required])
     });
 }
-
-
 
 
   passwordConfirming(c: any) {
@@ -39,6 +38,7 @@ export class RegisterComponent implements OnInit {
       console.log('invalid', this.invalid);
 
     });
+
   }
 
 
@@ -46,9 +46,10 @@ export class RegisterComponent implements OnInit {
 
   onClickSubmit() {
     console.log(JSON.stringify(this.registerForm.value));
-    this.apiService.register(this.registerForm.value).subscribe((reponse) => { // sends post request to the apiService
-      console.log(reponse);
-      this.registerForm.reset();
+    this.apiService.register(this.registerForm.value).subscribe((reponse: any) => { // sends post request to the apiService
+     let snackBarRef = this.snackBar.open(reponse.msg);
+     this.registerForm.reset();
+
     });
   }
 
