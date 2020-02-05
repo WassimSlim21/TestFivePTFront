@@ -35,10 +35,22 @@
                     <small>  Password doesn't match</small>
                     </mat-error>
                   <mat-form-field class="example-full-width">
-
                     <input matInput placeholder="Comfirm Password" type="password" formControlName="cpassword">
                   </mat-form-field>
                 </div>
+
+              </div>
+
+
+              <div class="row">
+                <div class="col-md-6">
+                <mat-radio-group aria-label="Select a role" formControlName="role">
+                    <mat-radio-button value="admin">Admin</mat-radio-button>
+                    <mat-radio-button value="super-admin">Super-Admin</mat-radio-button>
+                </mat-radio-group>
+                </div>
+
+
 
               </div>
               <!--    <div class="row">

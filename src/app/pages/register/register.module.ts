@@ -5,6 +5,7 @@ import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -14,8 +15,10 @@ import {
   MatRippleModule,
   MatFormFieldModule,
   MatTooltipModule,
-  MatSelectModule
+  MatSelectModule,
+
 } from '@angular/material';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -31,6 +34,8 @@ import {
     MatTooltipModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatButtonToggleModule,
+    MatRadioModule
   ]
 })
 export class RegisterModule { }

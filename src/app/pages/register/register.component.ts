@@ -1,4 +1,4 @@
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { APIService } from 'src/app/core/services/api.service';
@@ -18,7 +18,8 @@ export class RegisterComponent implements OnInit {
       userName: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.email, Validators.required]),
       password: new FormControl(null, Validators.required),
-      cpassword: new FormControl(null, [Validators.required])
+      cpassword: new FormControl(null, [Validators.required]),
+      role: new FormControl(null, Validators.required)
     });
 }
 
@@ -45,12 +46,21 @@ export class RegisterComponent implements OnInit {
 
 
   onClickSubmit() {
+
+    if (this.registerForm.invalid){
+      this.snackBar.open('please verify the form');
+    } else
+    if (this.invalid) {
+      this.snackBar.open('recomfirm your password');
+
+    } else {
     console.log(JSON.stringify(this.registerForm.value));
     this.apiService.register(this.registerForm.value).subscribe((reponse: any) => { // sends post request to the apiService
-     let snackBarRef = this.snackBar.open(reponse.msg);
+     this.snackBar.open(reponse.msg);
      this.registerForm.reset();
 
     });
+  }
   }
 
 }
