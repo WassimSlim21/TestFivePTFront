@@ -31,11 +31,12 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
-                  <mat-error *ngIf="invalid">
-                    <small>  Password doesn't match</small>
-                    </mat-error>
+
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Comfirm Password" type="password" formControlName="cpassword">
+                    <input matInput placeholder="Comfirm Password" type="password" formControlName="cpassword" [ngClass]="{ 'is-invalid': invalid }">
+                    <div *ngIf="this.invalid" class="invalid-feedback">
+                      <small>  Password doesn't match</small>
+                    </div>
                   </mat-form-field>
                 </div>
 
@@ -44,10 +45,13 @@
 
               <div class="row">
                 <div class="col-md-6">
-                <mat-radio-group aria-label="Select a role" formControlName="role">
-                    <mat-radio-button value="admin">Admin</mat-radio-button>
-                    <mat-radio-button value="super-admin">Super-Admin</mat-radio-button>
-                </mat-radio-group>
+                  <mat-form-field>
+                    <mat-label>Roles</mat-label>
+                    <select matNativeControl required formControlName="role">
+                      <option value="admin">Admin</option>
+                      <option value="super-admin">Super-admin</option>
+                    </select>
+                  </mat-form-field>
                 </div>
 
 
