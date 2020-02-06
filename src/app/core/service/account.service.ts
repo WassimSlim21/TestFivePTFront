@@ -21,6 +21,14 @@ export class AccountService {
   constructor(private http: HttpClient) { }
 
 
+  public register(user: object) {
+    return this.http.post('http://127.0.0.1:3000/api/account/register', user, {
+      headers: new HttpHeaders({
+           'Content-Type':  'application/json',
+         })
+    });
+  }
+
   update(account: Account) {
 
     return this.http.post<any>(this.apiUrl + 'account/updateProfile', account, this.httpOptions);
