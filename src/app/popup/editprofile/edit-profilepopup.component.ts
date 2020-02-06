@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AccountService } from 'src/app/core/service/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Account } from 'src/app/core/models/account.module';
+import { Account } from 'src/app/core/models/account';
 import { AccountNotifyChangeService } from 'src/app/core/service/account-notify-change.service';
 @Component({
   selector: 'app-edit-profilepopup',
@@ -15,10 +15,12 @@ export class EditProfilepopupComponent implements OnInit {
   roles: String[] = ['Admin', 'Super Admin'];
   updateForm: FormGroup;
   submitted = false;
-  isShow = true;
-  toggleDisplay() {
-    this.isShow = !this.isShow;
-  }
+  // isShow = true;
+  // toggleDisplay() {
+  //   this.isShow = !this.isShow;
+  // }
+
+
   constructor(
     public dialogRef: MatDialogRef<EditProfilepopupComponent>, private accountService: AccountService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -34,9 +36,9 @@ export class EditProfilepopupComponent implements OnInit {
       userName: ['', Validators.required],
       role: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      oldPassword: ['', [Validators.required, Validators.minLength(6)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]  }, {
+      oldPassword: ['', [ Validators.minLength(6)]],
+      password: ['', [ Validators.minLength(6)]],
+      confirmPassword: ['']  }, {
       validator: this.MustMatch('password', 'confirmPassword', 'oldPassword')
   });
   }
