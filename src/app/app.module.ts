@@ -14,6 +14,8 @@ import {
   MatFormFieldModule,
   MatInputModule,
 } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './shared/material.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,19 +27,12 @@ import {
     BrowserAnimationsModule,
     SharedModule,
     LayoutsModule,
-    MatButtonModule,
-    MatCommonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
+    HttpClientModule,
+    MaterialModule
 
   ],
   exports: [
-    MatButtonModule,
-    MatCommonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
+    MaterialModule
 
 
   ],

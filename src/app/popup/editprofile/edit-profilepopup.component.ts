@@ -1,42 +1,87 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AccountService } from 'src/app/core/service/account.service';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Account } from 'src/app/core/models/account.module';
+import { AccountNotifyChangeService } from 'src/app/core/service/account-notify-change.service';
 @Component({
   selector: 'app-edit-profilepopup',
   templateUrl: './edit-profilepopup.component.html',
   styleUrls: ['./edit-profilepopup.component.scss']
 })
 export class EditProfilepopupComponent implements OnInit {
-  public updateForm: FormGroup;
-
+  // tslint:disable-next-line: ban-types
+  roles: String[] = ['Admin', 'Super Admin'];
+  updateForm: FormGroup;
+  submitted = false;
+  isShow = true;
+  toggleDisplay() {
+    this.isShow = !this.isShow;
+  }
   constructor(
-    public dialogRef: MatDialogRef<EditProfilepopupComponent>,
+    public dialogRef: MatDialogRef<EditProfilepopupComponent>, private accountService: AccountService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private accountService: AccountService, private formBuilder: FormBuilder,
-    ) {
-
-      this.updateForm = formBuilder.group({
-        username: new FormControl('', [Validators.minLength(2)]),
-        email: new FormControl('', [
-          Validators.required,
-          Validators.email,
-          Validators.minLength(2)
-        ]),
-        role: new FormControl('', [Validators.minLength(2)]),
-        password: new FormControl('', [Validators.minLength(2)]),
-        confpassword: new FormControl('', [Validators.minLength(2)])
-      });
-
-
+    private accountNotifyChangeService: AccountNotifyChangeService,
+    private formBuilder: FormBuilder) {
     }
 
-    checkPasswords(group: FormGroup) { // here we have the 'passwords' group
-  const pass = group.get('password').value;
-  const confpassword = group.get('confpassword').value;
-  return pass === confpassword ? null : { notSame: true}
-}
-  ngOnInit() {
-  }
 
+
+
+  ngOnInit() {
+    this.updateForm = this.formBuilder.group({
+      userName: ['', Validators.required],
+      role: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      oldPassword: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]  }, {
+      validator: this.MustMatch('password', 'confirmPassword', 'oldPassword')
+  });
+  }
+  get f() { return this.updateForm.controls; }
+
+
+  MustMatch(controlName: string, matchingControlName: string, oldmatchingControlName: string) {
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const matchingControl = formGroup.controls[matchingControlName];
+        const oldControl = formGroup.controls[oldmatchingControlName];
+
+        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+            // return if another validator has already found an error on the matchingControl
+            return;
+        }
+
+        // set error on matchingControl if validation fails
+        if (control.value !== matchingControl.value && control.value !== oldControl.value && matchingControl.value !== oldControl.value) {
+            matchingControl.setErrors({ mustMatch: true });
+        } else {
+            matchingControl.setErrors(null);
+        }
+    };
 }
+  updateUser() {
+    console.log(this.updateForm.controls.value);
+    this.submitted = true;
+    const data = this.updateForm.value;
+    const newAccount = new Account(data.username, data.email, data.role, data.password);
+    this.accountService.update(newAccount).subscribe(
+      res => {
+        this.accountNotifyChangeService.announceChange();
+        // this.toastrService.success('Profile updated successfully', 'Profile');
+      });
+    if (this.updateForm.invalid) {
+        return;
+
+  }
+}
+onReset() {
+  this.submitted = false;
+  this.updateForm.reset();
+}
+}
+
+
+

@@ -5,25 +5,18 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { EditProfilepopupComponent } from '../popup/editprofile/edit-profilepopup.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {
-  MatButtonModule,
-  MatCommonModule,
-  MatFormFieldModule,
-  MatInputModule,
-} from '@angular/material';
+import { MaterialModule } from '../shared/material.module';
 
 
 @NgModule({
   declarations: [HeaderComponent, SidebarComponent, EditProfilepopupComponent ],
   imports: [
     CommonModule,
-    ReactiveFormsModule, FormsModule,
-    MatButtonModule,
-    MatCommonModule,
-    MatFormFieldModule,
-    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MaterialModule
   ],
   entryComponents:[EditProfilepopupComponent],
-  exports: [HeaderComponent, SidebarComponent,]
+  exports: [HeaderComponent, SidebarComponent]
 })
 export class LayoutsModule { }

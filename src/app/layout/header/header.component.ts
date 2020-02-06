@@ -10,18 +10,19 @@ import { EditProfilepopupComponent } from 'src/app/popup/editprofile/edit-profil
 })
 export class HeaderComponent  implements OnInit {
   location: Location;
-  constructor(private router: Router,public dialog: MatDialog) {
+  constructor(private router: Router, public dialog: MatDialog) {
 
   }
   openDialog(): void {
-      let dialogRef = this.dialog.open(EditProfilepopupComponent, {
-        width: '600px',
-      });
+    const dialogRef = this.dialog.open(EditProfilepopupComponent, {
+      disableClose: false,
+      width: '600px',
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
-    }
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
   ngOnInit() {
   }
