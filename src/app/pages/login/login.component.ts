@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../core/services/auth.service";
+import {AuthService} from "../../core/service/auth.service";
 import {Router} from "@angular/router";
-import {TokenStorage} from "../../core/services/token.storage";
+import {TokenStorage} from "../../core/service/token.storage";
 
 @Component({
   selector: 'app-login',
@@ -33,11 +33,11 @@ export class LoginComponent implements OnInit {
           data => {
             this.user = data;
             console.log(this.user);
-            localStorage.setItem("ROLE", this.user.role.role);
+            localStorage.setItem("ROLE", this.user.role);
             localStorage.setItem("Id", this.user.id);
             localStorage.setItem("UserName", this.user.userName);
             localStorage.setItem("Email", this.user.email);
-            if(this.user.role.role == "admin" ) {
+            if(this.user.role == "admin" ) {
               this.router.navigate(['/']);
             }else {
               this.router.navigate(['/login']);

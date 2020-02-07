@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import 'rxjs/add/operator/map';
-import {User} from '../models/user.model';
+import {Account} from '../models/account';
 const TOKEN_KEY = 'AuthToken';
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) { }
 
-    user: User;
+    user: Account;
     users: any;
     jwtToken = null;
     private host: string = 'http://localhost:3000';
