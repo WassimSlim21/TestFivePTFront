@@ -16,7 +16,8 @@ import { MaterialModule } from '../shared/material.module';
     FormsModule,
     MaterialModule
   ],
-  entryComponents:[EditProfilepopupComponent],
+  entryComponents:[ EditProfilepopupComponent ],
   exports: [HeaderComponent, SidebarComponent]
 })
+
 export class LayoutsModule { }
