@@ -3,7 +3,7 @@ import {Role} from './role.model';
 export class User {
   id: string;
   password: string;
-  username:string;
+  userName:string;
   role: Role;
   email: string;
 }

@@ -58,14 +58,15 @@ export class AuthService {
             this.loadToken();
         }
         this.users = this.getCurrentUser();
-        return this.http.get(this.host + '/user/email/' + this.users.sub ,  httpOptions);
+        console.log(this.users);
+        return this.http.get(this.host + '/api/get/' + this.users.userId ,  httpOptions);
 
     }
 
-    sendCredential(username: string, password: string): Observable<any> {
-        const credentials = {username: username, password: password};
+    sendCredential(userName: string, password: string): Observable<any> {
+        const credentials = {userName: userName, password: password};
         console.log('Connexion ::');
-        return this.http.post<any>('http://localhost:3000/token/generate-token', credentials);
+        return this.http.post<any>('http://localhost:3000/api/signin', credentials);
     }
 
 

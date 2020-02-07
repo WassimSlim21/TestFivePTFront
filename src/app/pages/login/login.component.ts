@@ -9,8 +9,8 @@ import {TokenStorage} from "../../core/services/token.storage";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  private credential = {'username': '', 'password' : ''};
-  username: string;
+  private credential = {'userName': '', 'password' : ''};
+  userName: string;
   password: string;
   user: any;
   constructor( private authService: AuthService, private router: Router, private token: TokenStorage)  { }
@@ -20,9 +20,10 @@ export class LoginComponent implements OnInit {
 
   login(): void {
 
-    this.authService.sendCredential(this.username, this.password).subscribe(
+    this.authService.sendCredential(this.userName, this.password).subscribe(
       data => {
         this.token.saveToken(data.token);
+        console.log(data.token);
       },
       error => {
         console.log(error);
@@ -31,15 +32,13 @@ export class LoginComponent implements OnInit {
         this.authService.getUserAllData().subscribe(
           data => {
             this.user = data;
+            console.log(this.user);
             localStorage.setItem("ROLE", this.user.role.role);
             localStorage.setItem("Id", this.user.id);
-            localStorage.setItem("Username", this.user.username);
+            localStorage.setItem("UserName", this.user.userName);
             localStorage.setItem("Email", this.user.email);
-            if(this.user.role.role == "ROLE_ADMIN" || this.user.role.role == "ROLE_RECRUTEUR" ) {
-              this.router.navigate(['/pages/listeOffre']);
-            }
-            else if (this.user.role.role == "ROLE_CANDIDAT"){
-              this.router.navigate(['/emploi']);
+            if(this.user.role.role == "admin" ) {
+              this.router.navigate(['/']);
             }else {
               this.router.navigate(['/login']);
             }
