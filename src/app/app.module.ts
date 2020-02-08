@@ -1,7 +1,7 @@
 import { LayoutComponent } from './layout/layout/layout.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, /* other http imports */ } from '@angular/common/http';
+import { HttpClientModule, /* other http imports */HTTP_INTERCEPTORS } from '@angular/common/http';
 import {JwtModuleOptions, JwtModule} from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { LayoutsModule } from './layout/layout.module';
 import { MaterialModule } from './shared/material.module';
+import { HttpConfigInterceptor} from './core/interceptor/httpconfig.interceptor';
 
 
 const JWT_Module_Options: JwtModuleOptions = ({
@@ -38,7 +39,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
 
 
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
