@@ -61,31 +61,34 @@ export class ApiService {
 
 
   setLoggedin() {
-    window.sessionStorage.removeItem('loggedin');
-    window.sessionStorage.setItem('loggedin', 'true');
+    localStorage.removeItem('loggedin');
+    localStorage.setItem('loggedin', 'true');
 }
 
 setLoggedOut() {
-    window.sessionStorage.removeItem('loggedin');
-    window.sessionStorage.setItem('loggedin', 'false');
-    localStorage.clear();
+   localStorage.removeItem('token');
+   localStorage.removeItem('account')
+   localStorage.removeItem('loggedin');
+   localStorage.setItem('loggedin', 'false');
+   localStorage.clear();
 }
 
 getLoggedin() {
-    return window.sessionStorage.getItem('loggedin');
+    return localStorage.getItem('loggedin');
 }
 
 loadToken() {
-    this.jwtToken = window.sessionStorage.getItem(TOKEN_KEY);
+    this.jwtToken = localStorage.getItem(TOKEN_KEY);
 }
 
 public isAuthenticated(): boolean {
-  const token = window.sessionStorage.getItem('token');
+  // const token = window.sessionStorage.getItem('token');
+  const token = localStorage.getItem('token');
   return !this.jwtHelper.isTokenExpired(token);
 }
 
 getCurrentUser() {
-    const token = window.sessionStorage.getItem(TOKEN_KEY);
+    const token = localStorage.getItem(TOKEN_KEY);
     const jwtHelper = new JwtHelperService();
     return jwtHelper.decodeToken(token);
 }

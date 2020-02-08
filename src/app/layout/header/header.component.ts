@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { EditProfilepopupComponent } from 'src/app/popup/editprofile/edit-profilepopup.component';
+import { ApiService } from 'src/app/core/service/api.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import { EditProfilepopupComponent } from 'src/app/popup/editprofile/edit-profil
 })
 export class HeaderComponent  implements OnInit {
   location: Location;
-  constructor(private router: Router, public dialog: MatDialog) {
+  constructor(private router: Router, public dialog: MatDialog, private authService: ApiService ) {
 
   }
   openDialog(): void {
@@ -25,5 +26,11 @@ export class HeaderComponent  implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+
+  logout(): void {
+    this.authService.setLoggedOut();
+    this.router.navigate(['/login']);
   }
 }
