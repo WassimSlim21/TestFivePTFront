@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AccountService } from 'src/app/core/service/account.service';
+import { ApiService } from 'src/app/core/service/api.service';
 
 
 
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   userName: string;
   password: string;
   account: any;
-  constructor( private authService: AccountService, private router: Router,   private snackBar: MatSnackBar)  { }
+  constructor( private authService: ApiService, private router: Router,   private snackBar: MatSnackBar)  { }
 
   ngOnInit() {
   }

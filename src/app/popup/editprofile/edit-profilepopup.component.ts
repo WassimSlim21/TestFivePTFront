@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { AccountService } from 'src/app/core/service/account.service';
+import { ApiService } from 'src/app/core/service/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/core/models/account';
@@ -22,7 +22,7 @@ export class EditProfilepopupComponent implements OnInit {
 
 
   constructor(
-    public dialogRef: MatDialogRef<EditProfilepopupComponent>, private accountService: AccountService,
+    public dialogRef: MatDialogRef<EditProfilepopupComponent>, private accountService: ApiService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private accountNotifyChangeService: AccountNotifyChangeService,
     private formBuilder: FormBuilder) {

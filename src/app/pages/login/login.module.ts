@@ -14,7 +14,7 @@ import {
   MatSelectModule,
 
 } from '@angular/material';
-import { AccountService } from 'src/app/core/service/account.service';
+import { ApiService } from 'src/app/core/service/api.service';
 
 
 
@@ -35,7 +35,7 @@ import { AccountService } from 'src/app/core/service/account.service';
 
   ],
   providers: [
-    AccountService,
+    ApiService,
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
 
 

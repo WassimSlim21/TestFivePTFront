@@ -14,7 +14,7 @@ const TOKEN_KEY = 'token';
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService {
+export class ApiService {
 
 
   user: Account;

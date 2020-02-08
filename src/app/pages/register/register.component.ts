@@ -1,7 +1,7 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from 'src/app/core/service/account.service';
+import { ApiService } from 'src/app/core/service/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   invalid = false; // custom validator for password comfirmation
-  constructor(private apiService: AccountService, private snackBar: MatSnackBar) {
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
     this.registerForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.email, Validators.required]),

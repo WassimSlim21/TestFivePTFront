@@ -19,7 +19,7 @@ import {
 
 } from '@angular/material';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import { AccountService } from 'src/app/core/service/account.service';
+import { ApiService } from 'src/app/core/service/api.service';
 
 
 @NgModule({
@@ -39,7 +39,7 @@ import { AccountService } from 'src/app/core/service/account.service';
     MatRadioModule
   ],
   providers: [
-    AccountService,
+    ApiService,
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
   ]
 })
