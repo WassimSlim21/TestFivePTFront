@@ -3,12 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import {LoginComponent} from './login.component';
 import {LoginRoutingModule} from './login-routing.module';
-import {FormsModule} from "@angular/forms";
-import {AuthService} from "../../core/service/auth.service";
-import {TokenStorage} from "../../core/service/token.storage";
-import {JwtModule} from "@auth0/angular-jwt";
-import {AuthGuard} from "./auth.guard";
-import {RoleGuardService} from "./role-guard.service";
+import {FormsModule} from '@angular/forms';
+import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
+import {
+  MatButtonModule,
+  MatInputModule,
+  MatRippleModule,
+  MatFormFieldModule,
+  MatTooltipModule,
+  MatSelectModule,
+
+} from '@angular/material';
+import { AccountService } from 'src/app/core/service/account.service';
+
 
 
 @NgModule({
@@ -17,19 +24,22 @@ import {RoleGuardService} from "./role-guard.service";
     CommonModule,
     LoginRoutingModule,
     FormsModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: jwtTokenGetter
-      }}),
+    MatButtonModule,
+    MatInputModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatSnackBarModule,
+
+
   ],
-  providers:[
-    AuthService,
-    TokenStorage,
-    AuthGuard,
-    RoleGuardService
+  providers: [
+    AccountService,
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
+
+
   ]
 })
 export class LoginModule { }
-export function jwtTokenGetter() {
-  return  localStorage.getItem("access_token");
-}
+

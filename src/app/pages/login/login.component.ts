@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../core/service/auth.service';
 import {Router} from '@angular/router';
-import {TokenStorage} from '../../core/service/token.storage';
-import { JsonPipe } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AccountService } from 'src/app/core/service/account.service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   userName: string;
   password: string;
   account: any;
-  constructor( private authService: AuthService, private router: Router, private token: TokenStorage)  { }
+  constructor( private authService: AccountService, private router: Router,   private snackBar: MatSnackBar)  { }
 
   ngOnInit() {
   }
@@ -26,15 +27,14 @@ export class LoginComponent implements OnInit {
        // this.token.saveToken(data.token);
         localStorage.setItem('account', JSON.stringify(data.account));
         localStorage.setItem('token', JSON.stringify(data.token));
-        if (data.account.role === 'admin' ) {
+        this.snackBar.open('Connected Sucessfully ');
+        if (data.account.role === 'admin' || data.account.role === 'super-admin') {
           this.router.navigate(['/']);
-        } else {
-          this.router.navigate(['/login']);
         }
-
       },
       error => {
         console.log(error);
+        this.snackBar.open('Failed to connect');
       },
 
 

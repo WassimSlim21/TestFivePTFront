@@ -2,6 +2,7 @@ import { LayoutComponent } from './layout/layout/layout.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, /* other http imports */ } from '@angular/common/http';
+import {JwtModuleOptions, JwtModule} from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,8 +11,11 @@ import { SharedModule } from './shared/shared.module';
 import { LayoutsModule } from './layout/layout.module';
 import { MaterialModule } from './shared/material.module';
 
-import {FormsModule} from "@angular/forms";
 
+const JWT_Module_Options: JwtModuleOptions = ({
+  config: {
+    tokenGetter: jwtTokenGetter
+  }});
 
 @NgModule({
   declarations: [
@@ -25,7 +29,8 @@ import {FormsModule} from "@angular/forms";
     BrowserAnimationsModule,
     SharedModule,
     LayoutsModule,
-    MaterialModule
+    MaterialModule,
+    JwtModule.forRoot(JWT_Module_Options)
 
   ],
   exports: [
@@ -37,3 +42,6 @@ import {FormsModule} from "@angular/forms";
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export function jwtTokenGetter() {
+  return  localStorage.getItem('token');
+}
