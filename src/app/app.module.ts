@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, /* other http imports */HTTP_INTERCEPTORS } from '@angular/common/http';
 import {JwtModuleOptions, JwtModule} from '@auth0/angular-jwt';
+import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +32,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
     SharedModule,
     LayoutsModule,
     MaterialModule,
+    MatSnackBarModule,
     JwtModule.forRoot(JWT_Module_Options)
 
   ],
@@ -39,7 +41,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
 
 
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

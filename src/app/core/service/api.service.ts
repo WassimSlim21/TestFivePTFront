@@ -40,14 +40,12 @@ export class ApiService {
     });
   }
 
-  update(account: Account) {
+  update(account: object) {
 
-    return this.http.post<any>(this.apiUrl + 'account/updateProfile', account, this.httpOptions);
+    return this.http.put<any>('http://localhost:3000/api/account/update' , account, this.httpOptions);
   }
 
-  updateOld(account: Account) {
-    return this.http.post<any>(this.apiUrl + 'account/updateProfile', account, this.httpOptions);
-  }
+
 
   getToken() {
     return JSON.parse(localStorage.getItem('token'));
