@@ -23,12 +23,7 @@ export class ApiService {
   private host = 'http://localhost:3000';
 
   private apiUrl: string = environment.apiUrl;
-   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('token').split(' ')[1]
-    })
-  };
+
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) { }
 
 
@@ -48,7 +43,7 @@ export class ApiService {
 
 
   getToken() {
-    return localStorage.getItem('token').split(' ')[1];
+    return localStorage.getItem('token');
 
   }
 
@@ -66,7 +61,7 @@ export class ApiService {
 
 setLoggedOut() {
    localStorage.removeItem('token');
-   localStorage.removeItem('account')
+   localStorage.removeItem('account');
    localStorage.removeItem('loggedin');
    localStorage.setItem('loggedin', 'false');
    localStorage.clear();

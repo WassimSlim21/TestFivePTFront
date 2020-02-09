@@ -78,11 +78,14 @@ export class EditProfilepopupComponent implements OnInit {
     const account = {
       userName : this.updateForm.controls.userName.value ,
       email : this.updateForm.controls.email.value ,
-      userId : JSON.parse(localStorage.getItem('account'))._id};
+      userId : JSON.parse(localStorage.getItem('account'))._id,
+      role : JSON.parse(localStorage.getItem('account')).role};
     this.accountService.update(account)
     .subscribe((reponse: any) => { // sends post request to the apiService
       this.snackBar.open(JSON.stringify(reponse.message));
       this.dialogRef.close();
+      localStorage.removeItem('account');
+      localStorage.setItem('account', JSON.stringify(account));
 
      });
 

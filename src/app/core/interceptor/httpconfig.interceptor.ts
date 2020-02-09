@@ -19,6 +19,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     const token: string = localStorage.getItem('token');
     console.log('i am an interceptor');
     if (token) {
+
         request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token').split(' ')[1]) });
     }
 
