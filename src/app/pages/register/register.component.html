@@ -72,9 +72,19 @@
                                   </div>
                               </div>
                           </div>-->
-              <button mat-raised-button type="submit" class="btn btn-danger pull-right"
+
+                          <div class="row">
+                            <div class="col-md-6">
+              <button mat-raised-button type="submit" class="btn btn-danger pull-left"
                 (click)="onClickSubmit()">Create</button>
+                            </div>
+                            <div class="col-md-6" pull-right>
+                <a mat-raised-button  class="btn"
+                routerLink="/login">Login</a>
+              </div>
               <div class="clearfix"></div>
+
+        </div>
             </form>
           </div>
         </div>
