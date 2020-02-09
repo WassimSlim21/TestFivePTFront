@@ -48,25 +48,7 @@ export class EditProfilepopupComponent implements OnInit {
   get f() { return this.updateForm.controls; }
 
 
-  MustMatch(controlName: string, matchingControlName: string, oldmatchingControlName: string) {
-    return (formGroup: FormGroup) => {
-        const control = formGroup.controls[controlName];
-        const matchingControl = formGroup.controls[matchingControlName];
-        const oldControl = formGroup.controls[oldmatchingControlName];
 
-        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-            // return if another validator has already found an error on the matchingControl
-            return;
-        }
-
-        // set error on matchingControl if validation fails
-        if (control.value !== matchingControl.value && control.value !== oldControl.value && matchingControl.value !== oldControl.value) {
-            matchingControl.setErrors({ mustMatch: true });
-        } else {
-            matchingControl.setErrors(null);
-        }
-    };
-}
   updateUser() {
     if (this.updateForm.invalid) {
       this.snackBar.open('please verify the form');
@@ -76,7 +58,6 @@ export class EditProfilepopupComponent implements OnInit {
     // console.log(this.updateForm.controls.value);
     this.submitted = true;
     const data = this.updateForm.value;
-
 
 
 
@@ -94,8 +75,15 @@ export class EditProfilepopupComponent implements OnInit {
       },
       );
       */
-    this.accountService.update(this.updateForm.value).subscribe((reponse: any) => { // sends post request to the apiService
+    const account = {
+      userName : this.updateForm.controls.userName.value ,
+      email : this.updateForm.controls.email.value ,
+      userId : JSON.parse(localStorage.getItem('account'))._id};
+    this.accountService.update(account)
+    .subscribe((reponse: any) => { // sends post request to the apiService
       this.snackBar.open(JSON.stringify(reponse.message));
+      this.dialogRef.close();
+
      });
 
 }

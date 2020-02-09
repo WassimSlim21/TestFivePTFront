@@ -26,7 +26,7 @@ export class ApiService {
    httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.getToken}`
+      Authorization: 'Bearer ' + localStorage.getItem('token').split(' ')[1]
     })
   };
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) { }
@@ -42,13 +42,14 @@ export class ApiService {
 
   update(account: object) {
 
-    return this.http.put<any>('http://localhost:3000/api/account/update' , account, this.httpOptions);
+    return this.http.put<any>('http://localhost:3000/api/account/update' , account);
   }
 
 
 
   getToken() {
-    return JSON.parse(localStorage.getItem('token'));
+    return localStorage.getItem('token').split(' ')[1];
+
   }
 
   getUser() {

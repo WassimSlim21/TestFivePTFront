@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       data => {
        // this.token.saveToken(data.token);
         localStorage.setItem('account', JSON.stringify(data.account));
-        localStorage.setItem('token', JSON.stringify(data.token));
+        localStorage.setItem('token', data.token);
         this.snackBar.open('Connected Sucessfully ');
         if (data.account.role === 'admin' || data.account.role === 'super-admin') {
           this.router.navigate(['/']);
