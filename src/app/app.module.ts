@@ -22,7 +22,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent
+    LayoutComponent,
   ],
   imports: [
     HttpClientModule,
