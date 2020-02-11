@@ -87,21 +87,7 @@ getCurrentUser() {
     return jwtHelper.decodeToken(token);
 }
 
-getUserAllData() {
-  this.setLoggedin();
-  const httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type':  'application/json',
-            Authorization: 'Bearer ' + window.sessionStorage.getItem('token'),
-        })};
-  if (this.jwtToken == null) {
-        this.loadToken();
-    }
-  this.users = this.getCurrentUser();
-  console.log(this.users);
-  return this.http.get(this.host + '/api/account/get/' + this.users._id ,  httpOptions);
 
-}
 
 sendCredential(userName: string, password: string): Observable<any> {
     const credentials = {userName, password};
@@ -110,11 +96,10 @@ sendCredential(userName: string, password: string): Observable<any> {
 }
 
 
-
-
-check() {
-    console.log('check test :');
-    return this.http.get('http://localhost:3000/check');
+getUserAllData(id : string) {
+  return this.http.get<any>('http://localhost:3000/api/user/' + id );
 }
+
+
 
 }
