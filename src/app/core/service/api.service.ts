@@ -103,17 +103,11 @@ sendCredential(userName: string, password: string): Observable<any> {
 }
 
 
-<<<<<<< HEAD
-getUserAllData(id: string) {
-  return this.http.get<any>('http://localhost:3000/api/user/' + id );
-}
-=======
 getUserAllData(id : string) {
   return this.http.get<any>('http://localhost:3000/api/user/' + id );
 }
 
 
->>>>>>> e6cc3960d94212cf989a42032ee2fabfd963d65a
 
 
 }
