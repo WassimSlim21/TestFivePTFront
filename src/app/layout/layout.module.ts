@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { LayoutModule } from '@angular/cdk/layout';
 import { EditProfilepopupComponent } from '../popup/editprofile/edit-profilepopup.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -13,6 +13,7 @@ import { MaterialModule } from '../shared/material.module';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     FormsModule,
     MaterialModule
   ],

@@ -1,4 +1,3 @@
-import { LayoutComponent } from './layout/layout/layout.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, /* other http imports */HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -12,6 +11,8 @@ import { SharedModule } from './shared/shared.module';
 import { LayoutsModule } from './layout/layout.module';
 import { MaterialModule } from './shared/material.module';
 import { HttpConfigInterceptor} from './core/interceptor/httpconfig.interceptor';
+import { AdminLayoutModule } from './layout/admin-layout/admin-layout.module';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 
 
 const JWT_Module_Options: JwtModuleOptions = ({
@@ -22,8 +23,12 @@ const JWT_Module_Options: JwtModuleOptions = ({
 @NgModule({
   declarations: [
     AppComponent,
+<<<<<<< HEAD
     LayoutComponent,
   ],
+=======
+  AdminLayoutComponent  ],
+>>>>>>> e6cc3960d94212cf989a42032ee2fabfd963d65a
   imports: [
     HttpClientModule,
     BrowserModule,
@@ -33,7 +38,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
     LayoutsModule,
     MaterialModule,
     MatSnackBarModule,
-    JwtModule.forRoot(JWT_Module_Options)
+    JwtModule.forRoot(JWT_Module_Options),
 
   ],
   exports: [
