@@ -8,6 +8,7 @@ import { MaterialModule } from '../shared/material.module';
 import { RouterModule } from '@angular/router';
 
 
+
 @NgModule({
   declarations: [HeaderComponent, SidebarComponent, EditProfilepopupComponent ],
   imports: [
@@ -17,7 +18,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     MaterialModule
   ],
-  entryComponents:[ EditProfilepopupComponent ],
+  entryComponents: [ EditProfilepopupComponent ],
   exports: [HeaderComponent, SidebarComponent]
 })
 

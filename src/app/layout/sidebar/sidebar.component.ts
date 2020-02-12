@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 
-let logo = 'assets/img/kpeiz_logo.png';
+
 
 declare const $: any;
 declare interface RouteInfo {
@@ -11,7 +11,7 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/users', title: 'Kpeiz Users',  icon:'person', class: '' },
+    { path: '/users', title: 'Kpeiz Users',  icon: 'person', class: '' },
  ];
 
 
@@ -33,6 +33,6 @@ export class SidebarComponent implements OnInit {
           return false;
       }
       return true;
-  };
+  }
 
 }

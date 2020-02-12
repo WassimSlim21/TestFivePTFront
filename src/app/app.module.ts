@@ -13,6 +13,7 @@ import { MaterialModule } from './shared/material.module';
 import { HttpConfigInterceptor} from './core/interceptor/httpconfig.interceptor';
 import { AdminLayoutModule } from './layout/admin-layout/admin-layout.module';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
 
 
 const JWT_Module_Options: JwtModuleOptions = ({
@@ -22,6 +23,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
 
 @NgModule({
   declarations: [
+    UserDetailsComponent,
     AppComponent,
   AdminLayoutComponent  ],
   imports: [
@@ -44,6 +46,10 @@ const JWT_Module_Options: JwtModuleOptions = ({
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}],
   bootstrap: [AppComponent]
+  ,
+  entryComponents:
+  [ UserDetailsComponent,
+    ],
 })
 export class AppModule { }
 export function jwtTokenGetter() {

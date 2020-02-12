@@ -3,17 +3,28 @@ import { CommonModule } from '@angular/common';
 
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
-import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
+import { MatButtonModule, MatRippleModule, MatInputModule, MatFormFieldModule } from '@angular/material';
 
 
 @NgModule({
-  declarations: [UsersComponent, UserDetailsComponent],
+  declarations: [UsersComponent, ],
   imports: [
     CommonModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+  ],
+  exports: [
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
   ],
   entryComponents:
-  [ UserDetailsComponent ],
+  [
+    ],
 
 })
 export class UsersModule { }

@@ -16,8 +16,6 @@ export class UsersComponent implements OnInit {
   }
 
   openDialog(): void {
-    console.log('opened dialog');
-
     const dialogRef = this.dialog.open( UserDetailsComponent, {
       disableClose: false,
       width: '600px',
