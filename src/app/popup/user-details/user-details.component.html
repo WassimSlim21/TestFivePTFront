@@ -1,39 +1,201 @@
 <div class="main-content">
   <div class="container-fluid">
-      <div class="row">
+      <div class="row-md-18">
           <div class="col-md-12">
               <div class="card">
                   <div class="card-header card-header-danger">
-                      <h4 class="card-title">Edit Profile</h4>
+                      <h4 class="card-title">{{user?.name}}</h4>
                   </div>
                   <div class="card-body">
-                      <form >
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput  >
-                                    <div  class="invalid-feedback">
-                                      <div><small>userName is required</small></div>
-                                  </div>
-                                  </mat-form-field>
-                              </div>
-                          </div>
 
-                          <div class="row">
-                            <div class="col-md-12">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Email address"  >
+                      <div class="row">
+                        <!-- USER IMAGE 'only if it's facebook ' -->
+                        <div class="col-md-6">
+                          <img src="{{imageUrl}}" alt="test" class="rounded-circle align-center margin-auto">
+                         </div>
+                            <!-- USER INFORMATIONS -->
+                        <div class="col-md-6">
 
-                                </mat-form-field>
-                            </div>
+                          <mat-list>
+
+                            <mat-list-item>Email: {{user?.email}}</mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item> Phone: {{user?.data.phone}}</mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item> Company ( {{user?.data.company_type}}): {{user?.data.company}}</mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item> Job: {{user?.data.job}}</mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item> WebSite:<a href="{{user?.data.website}}"> {{user?.data.website}} </a></mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item>Score: {{user?.score}}</mat-list-item>
+                          </mat-list>
                         </div>
-                        <div class="row justify-content-center  align-items-center px-5">
-                          <button mat-raised-button type="submit" class="btn pull-left" >Update Profile</button>
-                          <button mat-  type="reset" class="btn btn-danger pull-right">Cancel</button>
-                          <div class="clearfix"></div>
+                    </div>
 
-                        </div>
-                      </form>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <mat-accordion>
+
+                          <mat-expansion-panel >
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                Packs
+                              </mat-panel-title>
+                              <mat-panel-description>
+                                User main pack
+                              </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <p>{{user?.pack.pack_name}}</p>
+                          </mat-expansion-panel>
+
+                          <!-- ACTIONS PANEL  -->
+
+                          <mat-expansion-panel >
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                Actions
+                              </mat-panel-title>
+                              <mat-panel-description>
+                                User Actions
+                              </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <mat-tab-group color="accent">
+                              <mat-tab label="Teams">
+                                <mat-list>
+
+                                  <mat-list-item>GET: {{user?.actions.team.GET || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> POST: {{user?.actions.team.POST || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> PUT: {{user?.actions.team.PUT || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> DELETE: {{user?.actions.team.DELETE || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+
+                                </mat-list>
+
+
+                              </mat-tab>
+
+
+
+                              <mat-tab label="Social Accounts">
+                                <mat-list>
+                                  <mat-list-item>GET: {{user?.actions['social-accounts'].GET || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> POST: {{user?.actions['social-accounts'].POST || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> PUT: {{user?.actions['social-accounts'].PUT || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> DELETE: {{user?.actions['social-accounts'].DELETE || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                </mat-list>
+                              </mat-tab>
+
+
+
+                              <mat-tab label="Benchmarks">
+                                <mat-list>
+                                  <mat-list-item>GET: {{user?.actions.benchmarks.GET || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> POST: {{user?.actions.benchmarks.POST || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> PUT: {{user?.actions.benchmarks.PUT || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> DELETE: {{user?.actions.benchmarks.DELETE || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                </mat-list>
+                              </mat-tab>
+
+
+                              <mat-tab label="Dashboards">
+                                <mat-list>
+                                  <mat-list-item>GET: {{user?.actions.dashboards.GET || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> POST: {{user?.actions.dashboards.POST || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> PUT: {{user?.actions.dashboards.PUT || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> DELETE: {{user?.actions.dashboards.DELETE || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                </mat-list>
+                              </mat-tab>
+                              <mat-tab label="Reports">
+                                <mat-list>
+                                  <mat-list-item>GET: {{user?.actions.reports.GET || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> POST: {{user?.actions.reports.POST || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> PUT: {{user?.actions.reports.PUT || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                  <mat-list-item> DELETE: {{user?.actions.reports.DELETE || 0}}</mat-list-item>
+                                  <mat-divider></mat-divider>
+                                </mat-list>
+                              </mat-tab>
+
+                            </mat-tab-group>
+
+                          </mat-expansion-panel>
+
+
+                              <!-- Social Accounts Panel  -->
+
+
+                              <mat-expansion-panel >
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    Social Accounts
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                    User's Social Accounts
+                                  </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <mat-tab-group color="accent">
+
+
+
+
+                                  <mat-tab label="Facebook">
+                                    <mat-list>
+                                       <mat-list-item >aaa</mat-list-item>
+                                      <mat-divider></mat-divider>
+                                    </mat-list>
+                                  </mat-tab>
+
+                                  <mat-tab label="Instagram">
+                                    <mat-list>
+                                      <mat-list-item></mat-list-item>
+                                      <mat-divider></mat-divider>
+                                    </mat-list>
+                                  </mat-tab>
+
+
+
+                                </mat-tab-group>
+
+                              </mat-expansion-panel>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </mat-accordion>
+
+
+                      </div>
+
+                    </div>
+
+
                   </div>
 
               </div>

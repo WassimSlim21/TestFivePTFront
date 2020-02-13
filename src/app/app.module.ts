@@ -14,6 +14,7 @@ import { HttpConfigInterceptor} from './core/interceptor/httpconfig.interceptor'
 import { AdminLayoutModule } from './layout/admin-layout/admin-layout.module';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 const JWT_Module_Options: JwtModuleOptions = ({
@@ -27,6 +28,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
     AppComponent,
   AdminLayoutComponent  ],
   imports: [
+    AngularFontAwesomeModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
