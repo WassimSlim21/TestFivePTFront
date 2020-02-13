@@ -34,13 +34,20 @@
                 <td>{{user.created_at}}</td>
                 <td>{{user.last_login}}</td>
                 <div *ngIf="user.status==='2' || user.status==='3'">
-                <td><span class="status text-success">&bull;</span> On Action</td>
+                <td>
+                  <!-- <span class="status text-success">&bull;</span> -->
+                  <button type="button" class="btn btn-outline-success btn-sm">On Action</button></td>
               </div>
               <div *ngIf="user.status==='0'">
-                <td><span class="status text-primary">&bull;</span> FB Connect</td>
+                <td>
+                  <!-- <span class="status text-primary">&bull;</span> -->
+                  <button type="button" class="btn btn-outline-primary btn-sm">FB Connect</button></td>
               </div>
               <div *ngIf="user.status==='1'">
-                <td><span class="status text-warning">&bull;</span> Signup</td>
+                <td>
+                  <!-- <span class="status text-warning">&bull;</span> -->
+                  <button type="button" class="btn btn-outline-warning btn-sm">   Signup</button>
+                </td>
               </div>
             <td>   <a href="{{user._id}}" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
                 <a href="{{user._id}}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
