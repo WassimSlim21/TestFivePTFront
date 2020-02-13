@@ -1,85 +1,66 @@
-<div class="container h-100">
   <div class="table-wrapper">
       <table class="table table-striped table-hover">
           <thead>
               <tr>
-                  <th>#</th>
-                  <th>Name</th>
-      <th>Date Created</th>
-      <th>Role</th>
-                  <th>Status</th>
-      <th>Action</th>
+                  <th>picture</th>
+                  <th>id</th>
+      <th>Name</th>
+      <th>Score</th>
+      <th>Phone</th>
+      <th>Pack</th>
+      <th>Email</th>
+      <th>Created at</th>
+      <th>Last login</th>
+       <th>Status</th>
+       <th>Action</th>
               </tr>
           </thead>
           <tbody>
-              <tr>
-                  <td>1</td>
-                  <td><a href="#"><img src="/assets/img/avatar.jpg" class="avatar" alt="Avatar"> Michael Holz</a></td>
-                  <td>04/10/2013</td>
-                  <td>Admin</td>
-      <td><span class="status text-success">&bull;</span> Active</td>
-      <td>
-        <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-      </td>
-              </tr>
-    <tr>
-                  <td>2</td>
-                  <td><a href="#"><img src="/assets/img/avatar.jpg" class="avatar" alt="Avatar"> Paula Wilson</a></td>
-                  <td>05/08/2014</td>
-      <td>Publisher</td>
-      <td><span class="status text-success">&bull;</span> Active</td>
-      <td>
-        <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-      </td>
-              </tr>
-    <tr>
-                  <td>3</td>
-                  <td><a href="#"><img src="/assets/img/avatar.jpg" class="avatar" alt="Avatar"> Antonio Moreno</a></td>
-                  <td>11/05/2015</td>
-      <td>Publisher</td>
-                  <td><span class="status text-danger">&bull;</span> Suspended</td>
-      <td>
-        <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-      </td>
-              </tr>
-    <tr>
-                  <td>4</td>
-                  <td><a href="#"><img src="/assets/img/avatar.jpg" class="avatar" alt="Avatar"> Mary Saveley</a></td>
-                  <td>06/09/2016</td>
-      <td>Reviewer</td>
-      <td><span class="status text-success">&bull;</span> Active</td>
-      <td>
-        <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-      </td>
-              </tr>
-    <tr>
-                  <td>5</td>
-                  <td><a href="#"><img src="/assets/img/avatar.jpg" class="avatar" alt="Avatar"> Martin Sommer</a></td>
-                  <td>12/08/2017</td>
-                  <td>Moderator</td>
-      <td><span class="status text-warning">&bull;</span> Inactive</td>
-      <td>
-        <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-      </td>
+            <!-- <td><span class="status text-success">&bull;</span> Active</td>
+            <td>
+              <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+              <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+            </td> -->
+
+
+              <tr *ngFor='let user of users'>
+                <td><img src="https://graph.facebook.com/{{user.provider_userId}}/picture?type=square" class="avatar" alt="Avatar"></td>
+                <td>{{user._id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.score}}</td>
+                <td>{{user.data.phone}}</td>
+                <td>{{user.pack.pack_name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.created_at}}</td>
+                <td>{{user.last_login}}</td>
+                <div *ngIf="user.status==='2' || user.status==='3'">
+                <td><span class="status text-success">&bull;</span> On Action</td>
+              </div>
+              <div *ngIf="user.status==='0'">
+                <td><span class="status text-primary">&bull;</span> FB Connect</td>
+              </div>
+              <div *ngIf="user.status==='1'">
+                <td><span class="status text-warning">&bull;</span> Signup</td>
+              </div>
+            <td>   <a href="{{user._id}}" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+                <a href="{{user._id}}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+              </td>
               </tr>
           </tbody>
+
       </table>
-<div class="clearfix">
-          <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-          <ul class="pagination">
-              <li class="page-item disabled"><a href="#">Previous</a></li>
-              <li class="page-item"><a href="#" class="page-link">1</a></li>
-              <li class="page-item"><a href="#" class="page-link">2</a></li>
-              <li class="page-item active"><a href="#" class="page-link">3</a></li>
-              <li class="page-item"><a href="#" class="page-link">4</a></li>
-              <li class="page-item"><a href="#" class="page-link">5</a></li>
-              <li class="page-item"><a href="#" class="page-link">Next</a></li>
-          </ul>
+<div class="table-wrapper">
+
+<div class="float-right">  <mat-paginator
+  [length]="length"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+(page)="onPaginateChange($event)"
+>
+</mat-paginator>
+</div><br>
+
+
       </div>
   </div>
-</div>
+

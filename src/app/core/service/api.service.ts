@@ -99,7 +99,7 @@ getUserAllData() {
     }
   this.users = this.getCurrentUser();
   console.log(this.users);
-  return this.http.get(this.host + '/api/account/get/' + this.users._id ,  httpOptions);
+  return this.http.get(this.host + '/api/account/get/' + this.users._id);
 
 }
 
@@ -109,6 +109,22 @@ sendCredential(userName: string, password: string): Observable<any> {
     return this.http.post<any>('http://localhost:3000/api/account/login', credentials);
 }
 
+apiPost(endpoint, body) {
+  return this.http.post(this.apiUrl + endpoint, body);
+}
+apiGetAll(endpoint) {
+  return this.http.get(this.apiUrl + endpoint);
+}
+apiPut(endpoint, body) {
+  return this.http.put(endpoint, body);
+}
+apiDelete(endpoint) {
+  return this.http.delete(endpoint);
+}
+
+// getAllUsers(){
+//   return this.http.get();
+// }
 
 
 

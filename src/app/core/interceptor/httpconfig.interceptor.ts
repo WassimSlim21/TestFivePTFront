@@ -17,7 +17,6 @@ export class HttpConfigInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = localStorage.getItem('token');
-    console.log('i am an interceptor');
     if (token) {
 
         request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token').split(' ')[1]) });
@@ -29,13 +28,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
 
     request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 
-    return next.handle(request).pipe(
-        map((event: HttpEvent<any>) => {
-            if (event instanceof HttpResponse) {
-                console.log('event--->>>', event);
-            }
-            return event;
-        }));
+    return next.handle(request);
 }
 }
 
