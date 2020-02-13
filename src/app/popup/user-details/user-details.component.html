@@ -26,7 +26,7 @@
                             <mat-divider></mat-divider>
                             <mat-list-item> Job: {{user?.data.job}}</mat-list-item>
                             <mat-divider></mat-divider>
-                            <mat-list-item> WebSite:<a href="{{user?.data.website}}"> {{user?.data.website}} </a></mat-list-item>
+                            <mat-list-item> Website:<a href="{{user?.data.website}}"> {{user?.data.website}} </a></mat-list-item>
                             <mat-divider></mat-divider>
                             <mat-list-item>Score: {{user?.score}}</mat-list-item>
                           </mat-list>
@@ -42,9 +42,7 @@
                               <mat-panel-title>
                                 Packs
                               </mat-panel-title>
-                              <mat-panel-description>
-                                User main pack
-                              </mat-panel-description>
+
                             </mat-expansion-panel-header>
                             <p>{{user?.pack.pack_name}}</p>
                           </mat-expansion-panel>
@@ -56,9 +54,8 @@
                               <mat-panel-title>
                                 Actions
                               </mat-panel-title>
-                              <mat-panel-description>
-                                User Actions
-                              </mat-panel-description>
+
+
                             </mat-expansion-panel-header>
                             <mat-tab-group color="accent">
                               <mat-tab label="Teams">
@@ -147,9 +144,7 @@
                                   <mat-panel-title>
                                     Social Accounts
                                   </mat-panel-title>
-                                  <mat-panel-description>
-                                    User's Social Accounts
-                                  </mat-panel-description>
+
                                 </mat-expansion-panel-header>
                                 <mat-tab-group color="accent">
 
@@ -158,14 +153,19 @@
 
                                   <mat-tab label="Facebook">
                                     <mat-list>
-                                       <mat-list-item >aaa</mat-list-item>
+
+                                       <mat-list-item *ngFor="let page of user?.social_accounts">
+                                        <p *ngIf="page.provider == 'facebook'"> <i class="fa fab fa-facebook pull-left"></i> {{page.title}} </p>
+                                        </mat-list-item>
                                       <mat-divider></mat-divider>
                                     </mat-list>
                                   </mat-tab>
 
                                   <mat-tab label="Instagram">
                                     <mat-list>
-                                      <mat-list-item></mat-list-item>
+                                      <mat-list-item *ngFor="let page of user?.social_accounts">
+                                        <p *ngIf="page.provider != 'facebook'"> <i class="fa fab fa-instagram pull-left"></i> {{page.title}} </p>
+                                        </mat-list-item>
                                       <mat-divider></mat-divider>
                                     </mat-list>
                                   </mat-tab>
@@ -177,9 +177,44 @@
                               </mat-expansion-panel>
 
 
+                                <!-- Dashboards Panel  -->
+
+                                <mat-expansion-panel >
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Dashboards
+                                    </mat-panel-title>
+
+                                  </mat-expansion-panel-header>
+                                  <mat-tab-group color="accent">
 
 
 
+
+                                    <mat-tab label="Facebook">
+                                      <mat-list>
+
+                                         <mat-list-item *ngFor="let page of user?.social_accounts">
+                                          <p *ngIf="page.provider == 'facebook'"> <i class="fa fab fa-facebook pull-left"></i> {{page.title}} </p>
+                                          </mat-list-item>
+                                        <mat-divider></mat-divider>
+                                      </mat-list>
+                                    </mat-tab>
+
+                                    <mat-tab label="Instagram">
+                                      <mat-list>
+                                        <mat-list-item *ngFor="let page of user?.social_accounts">
+                                          <p *ngIf="page.provider != 'facebook'"> <i class="fa fab fa-instagram pull-left"></i> {{page.title}} </p>
+                                          </mat-list-item>
+                                        <mat-divider></mat-divider>
+                                      </mat-list>
+                                    </mat-tab>
+
+
+
+                                  </mat-tab-group>
+
+                                </mat-expansion-panel>
 
 
 
