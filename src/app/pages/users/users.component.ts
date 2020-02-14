@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open( UserDetailsComponent, {
       disableClose: false,
-      width: '600px',
+
     });
 
     dialogRef.afterClosed().subscribe(result => {

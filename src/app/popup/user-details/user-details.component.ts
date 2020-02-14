@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, ThemePalette } from '@angular/material';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Router } from '@angular/router';
 
@@ -10,20 +10,25 @@ import { Router } from '@angular/router';
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss']
 })
+
 export class UserDetailsComponent implements OnInit {
   user: any ;
   userId: any;
   imageUrl: any ;
+
+
 
   constructor(
     private Api: ApiService, private router: Router,   private snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<UserDetailsComponent>, private accountService: ApiService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder) {
+
     }
 
   ngOnInit() {
     this.loadUser();
+
   }
 
   loadUser(): void {
@@ -34,6 +39,13 @@ export class UserDetailsComponent implements OnInit {
         this.user.data = JSON.parse(user.data);
         this.user.actions = JSON.parse(user.actions);
         this.imageUrl = 'https://graph.facebook.com/' + this.user.provider_userId + '/picture?height=150&width=150' ;
+        this.user.dashboards.forEach(element => {
+        if ( element.type === 'SocialAccount') {
+          element.color = 'primary';
+         } else if (element.type === 'Benchmark') {
+         element.color = 'accent' ;
+        }
+        });
         console.log(this.user);
       },
       error => {
@@ -46,3 +58,5 @@ export class UserDetailsComponent implements OnInit {
 
 
 }
+
+
