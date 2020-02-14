@@ -191,9 +191,9 @@
                                       <mat-chip-list>
                                         <span   *ngFor="let dashboard of user?.dashboards" class="m-2 p-2">
                                         <mat-chip selected color="{{dashboard.color}}" *ngIf="dashboard.type == 'SocialAccount'"
-
-
-                                          >{{dashboard.name}} ({{dashboard.nd_type}})</mat-chip>
+                                        [ngClass]="{'deleted':dashboard.deleted_at}">
+                                        {{dashboard.name}} ({{dashboard.nd_type}})
+                                      </mat-chip>
                                         </span>
                                       </mat-chip-list>
                                     </mat-tab>
@@ -201,7 +201,7 @@
                                     <mat-tab label="Market insights" >
                                       <mat-chip-list >
                                         <span   *ngFor="let dashboard of user?.dashboards" class="m-2 p-2">
-                                          <mat-chip  selected color="{{dashboard.color}}" *ngIf="dashboard.type == 'Benchmark'">
+                                          <mat-chip  selected color="{{dashboard.color}}" *ngIf="dashboard.type == 'Benchmark'" [ngClass]="{'deleted':dashboard.deleted_at}">
                                              {{dashboard.name}} ({{dashboard.nd_type}})
                                           </mat-chip>
                                         </span>
