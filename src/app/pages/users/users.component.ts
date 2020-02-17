@@ -9,6 +9,7 @@ import {PageEvent} from '@angular/material/paginator';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
 import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-users',
@@ -17,6 +18,8 @@ import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.co
 })
 export class UsersComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
   // tslint:disable-next-line: no-output-on-prefix
   @Output() onPageChange = new EventEmitter<string[]>();
   displayedColumns: string[] = ['picture', 'name', 'score', 'email', 'phone', 'email', 'pack', 'created_at', 'last_login', 'status'];
@@ -40,8 +43,6 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers(1);
-
-
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {

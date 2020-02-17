@@ -69,7 +69,7 @@
         <h4 class="card-title">Kpeiz Users Table </h4>
     </div>
 <div class="mat-elevation-z12">
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="dataSource"   matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
 
     <!-- Position Column -->
     <ng-container matColumnDef="picture">
@@ -144,8 +144,20 @@
         status
          </th>
       <td mat-cell *matCellDef="let element">
-        {{element.status}}
-         </td>
+
+    <div *ngIf="element.status==='2' || element.status==='3'">
+                  <span class="bullelements status text-success font-weight-bold">&bull;   </span><small class="text-secondary">On Action</small>
+              </div>
+              <div *ngIf="element.status==='0'">
+                  <span class="bullelements status text-primary font-weight-bold">&bull;  </span><small class="text-secondary">FB Connect</small>
+              </div>
+
+
+              <div *ngIf="element.status==='1'">
+                   <span class="bullelements status text-warning font-weight-bold">&bull; </span><small class="text-secondary">Signup </small>
+              </div>
+
+              </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
