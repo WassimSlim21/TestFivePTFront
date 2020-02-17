@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, ViewChild, EventEmitter, Output, Input} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { ApiService } from 'src/app/core/service/api.service';
@@ -7,6 +7,8 @@ import { User } from 'src/app/core/models/users';
 import { Subject } from 'rxjs/internal/Subject';
 import {PageEvent} from '@angular/material/paginator';
 import * as moment from 'moment';
+import { MatDialog } from '@angular/material';
+import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
 
 @Component({
   selector: 'app-users',
@@ -20,6 +22,7 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['picture', 'name', 'score', 'email', 'phone', 'email', 'pack', 'created_at', 'last_login', 'status'];
 
   dataSource;
+
   users: User[];
    // public user = new User[]();
    pageEvent: PageEvent;
@@ -29,8 +32,8 @@ export class UsersComponent implements OnInit {
    length: number;
  pageSizeOptions: number[] = [5, 10];
  moment = moment;
-
-  constructor(private userService: ApiService, private router: Router) {
+ @Input() userId: any;
+  constructor(private userService: ApiService, private router: Router, public dialog: MatDialog) {
    }
 
 
@@ -67,7 +70,7 @@ export class UsersComponent implements OnInit {
           this.pageIndex = users.pageIndex;
           this.users = users.message;
           this.dataSource = new MatTableDataSource<User>(this.users);
-          if(typeof this.users !== 'string') {
+          if (typeof this.users !== 'string') {
             this.users.forEach((user) => {
               user.data = JSON.parse(user.data);
             });
@@ -80,6 +83,23 @@ export class UsersComponent implements OnInit {
       }
     );
   }
+
+  openDialog(id): void {
+    this.userId = id;
+    console.log("aaaaaa"+this.userId);
+    const dialogRef = this.dialog.open( UserDetailsComponent, {
+      disableClose: false,
+      data: {
+        userId: this.userId
+      }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 
 }
 

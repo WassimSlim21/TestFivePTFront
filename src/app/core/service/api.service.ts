@@ -17,6 +17,8 @@ const TOKEN_KEY = 'token';
 export class ApiService {
 
 
+
+
   user: Account;
   users: any;
   jwtToken = null;
@@ -27,6 +29,11 @@ export class ApiService {
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) { }
 
 
+
+  /* --------------------------------Authentification and Register Services ------------------ */
+
+
+/* -------Create new account -------- */
   public register(user: object) {
     return this.http.post('http://127.0.0.1:3000/api/account/register', user, {
       headers: new HttpHeaders({
@@ -34,7 +41,7 @@ export class ApiService {
          })
     });
   }
-
+/* ------update account -------- */
   update(account: object) {
 
     return this.http.put<any>('http://localhost:3000/api/account/update' , account);
@@ -112,9 +119,10 @@ apiDelete(endpoint) {
 //   return this.http.get();
 // }
 
-getUserAllData(id : string) {
+getUserAllData(id: string) {
   return this.http.get<any>('http://localhost:3000/api/user/' + id );
 }
+
 
 
 
