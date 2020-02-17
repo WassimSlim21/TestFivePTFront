@@ -18,8 +18,8 @@ import {
   MatIconModule,
   MatInputModule,
   MatLineModule,
-  MatListModule,
   MatMenuModule,
+  MatListModule,
   MatNativeDateModule,
   MatOptionModule,
   MatPaginatorModule,
@@ -41,6 +41,7 @@ import {
   MatTooltipModule,
   MatTreeModule,
   MatDialogRef,
+  MatTableDataSource,
 } from '@angular/material';
 
 @NgModule({

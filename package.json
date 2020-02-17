@@ -24,6 +24,10 @@
     "@angular/router": "~8.2.14",
     "@auth0/angular-jwt": "^3.0.1",
     "@progress/kendo-angular-buttons": "^5.2.3",
+    "@progress/kendo-angular-common": "^1.0.0",
+    "@progress/kendo-angular-l10n": "^2.0.0",
+    "@progress/kendo-angular-popup": "^3.0.0",
+    "@progress/kendo-theme-default": "latest",
     "arrive": "^2.4.1",
     "bootstrap": "^4.4.1",
     "bootstrap-material-design": "^4.1.2",
@@ -39,11 +43,7 @@
     "popper.js": "^1.16.1",
     "rxjs": "^6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1",
-    "@progress/kendo-angular-l10n": "^2.0.0",
-    "@progress/kendo-angular-popup": "^3.0.0",
-    "@progress/kendo-angular-common": "^1.0.0",
-    "@progress/kendo-theme-default": "latest"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.20",

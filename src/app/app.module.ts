@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, /* other http imports */HTTP_INTERCEPTORS } from '@angular/common/http';
 import {JwtModuleOptions, JwtModule} from '@auth0/angular-jwt';
 import {MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

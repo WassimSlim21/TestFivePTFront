@@ -1,4 +1,9 @@
+<!--
   <div class="table-wrapper">
+    <div class="card">
+      <div class="card-header card-header-danger">
+          <h4 class="card-title">Kpeiz Users Table </h4>
+      </div>
       <table class="table table-striped table-hover">
           <thead>
               <tr>
@@ -12,17 +17,9 @@
       <th>Created at</th>
       <th>Last login</th>
        <th>Status</th>
-       <th>Action</th>
               </tr>
           </thead>
           <tbody>
-            <!-- <td><span class="status text-success">&bull;</span> Active</td>
-            <td>
-              <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-              <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-            </td> -->
-
-
               <tr *ngFor='let user of users'>
                 <td><img src="https://graph.facebook.com/{{user.provider_userId}}/picture?type=square" class="avatar" alt="Avatar"></td>
                 <td>{{user._id}}</td>
@@ -35,39 +32,131 @@
                 <td>{{user.last_login}}</td>
                 <div *ngIf="user.status==='2' || user.status==='3'">
                 <td>
-                  <!-- <span class="status text-success">&bull;</span> -->
-                  <button type="button" class="btn btn-outline-success btn-sm">On Action</button></td>
+                  <span class="status text-success">&bull;</span>
+                  <small >On Action</small></td>
               </div>
               <div *ngIf="user.status==='0'">
                 <td>
-                  <!-- <span class="status text-primary">&bull;</span> -->
-                  <button type="button" class="btn btn-outline-primary btn-sm">FB Connect</button></td>
+                  <span class="status text-primary">&bull;</span>
+                  <small >FB Connect</small></td>
               </div>
               <div *ngIf="user.status==='1'">
                 <td>
-                  <!-- <span class="status text-warning">&bull;</span> -->
-                  <button type="button" class="btn btn-outline-warning btn-sm">   Signup</button>
-                </td>
+                   <span class="status text-warning">&bull;</span>
+                <small>Signup </small>                </td>
               </div>
-            <td>   <a href="{{user._id}}" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-                <a href="{{user._id}}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-              </td>
               </tr>
           </tbody>
-
+          <mat-paginator
+          [length]="length"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+        (page)="onPaginateChange($event)"
+        >
+        </mat-paginator>
       </table>
-<div class="table-wrapper">
-
-<div class="float-right">  <mat-paginator
-  [length]="length"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="pageSizeOptions"
-(page)="onPaginateChange($event)"
->
-</mat-paginator>
-</div><br>
-
-
-      </div>
   </div>
 
+</div> -->
+<!-- <div class="table-wrapper">
+  <div class="card">
+    <div class="card-header card-header-danger">
+        <h4 class="card-title">Kpeiz Users Table </h4>
+    </div>
+  </div> -->
+  <div class="card">
+    <div class="card-header card-header-danger">
+        <h4 class="card-title">Kpeiz Users Table </h4>
+    </div>
+<div class="mat-elevation-z12">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="picture">
+      <th mat-header-cell *matHeaderCellDef> Picture </th>
+      <td mat-cell *matCellDef="let element">
+     <img src="https://graph.facebook.com/{{element.provider_userId}}/picture?type=square" class="avatar" alt="Avatar">
+       </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>
+        Name
+        </th>
+      <td mat-cell *matCellDef="let element">
+         {{element.name}}
+         </td>
+    </ng-container>
+
+    <ng-container matColumnDef="score">
+      <th mat-header-cell *matHeaderCellDef>
+        score
+        </th>
+      <td mat-cell *matCellDef="let element">
+         {{element.score}}
+         </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>
+        email
+         </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.email}}
+         </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef>
+        phone
+         </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.phone}}
+         </td>
+    </ng-container>
+
+    <ng-container matColumnDef="pack">
+      <th mat-header-cell *matHeaderCellDef>
+        Packs
+         </th>
+      <td mat-cell *matCellDef="let element">
+        {{element?.pack?.pack_name}}
+         </td>
+    </ng-container>
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef>
+        created_at
+         </th>
+      <td mat-cell *matCellDef="let element">
+         {{moment(element.created_at).format('MMMM Do YYYY, h:mm:ss a')}}
+         </td>
+    </ng-container>
+    <ng-container matColumnDef="last_login">
+      <th mat-header-cell *matHeaderCellDef>
+        last_login
+         </th>
+      <td mat-cell *matCellDef="let element">
+        {{moment(element.last_login).format('MMMM Do YYYY, h:mm:ss a')}}
+         </td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>
+        status
+         </th>
+      <td mat-cell *matCellDef="let element">
+        {{element.status}}
+         </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator
+          [length]="length"
+          [pageSize]="pageSize"
+          [pageIndex]="pageIndex"
+          [pageSizeOptions]="pageSizeOptions"
+        (page)="onPaginateChange($event)"
+        >
+        </mat-paginator></div>
+</div>
