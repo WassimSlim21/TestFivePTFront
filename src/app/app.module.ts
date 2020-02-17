@@ -12,7 +12,6 @@ import { MaterialModule } from './shared/material.module';
 import { HttpConfigInterceptor} from './core/interceptor/httpconfig.interceptor';
 import { AdminLayoutModule } from './layout/admin-layout/admin-layout.module';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
-import { ButtonsModule } from '@progress/kendo-angular-buttons';
 
 
 
@@ -35,7 +34,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
     MaterialModule,
     MatSnackBarModule,
     JwtModule.forRoot(JWT_Module_Options),
-    ButtonsModule,
+
 
   ],
   exports: [
