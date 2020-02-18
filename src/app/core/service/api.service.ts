@@ -22,7 +22,7 @@ export class ApiService {
   user: Account;
   users: any;
   jwtToken = null;
-  private host = 'http://localhost:3000';
+
 
   private apiUrl: string = environment.apiUrl;
 
@@ -109,15 +109,11 @@ apiGetAll(endpoint) {
   return this.http.get(this.apiUrl + endpoint);
 }
 apiPut(endpoint, body) {
-  return this.http.put(endpoint, body);
+  return this.http.put(this.apiUrl + endpoint, body);
 }
 apiDelete(endpoint) {
   return this.http.delete(endpoint);
 }
-
-// getAllUsers(){
-//   return this.http.get();
-// }
 
 getUserAllData(id: string) {
   return this.http.get<any>('http://localhost:3000/api/user/' + id );

@@ -15,7 +15,8 @@ export class UserDetailsComponent implements OnInit {
   user: any ;
   userId: any;
   imageUrl: any ;
-
+  packs: any ;
+  selectedPack: string;
 
 
   constructor(
@@ -28,6 +29,7 @@ export class UserDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.loadUser();
+    this.loadPacks();
 
   }
 
@@ -55,6 +57,28 @@ export class UserDetailsComponent implements OnInit {
     );
 }
 
+
+loadPacks(): void {
+this.Api.apiGetAll('/pack').subscribe(
+  packs => {
+    this.packs = packs ;
+  },
+  error => {
+    console.log(error);
+    this.snackBar.open('Failed to load packs');
+  }
+);
+}
+updateUserPack(): void {
+  this.user.pack = this.selectedPack ;
+  console.log(this.user);
+  this.Api.apiPut(`/user/${this.user._id}`, {pack: this.user.pack}).subscribe(
+      (response: any) => {
+        this.snackBar.open(JSON.stringify(response.message));
+      }
+  );
+
+}
 
 
 }
