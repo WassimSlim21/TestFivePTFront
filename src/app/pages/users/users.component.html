@@ -69,7 +69,7 @@
         <h4 class="card-title">Kpeiz Users Table </h4>
     </div>
 <div class="mat-elevation-z12">
-  <table mat-table [dataSource]="dataSource"   matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+  <table mat-table matSort (matSortChange)="sortData($event)" [dataSource]="dataSource">
 
     <!-- Position Column -->
     <ng-container matColumnDef="picture">

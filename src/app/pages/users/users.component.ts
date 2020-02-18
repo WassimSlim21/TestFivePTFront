@@ -4,12 +4,12 @@ import {MatTableDataSource} from '@angular/material/table';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core/models/users';
-import { Subject } from 'rxjs/internal/Subject';
 import {PageEvent} from '@angular/material/paginator';
 import * as moment from 'moment';
 import { MatDialog } from '@angular/material';
 import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
 import {MatSort} from '@angular/material/sort';
+import {Sort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-users',
@@ -45,6 +45,31 @@ export class UsersComponent implements OnInit {
     this.getUsers(1);
   }
 
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  sortData(sort: Sort) {
+    const data = this.users.slice();
+    if (!sort.active || sort.direction === '') {
+      this.users = data;
+      return;
+    }
+
+    this.users = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name': return this.compare(a.name, b.name, isAsc);
+        case 'created_at': return this.compare(a.created_at, b.created_at, isAsc);
+        case 'last_login': return this.compare(a.last_login, b.last_login, isAsc);
+        case 'status': return this.compare(a.status, b.status, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
+
+
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
@@ -61,6 +86,7 @@ export class UsersComponent implements OnInit {
     // console.log(this.users.length);
     // console.log(this.users);
   }
+
   getUsers(page) {
 
     this.userService.apiGetAll('/user?pageNo=' + page + '&size=' + this.pageSize).subscribe(
