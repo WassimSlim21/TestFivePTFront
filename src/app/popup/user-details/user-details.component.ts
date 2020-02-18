@@ -77,6 +77,7 @@ updateUserPack(): void {
         this.snackBar.open(JSON.stringify(response.message));
       }
   );
+  this.loadUser();
 
 }
 
