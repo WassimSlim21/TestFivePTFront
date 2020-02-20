@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
     { value: 2, name: 'other' }
   ];
 
-  status: any[] = [{ value: [0], name: 'FB Connect' }, { value: [1], name: 'Signup' }, { value: [2, 3], name: 'On Action' }];
+  status: any[] = [{ value: 0, name: 'FB Connect' }, { value: 1, name: 'Signup' }, { value: 2, name: 'On Action' }];
 
   users: User[];
   selectedOption: string;
@@ -96,7 +96,12 @@ export class UsersComponent implements OnInit {
       }
       if ( value.last_login === 'Invalid date' ) {
         value.last_login = null; }
-
+        // faaza feha chwaya tall
+      if (value.status.indexOf(2) >= 0) {
+            value.status.push(3);
+        }
+      if (value.status.indexOf(3) && !value.status.indexOf(2)) {value.status.splice(value.status.indexOf(3), 1);
+        }
       this.onListChange.emit(value);
       console.log('filter', value);
     });
