@@ -158,6 +158,8 @@ export class UsersComponent implements OnInit {
     console.log('aaaaaa' + this.userId);
     const dialogRef = this.dialog.open(UserDetailsComponent, {
       disableClose: false,
+      height : '100%' ,
+      position: { right: '0'},
       data: {
         userId: this.userId
       }
