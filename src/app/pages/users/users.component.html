@@ -1,174 +1,212 @@
-<!--
-  <div class="table-wrapper">
+<div class="main-content">
+  <div class="container">
     <div class="card">
       <div class="card-header card-header-danger">
-          <h4 class="card-title">Kpeiz Users Table </h4>
+        <h4 class="card-title">Kpeiz Users Table </h4>
       </div>
-      <table class="table table-striped table-hover">
-          <thead>
-              <tr>
-                  <th>picture</th>
-                  <th>id</th>
-      <th>Name</th>
-      <th>Score</th>
-      <th>Phone</th>
-      <th>Pack</th>
-      <th>Email</th>
-      <th>Created at</th>
-      <th>Last login</th>
-       <th>Status</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor='let user of users'>
-                <td><img src="https://graph.facebook.com/{{user.provider_userId}}/picture?type=square" class="avatar" alt="Avatar"></td>
-                <td>{{user._id}}</td>
-                <td>{{user.name}}</td>
-                <td>{{user.score}}</td>
-                <td>{{user.data.phone}}</td>
-                <td>{{user.pack.pack_name}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.created_at}}</td>
-                <td>{{user.last_login}}</td>
-                <div *ngIf="user.status==='2' || user.status==='3'">
-                <td>
-                  <span class="status text-success">&bull;</span>
-                  <small >On Action</small></td>
-              </div>
-              <div *ngIf="user.status==='0'">
-                <td>
-                  <span class="status text-primary">&bull;</span>
-                  <small >FB Connect</small></td>
-              </div>
-              <div *ngIf="user.status==='1'">
-                <td>
-                   <span class="status text-warning">&bull;</span>
-                <small>Signup </small>                </td>
-              </div>
-              </tr>
-          </tbody>
-          <mat-paginator
-          [length]="length"
-          [pageSize]="pageSize"
-          [pageSizeOptions]="pageSizeOptions"
-        (page)="onPaginateChange($event)"
-        >
-        </mat-paginator>
-      </table>
+
+      <h4 class="font-weight-bold text-danger pt-2 pl-2">Filters</h4>
+      <div class="d-md-inline-flex pl-4" [formGroup]="filterForm">
+        <div class="row">
+
+          <!-- Search -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Search</mat-label>
+              <input matInput formControlName="name" placeholder="search user name">
+            </mat-form-field>
+          </div>
+
+          <!-- Company Name -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Company Name</mat-label>
+              <input matInput formControlName="company" placeholder="Company name">
+            </mat-form-field>
+          </div>
+
+          <!-- Login Date -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Choose a user login date</mat-label>
+              <input matInput formControlName="last_login" [matDatepicker]="loginDate">
+              <mat-datepicker-toggle matSuffix [for]="loginDate" placeholder="Login Date"></mat-datepicker-toggle>
+              <mat-datepicker #loginDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <!-- Created At Date -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Choose a user created at date</mat-label>
+              <input matInput formControlName="created_at" [matDatepicker]="createdAtDate"
+                placeholder="Created At Date">
+              <mat-datepicker-toggle matSuffix [for]="createdAtDate"></mat-datepicker-toggle>
+              <mat-datepicker #createdAtDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+
+          <!-- Company Type -->
+
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Company Type</mat-label>
+              <mat-select formControlName="company_type" multiple>
+                <mat-option *ngFor="let type of companyType" [value]="type.name">
+                  {{type.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Score -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Score </mat-label>
+              <input matInput placeholder="Score" formControlName="score" maxlength="10">
+            </mat-form-field>
+          </div>
+
+          <!-- Packs -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Packs</mat-label>
+              <mat-select formControlName="pack" multiple>
+                <mat-option *ngFor="let pack of packs" [value]="pack._id">
+                  {{pack.pack_name}}
+                </mat-option>
+              </mat-select>
+
+            </mat-form-field>
+          </div>
+
+          <!-- Status -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Status</mat-label>
+              <mat-select formControlName="status" multiple>
+                <mat-option *ngFor="let s of status" [value]="s.value">
+                  {{s.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+
+        </div>
+      </div>
+
+      <mat-table #table [dataSource]="dataSource">
+        <!-- Position Column -->
+        <ng-container matColumnDef="picture">
+          <th mat-header-cell *matHeaderCellDef> Picture </th>
+          <td mat-cell *matCellDef="let element">
+            <img src="https://graph.facebook.com/{{element.provider_userId}}/picture?type=square" class="avatar"
+              alt="Avatar">
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>
+            Name
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <a (click)="openDialog(element._id)" class=" cursor-pointer text-danger font-weight-bold ">
+              {{element.name}}</a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="company">
+          <th mat-header-cell *matHeaderCellDef class="pr-5">
+            company
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.data.company}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="score">
+          <th mat-header-cell *matHeaderCellDef>
+            score
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.score}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>
+            email
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.email}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef>
+            phone
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.phone}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pack">
+          <th mat-header-cell *matHeaderCellDef>
+            Packs
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element?.pack?.pack_name}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="created_at">
+          <th mat-header-cell *matHeaderCellDef>
+            created_at
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{moment(element.created_at).format('MMMM Do YYYY, h:mm:ss a')}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="last_login">
+          <th mat-header-cell *matHeaderCellDef>
+            last_login
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{moment(element.last_login).format('MMMM Do YYYY, h:mm:ss a')}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>
+            status
+          </th>
+          <td mat-cell *matCellDef="let element">
+
+            <div *ngIf="element.status==='2' || element.status==='3'">
+              <span class="bullelements status text-success font-weight-bold">&bull; </span><small
+                class="text-secondary">On Action</small>
+            </div>
+            <div *ngIf="element.status==='0'">
+              <span class="bullelements status text-primary font-weight-bold">&bull; </span><small
+                class="text-secondary">FB Connect</small>
+            </div>
+
+
+            <div *ngIf="element.status==='1'">
+              <span class="bullelements status text-warning font-weight-bold">&bull; </span><small
+                class="text-secondary">Signup </small>
+            </div>
+
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </mat-table>
+      <mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
+        (page)="onPaginateChange($event)">
+      </mat-paginator>
+    </div>
+
   </div>
-
-</div> -->
-<!-- <div class="table-wrapper">
-  <div class="card">
-    <div class="card-header card-header-danger">
-        <h4 class="card-title">Kpeiz Users Table </h4>
-    </div>
-  </div> -->
-  <div class="card">
-    <div class="card-header card-header-danger">
-        <h4 class="card-title">Kpeiz Users Table </h4>
-    </div>
-<div class="mat-elevation-z12">
-  <table mat-table matSort (matSortChange)="sortData($event)" [dataSource]="dataSource">
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="picture">
-      <th mat-header-cell *matHeaderCellDef> Picture </th>
-      <td mat-cell *matCellDef="let element">
-   <img src="https://graph.facebook.com/{{element.provider_userId}}/picture?type=square" class="avatar" alt="Avatar">
-       </td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>
-        Name
-        </th>
-      <td mat-cell *matCellDef="let element">
-     <a (click)="openDialog(element._id)" class=" cursor-pointer text-danger font-weight-bold ">    {{element.name}}</a>
-         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="score">
-      <th mat-header-cell *matHeaderCellDef>
-        score
-        </th>
-      <td mat-cell *matCellDef="let element">
-         {{element.score}}
-         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef>
-        email
-         </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.email}}
-         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef>
-        phone
-         </th>
-      <td mat-cell *matCellDef="let element">
-        {{element.phone}}
-         </td>
-    </ng-container>
-
-    <ng-container matColumnDef="pack">
-      <th mat-header-cell *matHeaderCellDef>
-        Packs
-         </th>
-      <td mat-cell *matCellDef="let element">
-        {{element?.pack?.pack_name}}
-         </td>
-    </ng-container>
-    <ng-container matColumnDef="created_at">
-      <th mat-header-cell *matHeaderCellDef>
-        created_at
-         </th>
-      <td mat-cell *matCellDef="let element">
-         {{moment(element.created_at).format('MMMM Do YYYY, h:mm:ss a')}}
-         </td>
-    </ng-container>
-    <ng-container matColumnDef="last_login">
-      <th mat-header-cell *matHeaderCellDef>
-        last_login
-         </th>
-      <td mat-cell *matCellDef="let element">
-        {{moment(element.last_login).format('MMMM Do YYYY, h:mm:ss a')}}
-         </td>
-    </ng-container>
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef>
-        status
-         </th>
-      <td mat-cell *matCellDef="let element">
-
-    <div *ngIf="element.status==='2' || element.status==='3'">
-                  <span class="bullelements status text-success font-weight-bold">&bull;   </span><small class="text-secondary">On Action</small>
-              </div>
-              <div *ngIf="element.status==='0'">
-                  <span class="bullelements status text-primary font-weight-bold">&bull;  </span><small class="text-secondary">FB Connect</small>
-              </div>
-
-
-              <div *ngIf="element.status==='1'">
-                   <span class="bullelements status text-warning font-weight-bold">&bull; </span><small class="text-secondary">Signup </small>
-              </div>
-
-              </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator
-          [length]="length"
-          [pageSize]="pageSize"
-          [pageIndex]="pageIndex"
-          [pageSizeOptions]="pageSizeOptions"
-        (page)="onPaginateChange($event)"
-        >
-        </mat-paginator></div>
 </div>

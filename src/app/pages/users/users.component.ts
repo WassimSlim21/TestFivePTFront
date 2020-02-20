@@ -1,15 +1,16 @@
-import {Component, OnInit, ViewChild, EventEmitter, Output, Input} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core/models/users';
-import {PageEvent} from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSliderChange } from '@angular/material';
 import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
-import {MatSort} from '@angular/material/sort';
-import {Sort} from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
@@ -17,58 +18,99 @@ import {Sort} from '@angular/material/sort';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   // tslint:disable-next-line: no-output-on-prefix
-  @Output() onPageChange = new EventEmitter<string[]>();
-  displayedColumns: string[] = ['picture', 'name', 'score', 'email', 'phone', 'email', 'pack', 'created_at', 'last_login', 'status'];
+  @Output() onListChange = new EventEmitter<string[]>();
 
+  filterForm: FormGroup;
+  displayedColumns: string[] = ['picture', 'name', 'company', 'email', 'score', 'phone', 'pack', 'created_at', 'last_login', 'status'];
   dataSource;
+  companyType: any[] = [
+    { value: 0, name: 'agency' },
+    { value: 1, name: 'brand' },
+    { value: 2, name: 'other' }
+  ];
+
+  status: any[] = [{ value: [0], name: 'FB Connect' }, { value: [1], name: 'Signup' }, { value: [2, 3], name: 'On Action' }];
 
   users: User[];
-   // public user = new User[]();
-   pageEvent: PageEvent;
-   datasource: null;
-   pageIndex: number;
-   pageSize = 5;
-   length: number;
- pageSizeOptions: number[] = [5, 10];
- moment = moment;
- @Input() userId: any;
-  constructor(private userService: ApiService, private router: Router, public dialog: MatDialog) {
-   }
-
-
-
-  ngOnInit() {
-    this.getUsers(1);
+  selectedOption: string;
+  pageEvent: PageEvent;
+  datasource: null;
+  pageIndex: number;
+  pageSize = 5;
+  length: number;
+  pageSizeOptions: number[] = [5, 10];
+  moment = moment;
+  packs: any;
+  companys: string[] = [
+    'Fords',
+    'Clio',
+  ];
+  @Input() userId: any;
+  constructor(private userService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) {
   }
 
-  compare(a: number | string, b: number | string, isAsc: boolean) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  hideShowFilter() {
+    const x = document.getElementById('hide');
+    if (x.style.display === 'none') {
+      x.style.display = 'block';
+    } else {
+      x.style.display = 'none';
+    }
   }
 
-  sortData(sort: Sort) {
-    const data = this.users.slice();
-    if (!sort.active || sort.direction === '') {
-      this.users = data;
-      return;
+  loadPacks(): void {
+    this.userService.apiGetAll('/pack').subscribe(
+      packs => {
+        this.packs = packs ;
+        console.log(this.packs);
+      },
+      error => {
+        console.log(error);
+      }
+    );
     }
 
-    this.users = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'name': return this.compare(a.name, b.name, isAsc);
-        case 'created_at': return this.compare(a.created_at, b.created_at, isAsc);
-        case 'last_login': return this.compare(a.last_login, b.last_login, isAsc);
-        case 'status': return this.compare(a.status, b.status, isAsc);
-        default: return 0;
+  ngOnInit() {
+    this.loadPacks();
+
+    this.getUsers(1);
+    this.selectedOption = 'agency';
+    this.filterForm = this.fb.group({
+      name: new FormControl(),
+      last_login: new FormControl(),
+      created_at: new FormControl(),
+      company: new FormControl(),
+      company_type: new FormControl(),
+      score: new FormControl(),
+      pack: new FormControl(),
+      status: new FormControl(),
+    });
+    this.filterForm.valueChanges.subscribe(value => {
+      value.last_login = moment(value.last_login).format('YYYY-MM-DD');
+      value.created_at = moment(value.created_at).format('YYYY-MM-DD');
+      if ( value.created_at === 'Invalid date') {
+        value.created_at = null;
       }
+      if ( value.last_login === 'Invalid date' ) {
+        value.last_login = null; }
+
+      this.onListChange.emit(value);
+      console.log('filter', value);
     });
   }
 
 
+
+
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
@@ -76,10 +118,10 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  onPaginateChange(event?: PageEvent) {
+  onPaginateChange(event ? : PageEvent) {
     this.pageSize = event.pageSize;
-    if ( event.pageIndex < 1 ) {
-          event.pageIndex = event.pageIndex + 1;
+    if (event.pageIndex < 1) {
+      event.pageIndex = event.pageIndex + 1;
     }
     this.getUsers(event.pageIndex);
 
@@ -113,8 +155,8 @@ export class UsersComponent implements OnInit {
 
   openDialog(id): void {
     this.userId = id;
-    console.log("aaaaaa"+this.userId);
-    const dialogRef = this.dialog.open( UserDetailsComponent, {
+    console.log('aaaaaa' + this.userId);
+    const dialogRef = this.dialog.open(UserDetailsComponent, {
       disableClose: false,
       data: {
         userId: this.userId
@@ -126,7 +168,5 @@ export class UsersComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-
-
 }
 

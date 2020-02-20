@@ -6,6 +6,7 @@ import { UsersComponent } from './users.component';
 import { MatPaginatorModule } from '@angular/material';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { MatButtonModule, MatRippleModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,9 @@ import { MatButtonModule, MatRippleModule, MatInputModule, MatFormFieldModule } 
   imports: [
     CommonModule,
     UsersRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule, ReactiveFormsModule,
+
   ]
 })
 export class UsersModule { }
