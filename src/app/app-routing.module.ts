@@ -9,6 +9,8 @@ const routes: Routes = [
     path: '', component: AdminLayoutComponent, canActivate: [AuthGuardService],
     children: [
       { path: 'users', loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule) },
+      { path: 'companys', loadChildren: () => import('./pages/company/company.module').then(m => m.CompanyModule) },
+
       { path: 'tags', loadChildren: () => import('./pages/tags/tags.module').then(m => m.TagsModule) },
     ]
   },
@@ -17,7 +19,8 @@ const routes: Routes = [
   {
     path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
-  { path: '', loadChildren: () => import('./layout/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule) }
+  { path: '', loadChildren: () => import('./layout/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule) },
+  { path: 'company', loadChildren: () => import('./pages/company/company.module').then(m => m.CompanyModule) }
 ];
 
 @NgModule({

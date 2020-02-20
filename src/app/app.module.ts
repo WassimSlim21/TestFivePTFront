@@ -14,6 +14,7 @@ import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.compone
 import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ComfirmDialogComponent } from './popup/comfirm-dialog/comfirm-dialog.component';
+import { CompanyModule } from './pages/company/company.module';
 
 
 
@@ -39,6 +40,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
     MaterialModule,
     MatSnackBarModule,
     JwtModule.forRoot(JWT_Module_Options),
+    CompanyModule,
 
 
   ],
