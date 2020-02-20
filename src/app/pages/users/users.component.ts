@@ -107,11 +107,6 @@ export class UsersComponent implements OnInit {
 
 
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
@@ -124,9 +119,6 @@ export class UsersComponent implements OnInit {
       event.pageIndex = event.pageIndex + 1;
     }
     this.getUsers(event.pageIndex);
-
-    // console.log(this.users.length);
-    // console.log(this.users);
   }
 
   getUsers(page) {
