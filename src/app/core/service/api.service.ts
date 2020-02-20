@@ -112,7 +112,7 @@ apiPut(endpoint, body) {
   return this.http.put(this.apiUrl + endpoint, body);
 }
 apiDelete(endpoint) {
-  return this.http.delete(endpoint);
+  return this.http.delete(this.apiUrl + endpoint);
 }
 
 getUserAllData(id: string) {

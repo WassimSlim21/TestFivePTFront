@@ -1,8 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, ThemePalette } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatDialog, } from '@angular/material';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Router } from '@angular/router';
+import { ComfirmDialogComponent } from '../comfirm-dialog/comfirm-dialog.component' ;
+import { ConfirmDialogModel } from '../comfirm-dialog/comfirm-dialog.component' ;
 
 
 @Component({
@@ -17,13 +19,16 @@ export class UserDetailsComponent implements OnInit {
   imageUrl: any ;
   packs: any ;
   selectedPack: string;
+  result: any;
+
 
 
   constructor(
     private Api: ApiService, private router: Router,   private snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<UserDetailsComponent>, private accountService: ApiService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog) {
 
     }
 
@@ -69,6 +74,11 @@ this.Api.apiGetAll('/pack').subscribe(
   }
 );
 }
+
+
+
+
+
 updateUserPack(): void {
   this.user.pack = this.selectedPack ;
   console.log(this.user);
@@ -80,6 +90,32 @@ updateUserPack(): void {
   this.loadUser();
 
 }
+
+
+comfirmDialog(): void {
+  const message = `Are you sure you want to do this?`;
+
+  const dialogData = new ConfirmDialogModel('Confirm Action', message);
+
+  const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+    maxWidth: '400px',
+    data: dialogData
+  });
+
+  dialogRef.afterClosed().subscribe(dialogResult => {
+    this.result = dialogResult;
+    if ( this.result === true) {
+      this.Api.apiDelete(`/user/${this.user._id}`).subscribe(
+        (response: any) => {
+          console.log('delete' + response);
+          this.snackBar.open(JSON.stringify(response.message));
+        }
+    );
+      this.dialogRef.close();
+  }
+  });
+}
+
 
 
 }

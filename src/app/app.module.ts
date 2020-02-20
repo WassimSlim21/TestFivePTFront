@@ -13,6 +13,7 @@ import { HttpConfigInterceptor} from './core/interceptor/httpconfig.interceptor'
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { ComfirmDialogComponent } from './popup/comfirm-dialog/comfirm-dialog.component';
 
 
 
@@ -25,7 +26,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   declarations: [
     UserDetailsComponent,
     AppComponent,
-  AdminLayoutComponent  ],
+  AdminLayoutComponent,
+  ComfirmDialogComponent  ],
   imports: [
     AngularFontAwesomeModule,
     HttpClientModule,
@@ -51,6 +53,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
   ,
   entryComponents:
   [ UserDetailsComponent,
+    ComfirmDialogComponent
     ],
 })
 export class AppModule { }
