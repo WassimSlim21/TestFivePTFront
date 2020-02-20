@@ -1,5 +1,5 @@
 <div class="main-content">
-  <div class="container-fluid">
+  <div class="container">
       <div class="row-md-18">
           <div class="col-md-12">
               <div class="card">
@@ -11,7 +11,7 @@
                       <div class="row">
                         <!-- USER IMAGE 'only if it's facebook ' -->
                         <div class="col-md-6">
-                          <img src="{{imageUrl}}" alt="test" class="rounded-circle align-center margin-auto">
+                          <img src="{{imageUrl}}"  class="rounded-circle align-center margin-auto">
                          </div>
                             <!-- USER INFORMATIONS -->
                         <div class="col-md-6">
@@ -44,7 +44,20 @@
                               </mat-panel-title>
 
                             </mat-expansion-panel-header>
-                            <p>{{user?.pack.pack_name}}</p>
+                           <div class="d-flex flex-row bd-highlight mb-3">
+                            <p class="m-4">{{user?.pack.pack_name}}</p>
+                              <mat-form-field  class="w-25 p-4">
+                                <mat-label>Packs</mat-label>
+                                <mat-select [(ngModel)]="selectedPack">
+                                  <mat-option *ngFor="let pack of this.packs" [value]="pack._id" >
+                                    {{pack.pack_name}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                              <button mat-raised-button color="warn"  class="m-4 h-auto" (click)="updateUserPack()">Save</button>
+
+                            </div>
+
                           </mat-expansion-panel>
 
                           <!-- ACTIONS PANEL  -->
@@ -221,6 +234,17 @@
 
                       </div>
 
+
+
+                    </div>
+
+                    <div class="row m-4 ">
+                      <div class="col-md-6 ">
+                          <button mat-raised-button class="pull-right">Simulate</button>
+                      </div>
+                      <div class="col-md-6 ">
+                       <button mat-raised-button class="pull-left btn-danger" (click)="comfirmDialog()"> Delete </button>
+                      </div>
                     </div>
 
 

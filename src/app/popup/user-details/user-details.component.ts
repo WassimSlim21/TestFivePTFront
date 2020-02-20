@@ -1,8 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, ThemePalette } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatDialog, } from '@angular/material';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Router } from '@angular/router';
+import { ComfirmDialogComponent } from '../comfirm-dialog/comfirm-dialog.component' ;
+import { ConfirmDialogModel } from '../comfirm-dialog/comfirm-dialog.component' ;
 
 
 @Component({
@@ -15,6 +17,9 @@ export class UserDetailsComponent implements OnInit {
   user: any ;
   userId: any;
   imageUrl: any ;
+  packs: any ;
+  selectedPack: string;
+  result: any;
 
 
 
@@ -22,12 +27,14 @@ export class UserDetailsComponent implements OnInit {
     private Api: ApiService, private router: Router,   private snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<UserDetailsComponent>, private accountService: ApiService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog) {
 
     }
 
   ngOnInit() {
     this.loadUser();
+    this.loadPacks();
 
   }
 
@@ -53,6 +60,60 @@ export class UserDetailsComponent implements OnInit {
         this.snackBar.open('Failed to load user with Id' + this.userId);
       }
     );
+}
+
+
+loadPacks(): void {
+this.Api.apiGetAll('/pack').subscribe(
+  packs => {
+    this.packs = packs ;
+  },
+  error => {
+    console.log(error);
+    this.snackBar.open('Failed to load packs');
+  }
+);
+}
+
+
+
+
+
+updateUserPack(): void {
+  this.user.pack = this.selectedPack ;
+  console.log(this.user);
+  this.Api.apiPut(`/user/${this.user._id}`, {pack: this.user.pack}).subscribe(
+      (response: any) => {
+        this.snackBar.open(JSON.stringify(response.message));
+      }
+  );
+  this.loadUser();
+
+}
+
+
+comfirmDialog(): void {
+  const message = `Are you sure you want to do this?`;
+
+  const dialogData = new ConfirmDialogModel('Confirm Action', message);
+
+  const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+    maxWidth: '400px',
+    data: dialogData
+  });
+
+  dialogRef.afterClosed().subscribe(dialogResult => {
+    this.result = dialogResult;
+    if ( this.result === true) {
+      this.Api.apiDelete(`/user/${this.user._id}`).subscribe(
+        (response: any) => {
+          console.log('delete' + response);
+          this.snackBar.open(JSON.stringify(response.message));
+        }
+    );
+      this.dialogRef.close();
+  }
+  });
 }
 
 
