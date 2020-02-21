@@ -32,20 +32,20 @@
 
 
           <!-- Company countryCode -->
-          <div class="col">
+          <!-- <div class="col">
             <mat-form-field>
               <mat-label>Country Code</mat-label>
               <input matInput formControlName="countryCode" maxlength="4" placeholder="Search Company by countryCode">
             </mat-form-field>
-          </div>
+          </div> -->
 
           <!-- Company phone -->
-          <div class="col">
+          <!-- <div class="col">
             <mat-form-field>
               <mat-label>Phone</mat-label>
               <input matInput formControlName="phone" placeholder="Search Company by phone">
             </mat-form-field>
-          </div>
+          </div> -->
 
           <!-- Company website -->
           <div class="col">
@@ -56,12 +56,12 @@
           </div>
 
           <!-- Company job -->
-          <div class="col">
+          <!-- <div class="col">
             <mat-form-field>
               <mat-label>Job</mat-label>
               <input matInput formControlName="job" placeholder="Search Company by job">
             </mat-form-field>
-          </div>
+          </div> -->
 
 
         </div>
@@ -76,7 +76,7 @@
           </th>
           <td mat-cell *matCellDef="let element">
             <a class=" cursor-pointer text-danger font-weight-bold ">
-              {{element.company}}</a>
+              {{element.name}}</a>
           </td>
         </ng-container>
 
@@ -86,26 +86,10 @@
             Company Type
           </th>
           <td mat-cell *matCellDef="let element">
-            {{element.company_type}}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="countryCode">
-          <th mat-header-cell *matHeaderCellDef class="pr-5">
-            Country Code
-          </th>
-          <td mat-cell *matCellDef="let element">
-            {{element.countryCode}}
+            {{element.type}}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="phone">
-          <th mat-header-cell *matHeaderCellDef class="pr-5" >
-            Phone
-          </th>
-          <td mat-cell *matCellDef="let element">
-            {{element.phone}}
-          </td>
-        </ng-container>
         <ng-container matColumnDef="website">
           <th mat-header-cell *matHeaderCellDef class="pr-5">
             Web Site
@@ -114,6 +98,29 @@
             {{element.website}}
           </td>
         </ng-container>
+
+
+        <!-- <ng-container matColumnDef="countryCode">
+          <th mat-header-cell *matHeaderCellDef class="pr-5">
+            Country Code
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.countryCode}}
+          </td>
+        </ng-container> -->
+
+        <!-- <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef class="pr-5" >
+            Phone
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.phone}}
+          </td>
+        </ng-container> -->
+
+
+
+<!--
         <ng-container matColumnDef="job">
           <th mat-header-cell *matHeaderCellDef class="pr-5">
             Job
@@ -121,7 +128,10 @@
           <td mat-cell *matCellDef="let element">
             {{element.job}}
           </td>
-        </ng-container>
+        </ng-container> -->
+
+
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </mat-table>

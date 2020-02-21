@@ -25,14 +25,14 @@ export class CompanyComponent implements OnInit {
   @Output() onListChange = new EventEmitter<string[]>();
   filterForm: FormGroup;
   // tslint:disable-next-line: max-line-length
-  displayedColumns: string[] = ['name', 'company_type', 'countryCode', 'phone', 'website', 'job'];
+  displayedColumns: string[] = ['name', 'company_type',  'website'];
   dataSource;
   companyType: any[] = [
     { value: 0, name: 'agency' },
     { value: 1, name: 'brand' },
     { value: 2, name: 'other' }
   ];
-  companys: any[] = [];
+  companys: Company[] = [];
   users: User[];
   selectedOption: string;
   pageEvent: PageEvent;
@@ -44,7 +44,7 @@ export class CompanyComponent implements OnInit {
   moment = moment;
   packs: any;
   @Input() userId: any;
-  constructor(private userService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) {
+  constructor(private companyService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) {
   }
 
   ngOnInit() {
@@ -60,7 +60,7 @@ export class CompanyComponent implements OnInit {
       phone: new FormControl(),
       website: new FormControl(),
       job: new FormControl()
-        });
+    });
     this.filterForm.valueChanges.subscribe(value => {
       value.last_login = moment(value.last_login).format('YYYY-MM-DD');
       value.created_at = moment(value.created_at).format('YYYY-MM-DD');
@@ -97,29 +97,21 @@ export class CompanyComponent implements OnInit {
 
   getCompanys(page) {
 
-    this.userService.apiGetAll('/user?pageNo=' + page + '&size=' + this.pageSize).subscribe(
-      (users: any) => {
-        console.log('users : ',   users);
-        if (users) {
-          this.length = users.total;
-          this.pageIndex = users.pageIndex;
-          this.users = users.message;
-          if (typeof this.users !== 'string') {
-          this.users.forEach((company, i) => {
-            this.companys.push(JSON.parse(company.data));
-            });
-          console.log('companies :', this.companys);
+    this.companyService.apiGetAll('/company?pageNo=' + page + '&size=' + this.pageSize).subscribe(
+      (companys: any) => {
+        if (companys) {
+          this.length = companys.total;
+          this.pageIndex = companys.pageIndex;
+          this.companys = companys.company;
           this.dataSource = new MatTableDataSource<Company>(this.companys);
-
-          }
+          console.log(this.companys);
         }
       },
-      (error) => {
-        console.log(error);
-      }
-    );
+    error => {
+      console.log(error);
+    });
   }
-
+}
   // openDialog(id): void {
   //   this.userId = id;
   //   const dialogRef = this.dialog.open(UserDetailsComponent, {
@@ -137,4 +129,4 @@ export class CompanyComponent implements OnInit {
   //   });
   // }
 
-}
+
