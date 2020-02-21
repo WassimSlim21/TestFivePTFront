@@ -54,9 +54,12 @@
           <div class="col">
             <mat-form-field>
               <mat-label>Company Type</mat-label>
-              <mat-select formControlName="company_type" multiple>
+              <mat-select formControlName="company_type" >
                 <mat-option *ngFor="let type of companyType" [value]="type.name">
                   {{type.name}}
+                </mat-option>
+                <mat-option value="">
+                  All
                 </mat-option>
               </mat-select>
             </mat-form-field>
