@@ -97,13 +97,18 @@ export class UsersComponent implements OnInit {
       if ( value.last_login === 'Invalid date' ) {
         value.last_login = null; }
         // faaza feha chwaya tall
+      if (value.status !== null) {
       if (value.status.indexOf(2) >= 0) {
             value.status.push(3);
         }
-      if (value.status.indexOf(3) && !value.status.indexOf(2)) {value.status.splice(value.status.indexOf(3), 1);
+      if (value.status.indexOf(3) && !value.status.indexOf(2)) {
+        value.status.splice(value.status.indexOf(3), 1);
         }
+      }
       this.onListChange.emit(value);
       console.log('filter', value);
+      this.getFilteredUsers(value);
+
     });
   }
 
@@ -118,7 +123,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  onPaginateChange(event ? : PageEvent) {
+  onPaginateChange(event ?: PageEvent) {
     this.pageSize = event.pageSize;
     if (event.pageIndex < 1) {
       event.pageIndex = event.pageIndex + 1;
@@ -126,11 +131,34 @@ export class UsersComponent implements OnInit {
     this.getUsers(event.pageIndex);
   }
 
+
+  getFilteredUsers(body) {
+
+    this.userService.apiPost('/user/search', body).subscribe(
+      (users: any) => {
+        console.log('filtered users : ' + users);
+        if (users) {
+          this.users = users;
+          this.dataSource = new MatTableDataSource<User>(this.users);
+          if (typeof this.users !== 'string') {
+            this.users.forEach((user) => {
+              user.data = JSON.parse(user.data);
+            });
+          }
+
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   getUsers(page) {
 
     this.userService.apiGetAll('/user?pageNo=' + page + '&size=' + this.pageSize).subscribe(
       (users: any) => {
-        console.log(users);
+        console.log('users : ' + users);
         if (users) {
           this.length = users.total;
           this.pageIndex = users.pageIndex;
