@@ -1,1 +1,134 @@
-<p>company works!</p>
+<div class="main-content">
+  <div class="container">
+    <div class="card">
+      <div class="card-header card-header-danger">
+        <h4 class="card-title">Kpeiz Companys </h4>
+      </div>
+
+      <h4 class="font-weight-bold text-danger pt-2 pl-2">Filters</h4>
+      <div class="d-md-inline-flex pl-4" [formGroup]="filterForm">
+        <div class="row">
+
+          <!-- Company Name -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Company Name</mat-label>
+              <input matInput formControlName="name" placeholder="Search Company by name">
+            </mat-form-field>
+          </div>
+
+
+          <!-- Company Type -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Company Type</mat-label>
+              <mat-select formControlName="company_type" multiple>
+                <mat-option *ngFor="let type of companyType" [value]="type.name">
+                  {{type.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <!-- Company countryCode -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Country Code</mat-label>
+              <input matInput formControlName="countryCode" maxlength="4" placeholder="Search Company by countryCode">
+            </mat-form-field>
+          </div>
+
+          <!-- Company phone -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Phone</mat-label>
+              <input matInput formControlName="phone" placeholder="Search Company by phone">
+            </mat-form-field>
+          </div>
+
+          <!-- Company website -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Company Website</mat-label>
+              <input matInput formControlName="website" placeholder="Search Company by website">
+            </mat-form-field>
+          </div>
+
+          <!-- Company job -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Job</mat-label>
+              <input matInput formControlName="job" placeholder="Search Company by job">
+            </mat-form-field>
+          </div>
+
+
+        </div>
+      </div>
+
+      <mat-table #table [dataSource]="dataSource">
+        <!-- Position Column -->
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="pr-5">
+           Company Name
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <a class=" cursor-pointer text-danger font-weight-bold ">
+              {{element.company}}</a>
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="company_type">
+          <th mat-header-cell *matHeaderCellDef class="pr-5">
+            Company Type
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.company_type}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="countryCode">
+          <th mat-header-cell *matHeaderCellDef class="pr-5">
+            Country Code
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.countryCode}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef class="pr-5" >
+            Phone
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.phone}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="website">
+          <th mat-header-cell *matHeaderCellDef class="pr-5">
+            Web Site
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.website}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="job">
+          <th mat-header-cell *matHeaderCellDef class="pr-5">
+            Job
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.job}}
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </mat-table>
+      <mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
+        (page)="onPaginateChange($event)">
+      </mat-paginator>
+    </div>
+
+  </div>
+</div>

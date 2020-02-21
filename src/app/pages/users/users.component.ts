@@ -6,10 +6,9 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/core/models/users';
 import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
-import { MatDialog, MatSliderChange } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
 import { MatSort } from '@angular/material/sort';
-import { Sort } from '@angular/material/sort';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
@@ -44,21 +43,8 @@ export class UsersComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10];
   moment = moment;
   packs: any;
-  companys: string[] = [
-    'Fords',
-    'Clio',
-  ];
   @Input() userId: any;
   constructor(private userService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) {
-  }
-
-  hideShowFilter() {
-    const x = document.getElementById('hide');
-    if (x.style.display === 'none') {
-      x.style.display = 'block';
-    } else {
-      x.style.display = 'none';
-    }
   }
 
   loadPacks(): void {
@@ -147,7 +133,6 @@ export class UsersComponent implements OnInit {
 
   openDialog(id): void {
     this.userId = id;
-    console.log('wassim ya stall' + this.userId);
     const dialogRef = this.dialog.open(UserDetailsComponent, {
       disableClose: false,
       height : '100%' ,
