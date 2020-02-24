@@ -55,32 +55,13 @@ export class CompanyComponent implements OnInit {
     this.filterForm = this.fb.group({
       name: new FormControl(),
       company_type: new FormControl(),
-      countryCode: new FormControl(),
-      company: new FormControl(),
-      phone: new FormControl(),
       website: new FormControl(),
-      job: new FormControl()
     });
     this.filterForm.valueChanges.subscribe(value => {
-      value.last_login = moment(value.last_login).format('YYYY-MM-DD');
-      value.created_at = moment(value.created_at).format('YYYY-MM-DD');
-      if (value.created_at === 'Invalid date') {
-        value.created_at = null;
-      }
-      if (value.last_login === 'Invalid date') {
-        value.last_login = null;
-      }
-
       this.onListChange.emit(value);
       console.log('filter', value);
     });
   }
-
-
-
-
-
-
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
@@ -112,21 +93,4 @@ export class CompanyComponent implements OnInit {
     });
   }
 }
-  // openDialog(id): void {
-  //   this.userId = id;
-  //   const dialogRef = this.dialog.open(UserDetailsComponent, {
-  //     disableClose: false,
-  //     height: '100%',
-  //     position: { right: '0' },
-  //     data: {
-  //       userId: this.userId
-  //     }
-
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //   });
-  // }
-
 
