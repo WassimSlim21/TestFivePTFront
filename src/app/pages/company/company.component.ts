@@ -29,7 +29,7 @@ export class CompanyComponent implements OnInit {
   dataSource;
   companyType: any[] = [
     { value: 0, name: 'agency' },
-    { value: 1, name: 'brand' },
+    { value: 1, name: 'Brand' },
     { value: 2, name: 'other' }
   ];
   companys: Company[] = [];
@@ -54,12 +54,13 @@ export class CompanyComponent implements OnInit {
     this.selectedOption = 'agency';
     this.filterForm = this.fb.group({
       name: new FormControl(),
-      company_type: new FormControl(),
+      type: new FormControl(),
       website: new FormControl(),
     });
     this.filterForm.valueChanges.subscribe(value => {
       this.onListChange.emit(value);
       console.log('filter', value);
+      this.getFilteredCompany(value);
     });
   }
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -75,6 +76,23 @@ export class CompanyComponent implements OnInit {
     }
     this.getCompanys(event.pageIndex);
   }
+
+  getFilteredCompany(body) {
+
+    this.companyService.apiPost('/company/search', body).subscribe(
+      (companys: any) => {
+        console.log('filtered companys : ' + companys);
+        if (companys) {
+          this.companys = companys;
+          this.dataSource = new MatTableDataSource<Company>(this.companys);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
 
   getCompanys(page) {
 

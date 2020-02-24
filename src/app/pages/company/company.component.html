@@ -22,7 +22,7 @@
           <div class="col">
             <mat-form-field>
               <mat-label>Company Type</mat-label>
-              <mat-select formControlName="company_type" multiple>
+              <mat-select formControlName="type" multiple>
                 <mat-option *ngFor="let type of companyType" [value]="type.name">
                   {{type.name}}
                 </mat-option>
@@ -63,40 +63,6 @@
             {{element.website}}
           </td>
         </ng-container>
-
-
-        <!-- <ng-container matColumnDef="countryCode">
-          <th mat-header-cell *matHeaderCellDef class="pr-5">
-            Country Code
-          </th>
-          <td mat-cell *matCellDef="let element">
-            {{element.countryCode}}
-          </td>
-        </ng-container> -->
-
-        <!-- <ng-container matColumnDef="phone">
-          <th mat-header-cell *matHeaderCellDef class="pr-5" >
-            Phone
-          </th>
-          <td mat-cell *matCellDef="let element">
-            {{element.phone}}
-          </td>
-        </ng-container> -->
-
-
-
-<!--
-        <ng-container matColumnDef="job">
-          <th mat-header-cell *matHeaderCellDef class="pr-5">
-            Job
-          </th>
-          <td mat-cell *matCellDef="let element">
-            {{element.job}}
-          </td>
-        </ng-container> -->
-
-
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </mat-table>
