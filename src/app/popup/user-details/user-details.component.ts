@@ -35,7 +35,6 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit() {
     this.loadUser();
     this.loadPacks();
-
   }
 
   loadUser(): void {
@@ -43,7 +42,8 @@ export class UserDetailsComponent implements OnInit {
     this.Api.getUserAllData(this.userId).subscribe(
       user => {
         this.user = user ;
-        this.user.data = JSON.parse(user.data);
+    //    this.user.data = JSON.parse(user.data);
+        this.user.data = user.data;
         this.user.actions = JSON.parse(user.actions);
         this.imageUrl = 'https://graph.facebook.com/' + this.user.provider_userId + '/picture?height=150&width=150' ;
         this.user.dashboards.forEach(element => {
