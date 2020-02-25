@@ -7,10 +7,11 @@
 
       <h4 class="font-weight-bold text-danger pt-2 pl-2">Filters</h4>
       <div class="d-md-inline-flex pl-4" [formGroup]="filterForm">
+        <div class="container">
         <div class="row">
 
           <!-- Company Name -->
-          <div class="col">
+          <div class="col-sm">
             <mat-form-field>
               <mat-label>Company Name</mat-label>
               <input matInput formControlName="name" placeholder="Search Company by name">
@@ -19,7 +20,7 @@
 
 
           <!-- Company Type -->
-          <div class="col">
+          <div class="col-sm">
             <mat-form-field>
               <mat-label>Company Type</mat-label>
               <mat-select formControlName="type" multiple>
@@ -30,9 +31,10 @@
             </mat-form-field>
           </div>
         </div>
+        </div>
       </div>
 
-      <mat-table #table [dataSource]="dataSource">
+      <table mat-table [dataSource]="dataSource">
         <!-- Position Column -->
 
         <ng-container matColumnDef="name">
@@ -65,7 +67,7 @@
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </mat-table>
+      </table>
       <mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
         (page)="onPaginateChange($event)">
       </mat-paginator>
