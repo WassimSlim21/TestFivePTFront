@@ -25,7 +25,7 @@ export class CompanyComponent implements OnInit {
   @Output() onListChange = new EventEmitter<string[]>();
   filterForm: FormGroup;
   // tslint:disable-next-line: max-line-length
-  displayedColumns: string[] = ['name', 'company_type',  'website'];
+  displayedColumns: string[] = ['name', 'company_type',  'website', 'users'];
   dataSource;
   companyType: any[] = [
     { value: 0, name: 'agency' },
@@ -50,7 +50,7 @@ export class CompanyComponent implements OnInit {
   ngOnInit() {
 
     this.getCompanys(1);
-    console.log('aaazazaz ' + this.companys);
+
     this.selectedOption = 'agency';
     this.filterForm = this.fb.group({
       name: new FormControl(),
@@ -103,7 +103,7 @@ export class CompanyComponent implements OnInit {
           this.pageIndex = companys.pageIndex;
           this.companys = companys.company;
           this.dataSource = new MatTableDataSource<Company>(this.companys);
-          console.log(this.companys);
+          console.log('companies', this.companys);
         }
       },
     error => {
