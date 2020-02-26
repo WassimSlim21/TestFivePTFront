@@ -21,6 +21,7 @@ export class UsersComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   // tslint:disable-next-line: no-output-on-prefix
   @Output() onListChange = new EventEmitter<string[]>();
+  isLoading = true;
 
   filterForm: FormGroup;
   displayedColumns: string[] = ['picture', 'name', 'company', 'email', 'score', 'phone', 'pack', 'created_at', 'last_login', 'status'];
@@ -124,6 +125,7 @@ export class UsersComponent implements OnInit {
       (users: any) => {
         console.log('filtered users : ' + users);
         if (users) {
+          this.isLoading = false;
           this.users = users;
           this.dataSource = new MatTableDataSource<User>(this.users);
           if (typeof this.users !== 'string') {
@@ -146,6 +148,7 @@ export class UsersComponent implements OnInit {
       (users: any) => {
         console.log('users : ' + users);
         if (users) {
+          this.isLoading = false;
           this.length = users.total;
           this.pageIndex = users.pageIndex;
           this.users = users.message;

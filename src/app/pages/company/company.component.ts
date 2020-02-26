@@ -21,6 +21,8 @@ import { User } from 'src/app/core/models/users';
 export class CompanyComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  isLoading = true;
+
   // tslint:disable-next-line: no-output-on-prefix
   @Output() onListChange = new EventEmitter<string[]>();
   filterForm: FormGroup;
@@ -83,11 +85,13 @@ export class CompanyComponent implements OnInit {
       (companys: any) => {
         console.log('filtered companys : ' + companys);
         if (companys) {
+          this.isLoading = false;
           this.companys = companys;
           this.dataSource = new MatTableDataSource<Company>(this.companys);
         }
       },
       (error) => {
+        this.isLoading = false;
         console.log(error);
       }
     );
@@ -99,6 +103,8 @@ export class CompanyComponent implements OnInit {
     this.companyService.apiGetAll('/company?pageNo=' + page + '&size=' + this.pageSize).subscribe(
       (companys: any) => {
         if (companys) {
+          this.isLoading = false;
+
           this.length = companys.total;
           this.pageIndex = companys.pageIndex;
           this.companys = companys.company;
