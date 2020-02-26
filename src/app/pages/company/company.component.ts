@@ -12,6 +12,7 @@ import { Sort } from '@angular/material/sort';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Company } from 'src/app/core/models/company';
 import { User } from 'src/app/core/models/users';
+import { CompanyUsersComponent } from 'src/app/popup/company-users/company-users.component';
 
 @Component({
   selector: 'app-company',
@@ -114,6 +115,23 @@ export class CompanyComponent implements OnInit {
       },
     error => {
       console.log(error);
+    });
+  }
+
+
+  openDialog(id): void {
+    this.userId = id;
+    const dialogRef = this.dialog.open(CompanyUsersComponent, {
+      disableClose: false,
+      height : '30%' ,
+      data: {
+        id
+      }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 }

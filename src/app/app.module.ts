@@ -15,6 +15,7 @@ import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.co
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ComfirmDialogComponent } from './popup/comfirm-dialog/comfirm-dialog.component';
 import { CompanyModule } from './pages/company/company.module';
+import { CompanyUsersComponent } from './popup/company-users/company-users.component';
 
 
 
@@ -28,7 +29,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
     UserDetailsComponent,
     AppComponent,
   AdminLayoutComponent,
-  ComfirmDialogComponent  ],
+  ComfirmDialogComponent,
+  CompanyUsersComponent  ],
   imports: [
     AngularFontAwesomeModule,
     HttpClientModule,
@@ -55,7 +57,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   ,
   entryComponents:
   [ UserDetailsComponent,
-    ComfirmDialogComponent
+    ComfirmDialogComponent,
+    CompanyUsersComponent
     ],
 })
 export class AppModule { }

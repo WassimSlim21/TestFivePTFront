@@ -1,0 +1,11 @@
+<mat-list>
+  <h3 mat-subheader>Users</h3>
+  <mat-list-item *ngFor="let user of users">
+    <mat-icon mat-list-icon> <img src="https://graph.facebook.com/{{user.provider_userId}}/picture?type=square" class="avatar mx-auto"
+      alt="Avatar"></mat-icon>
+      <h4 mat-line>   <a (click)="openDialog(user._id)" class=" cursor-pointer text-danger font-weight-bold ">{{user.name}}</a> </h4>
+      <p mat-line> {{user.pack.pack_name }} </p>
+  </mat-list-item>
+
+
+</mat-list>
