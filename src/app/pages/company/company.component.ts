@@ -78,7 +78,7 @@ export class CompanyComponent implements OnInit {
     this.getCompanys(event.pageIndex);
   }
 
-  getFilteredCompany(body) {
+  getFilteredCompany(body: any) {
 
     this.companyService.apiPost('/company/search', body).subscribe(
       (companys: any) => {
