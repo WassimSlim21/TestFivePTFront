@@ -3,6 +3,8 @@ table {
 }
 .example-chip-list {
   width: 100%;
-
+  width:400px !important;
+  height: 60px !important ;
+  overflow: scroll;
 }
 

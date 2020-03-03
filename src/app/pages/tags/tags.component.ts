@@ -34,7 +34,7 @@ export class TagsComponent implements OnInit {
 
 
 
-  displayedColumns: string[] = ['select', 'name', 'synonyms', 'type', 'updated_at'];
+  displayedColumns: string[] = ['select', 'name', 'synonyms', 'type', 'updated_at', 'social_accounts' ];
   dataSource = new MatTableDataSource<Tag>();
   selection = new SelectionModel<Tag>(true, []);
   pageEvent: PageEvent;
