@@ -2,9 +2,10 @@ table {
   width: 100%;
 }
 .example-chip-list {
-  width: 100%;
-  width:400px !important;
-  height: 60px !important ;
-  overflow: scroll;
+  width: 400px !important;;
+  height: 150px !important ;
+  overflow: hidden;
+  overflow-y: scroll;
+
 }
 

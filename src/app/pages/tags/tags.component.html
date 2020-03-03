@@ -6,6 +6,63 @@
       </div>
 
 
+      <h4 class="font-weight-bold text-danger pt-2 pl-2">Filters</h4>
+      <div class="d-md-inline-flex pl-4" [formGroup]="filterForm" >
+
+        <!-- Filter Row -->
+        <div class="row">
+
+          <!-- Search -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Search</mat-label>
+              <input matInput formControlName="name" placeholder="search user name">
+            </mat-form-field>
+          </div>
+
+          <!-- Company Name -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Company Name</mat-label>
+              <input matInput formControlName="company" placeholder="Company name">
+            </mat-form-field>
+          </div>
+
+          <!-- Login Date -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Choose a user login date</mat-label>
+              <input matInput formControlName="last_login" [matDatepicker]="loginDate">
+              <mat-datepicker-toggle matSuffix [for]="loginDate" placeholder="Login Date"></mat-datepicker-toggle>
+              <mat-datepicker #loginDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <!-- Created At Date -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Choose a user created at date</mat-label>
+              <input matInput formControlName="created_at" [matDatepicker]="createdAtDate"
+                placeholder="Created At Date">
+              <mat-datepicker-toggle matSuffix [for]="createdAtDate"></mat-datepicker-toggle>
+              <mat-datepicker #createdAtDate></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+
+
+
+          <!-- Score -->
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Score </mat-label>
+              <input matInput placeholder="Score" formControlName="score" maxlength="10">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Checkbox Column -->
@@ -33,13 +90,13 @@
           <th mat-header-cell *matHeaderCellDef> synonyms </th>
           <td mat-cell *matCellDef="let element">
             <mat-form-field class="example-chip-list">
-              <mat-chip-list #chipList aria-label="Fruit selection">
+              <mat-chip-list #chipList aria-label="selection">
                 <mat-chip *ngFor="let synonym of element.synonyms" [selectable]="selectable"
                          [removable]="removable" (removed)="remove(element,synonym)" s>
                   {{synonym}}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
-                <input placeholder="New synonym..."
+                <input  placeholder="New synonym..."
                        [matChipInputFor]="chipList"
                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                        [matChipInputAddOnBlur]="addOnBlur"
@@ -53,8 +110,23 @@
         <!-- type Column -->
         <ng-container matColumnDef="type">
           <th mat-header-cell *matHeaderCellDef> type </th>
+          <td mat-cell *matCellDef="let element">
+        <mat-form-field>
+
+          <mat-select>
+            <mat-option *ngFor="let type of tagTypes" [value]="type.value" ng-selected="element.type == type.value" >
+                {{type.name}}
+            </mat-option>
+
+          </mat-select>
+        </mat-form-field>
+      </td>
+      </ng-container>
+<!--
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> type </th>
           <td mat-cell *matCellDef="let element"> {{element.type=='0'? 'Sector':element.type=='1'?'Country': 'Provider' }} </td>
-        </ng-container>
+        </ng-container> -->
 
         <!-- updated_at Column -->
         <ng-container matColumnDef="updated_at">

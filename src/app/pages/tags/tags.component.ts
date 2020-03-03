@@ -5,7 +5,7 @@ import { Tag } from 'src/app/core/models/tag';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Router } from '@angular/router';
 import { MatDialog, PageEvent, MatChipInputEvent } from '@angular/material';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
@@ -30,11 +30,13 @@ export class TagsComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+  tr = true ;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
 
+  filterForm: FormGroup;
 
-  displayedColumns: string[] = ['select', 'name', 'synonyms', 'type', 'updated_at', 'social_accounts' ];
+  displayedColumns: string[] = ['select', 'name', 'synonyms', 'type', 'updated_at', 'social_accounts', 'star' ];
   dataSource = new MatTableDataSource<Tag>();
   selection = new SelectionModel<Tag>(true, []);
   pageEvent: PageEvent;
@@ -46,11 +48,36 @@ export class TagsComponent implements OnInit {
   moment = moment;
   tags: any[] = [];
 
+  tagTypes = [{
+    value: 0,
+    name: 'Sector',
+  }, {
+    value: 1,
+    name: 'Country',
+  }, {
+    value: 2,
+    name: 'Provider',
+  }];
+
 
   constructor(private apiService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.getTags(1);
+
+
+    this.filterForm = this.fb.group({
+      name: new FormControl(),
+      last_login: new FormControl(),
+      created_at: new FormControl(),
+      company: new FormControl(),
+      company_type: new FormControl(),
+      score: new FormControl(),
+      pack: new FormControl(),
+      status: new FormControl(),
+    });
+
+
   }
 
 
@@ -66,7 +93,8 @@ export class TagsComponent implements OnInit {
                } else {
                 element.synonyms = [];
                }
-          });
+
+              });
           this.length = response.total;
           this.pageIndex = response.pageIndex;
           this.tags = response.tags;
