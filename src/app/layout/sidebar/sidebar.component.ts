@@ -25,7 +25,8 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-
+  isExpanded = false;
+  element: HTMLElement;
   constructor(public dialog: MatDialog,
               private authService: ApiService,
               private router: Router
@@ -59,6 +60,17 @@ export class SidebarComponent implements OnInit {
   }
 
 
+
+  toggleActive(event:any){
+    debugger;
+    event.preventDefault();
+    if(this.element !== undefined){
+      this.element.style.backgroundColor = 'white';
+    }
+    var target = event.currentTarget;
+    target.style.backgroundColor = 'red';
+    this.element = target;
+  }
 
 
   logout(): void {
