@@ -42,6 +42,7 @@ export class TagsComponent implements OnInit {
   pageIndex: number;
   pageSize = 5;
   length: number;
+  tag: any;
   pageSizeOptions: number[] = [5, 10];
   moment = moment;
   tags: any[] = [];
@@ -73,13 +74,24 @@ export class TagsComponent implements OnInit {
       status: new FormControl(),
     });
   }
-  openDialog(): void {
+  openDialog(tag): void {
+    this.tag = tag;
     const dialogRef = this.dialog.open(TagDetailsComponent, {
-      width: '250px'    });
+      disableClose: false,
+      height : '70%' ,
+      position: { right: '100px'},
+      data: {
+        tag: this.tag
+
+      }
+
+    });
+
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
+
 getTags(page) {
     this.apiService.apiGetAll('/tag?pageNo=' + page + '&size=' + this.pageSize).subscribe(
       (response: any) => {

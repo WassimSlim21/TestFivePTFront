@@ -1,1 +1,11 @@
-<p>tag-details works!</p>
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h6 class="card-title">{{data.tag.name}}</h6>
+    <h5 class="card-text">Related Accounts :</h5>
+            <div *ngFor="let account of socialAccount">
+              <img height="80" width="80" src="{{account.image}}">
+            </div>
+
+  </div>
+</div>

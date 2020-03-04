@@ -141,7 +141,7 @@
         <!-- social_accounts Column -->
         <ng-container matColumnDef="social_accounts">
           <th mat-header-cell *matHeaderCellDef> Related Accounts </th>
-          <td mat-cell *matCellDef="let element">   <mat-chip color="primary" selected>  <i class="fa fab fa-facebook pull-left"></i> View related ({{element.social_accounts}}) </mat-chip></td>
+          <td mat-cell *matCellDef="let element">   <mat-chip color="primary" (click)="openDialog(element)" selected>  <i class="fa fab fa-facebook pull-left"></i> View related ({{element.social_accounts}}) </mat-chip></td>
         </ng-container>
 
 
