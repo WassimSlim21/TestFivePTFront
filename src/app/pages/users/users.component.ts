@@ -82,7 +82,7 @@ export class UsersComponent implements OnInit {
       }
       if ( value.last_login === 'Invalid date' ) {
         value.last_login = null; }
-        // faaza feha chwaya tall
+
       if (value.status !== null) {
       if (value.status.indexOf(2) >= 0) {
             value.status.push(3);
@@ -126,11 +126,7 @@ export class UsersComponent implements OnInit {
         if (users) {
           this.users = users;
           this.dataSource = new MatTableDataSource<User>(this.users);
-          if (typeof this.users !== 'string') {
-            this.users.forEach((user) => {
-              user.data = JSON.parse(user.data);
-            });
-          }
+
 
         }
       },
@@ -150,11 +146,6 @@ export class UsersComponent implements OnInit {
           this.pageIndex = users.pageIndex;
           this.users = users.message;
           this.dataSource = new MatTableDataSource<User>(this.users);
-          if (typeof this.users !== 'string') {
-            this.users.forEach((user) => {
-              user.data = JSON.parse(user.data);
-            });
-          }
 
         }
       },

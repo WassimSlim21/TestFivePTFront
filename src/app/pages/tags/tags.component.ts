@@ -49,13 +49,13 @@ export class TagsComponent implements OnInit {
   tags: any[] = [];
 
   tagTypes = [{
-    value: 0,
+    value: '0',
     name: 'Sector',
   }, {
-    value: 1,
+    value: '1',
     name: 'Country',
   }, {
-    value: 2,
+    value: '2',
     name: 'Provider',
   }];
 
