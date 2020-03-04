@@ -16,49 +16,36 @@
           <div class="col">
             <mat-form-field>
               <mat-label>Search</mat-label>
-              <input matInput formControlName="name" placeholder="search user name">
+              <input matInput formControlName="name" placeholder="search tag name">
             </mat-form-field>
           </div>
 
-          <!-- Company Name -->
+          <!-- updated At Date -->
           <div class="col">
             <mat-form-field>
-              <mat-label>Company Name</mat-label>
-              <input matInput formControlName="company" placeholder="Company name">
+              <mat-label>Updated</mat-label>
+              <input matInput formControlName="updated_at" [matDatepicker]="updated_at"
+                placeholder="Updated Date">
+              <mat-datepicker-toggle matSuffix [for]="updated_at"></mat-datepicker-toggle>
+              <mat-datepicker #updated_at></mat-datepicker>
             </mat-form-field>
           </div>
 
-          <!-- Login Date -->
-          <div class="col">
+
+          <!-- Company Type -->
+          <div class="col-sm">
             <mat-form-field>
-              <mat-label>Choose a user login date</mat-label>
-              <input matInput formControlName="last_login" [matDatepicker]="loginDate">
-              <mat-datepicker-toggle matSuffix [for]="loginDate" placeholder="Login Date"></mat-datepicker-toggle>
-              <mat-datepicker #loginDate></mat-datepicker>
-            </mat-form-field>
-          </div>
-
-          <!-- Created At Date -->
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Choose a user created at date</mat-label>
-              <input matInput formControlName="created_at" [matDatepicker]="createdAtDate"
-                placeholder="Created At Date">
-              <mat-datepicker-toggle matSuffix [for]="createdAtDate"></mat-datepicker-toggle>
-              <mat-datepicker #createdAtDate></mat-datepicker>
+              <mat-label>Tag Type</mat-label>
+              <mat-select formControlName="type" multiple>
+                <mat-option *ngFor="let type of tagTypes" [value]="type.value">
+                  {{type.name}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
 
 
 
-
-          <!-- Score -->
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Score </mat-label>
-              <input matInput placeholder="Score" formControlName="score" maxlength="10">
-            </mat-form-field>
-          </div>
         </div>
       </div>
 
@@ -114,9 +101,9 @@
           <td mat-cell *matCellDef="let element">
         <mat-form-field>
 
-          <mat-select [(value)]="element.type">
+          <mat-select [(value)]="element.type" (selectionChange)= "updateType(element)">
             <mat-option *ngFor="let type of tagTypes" [value]="type.value"  >
-                {{type.name }}
+                {{type.name}}
             </mat-option>
 
           </mat-select>
