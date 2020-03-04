@@ -146,12 +146,23 @@ getTags(page) {
     if (input) {
       input.value = '';
     }
-  }
+    this.apiService.apiPut('/tag', { id: element._id , synonyms: element.synonyms.join()}).
+    subscribe((reponse: any) => { // sends post request to the apiService
+      this.snackBar.open(JSON.stringify(reponse.message)); }
+      );
+      }
+
   remove(element: any, synonym: any): void {
     const index = element.synonyms.indexOf(synonym);
     if (index >= 0) {
      element.synonyms.splice(index, 1);
     }
+
+    this.apiService.apiPut('/tag', { id: element._id , synonyms: element.synonyms.join()}).
+    subscribe((reponse: any) => { // sends post request to the apiService
+      this.snackBar.open(JSON.stringify(reponse.message)); }
+      );
+
   }
   comfirmDialog(tag: any): void {
     const message = `Are you sure you want to do this?`;
