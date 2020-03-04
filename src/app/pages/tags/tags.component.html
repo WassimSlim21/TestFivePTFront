@@ -63,7 +63,7 @@
       </div>
 
 
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" [class.isMobile]="isMobile">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Checkbox Column -->
         <ng-container matColumnDef="select">
@@ -164,6 +164,13 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
         </tr>
       </table>
+      <mat-card *ngIf="isLoading"
+      style="display: flex; justify-content: center; align-items: center">
+     <mat-progress-spinner
+       color="accent"
+       mode="indeterminate">
+     </mat-progress-spinner>
+   </mat-card>
       <mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
         (page)="onPaginateChange($event)">
       </mat-paginator>
