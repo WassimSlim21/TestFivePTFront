@@ -69,8 +69,8 @@ export class TagsComponent implements OnInit {
     });
 
     this.filterForm.valueChanges.subscribe(value => {
-      if (value.updated_at){
-      value.updated_at = moment(value.updated_at).format('YYYY-MM-DD');}
+      if (value.updated_at) {
+      value.updated_at = moment(value.updated_at).format('YYYY-MM-DD'); }
       console.log('filter', value);
       this.getFilteredTag(value);
 
