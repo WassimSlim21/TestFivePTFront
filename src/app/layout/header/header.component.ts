@@ -119,6 +119,7 @@ export class HeaderComponent implements OnInit {
 
 
   openDialog(): void {
+    this.sidebarClose();
     const dialogRef = this.dialog.open(EditProfilepopupComponent, {
       disableClose: false,
       width: '600px',
