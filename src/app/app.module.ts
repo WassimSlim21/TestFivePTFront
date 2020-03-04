@@ -16,6 +16,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ComfirmDialogComponent } from './popup/comfirm-dialog/comfirm-dialog.component';
 import { CompanyModule } from './pages/company/company.module';
 import { CompanyUsersComponent } from './popup/company-users/company-users.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
 
@@ -52,7 +53,9 @@ const JWT_Module_Options: JwtModuleOptions = ({
 
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}],
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: [] }, ],
   bootstrap: [AppComponent]
   ,
   entryComponents:

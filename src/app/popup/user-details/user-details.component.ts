@@ -25,7 +25,7 @@ export class UserDetailsComponent implements OnInit {
 
   constructor(
     private Api: ApiService, private router: Router,   private snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<UserDetailsComponent>, private accountService: ApiService,
+    public dialogRef: MatDialogRef<UserDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     public dialog: MatDialog) {

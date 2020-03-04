@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import { Tag } from 'src/app/core/models/tag';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Router } from '@angular/router';
-import { MatDialog, PageEvent, MatChipInputEvent } from '@angular/material';
+import { MatDialog, PageEvent, MatChipInputEvent, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
+import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
 
 
 
@@ -58,9 +60,13 @@ export class TagsComponent implements OnInit {
     value: '2',
     name: 'Provider',
   }];
+  result: any;
 
 
-  constructor(private apiService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) { }
+  constructor(private apiService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder,
+              private snackBar: MatSnackBar,
+              public dialogRef: MatDialogRef<ComfirmDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any, ) { }
 
   ngOnInit() {
     this.getTags(1);
@@ -178,6 +184,31 @@ export class TagsComponent implements OnInit {
     if (index >= 0) {
      element.synonyms.splice(index, 1);
     }
+  }
+
+
+  comfirmDialog(tag: any): void {
+    const message = `Are you sure you want to do this?`;
+    const dialogData = new ConfirmDialogModel('Confirm Action', message);
+    const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      const index = this.tags.indexOf(tag);
+      if ( this.result === true) {
+        this.apiService.apiDelete(`/tag/${tag._id}`).subscribe(
+          (response: any) => {
+            console.log('delete' + response);
+            this.snackBar.open(JSON.stringify(response.message));
+            this.getTags(this.pageIndex);
+          }
+      );
+        this.dialogRef.close();
+    }
+    });
   }
 }
 
