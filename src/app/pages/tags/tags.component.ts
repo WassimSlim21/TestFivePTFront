@@ -12,7 +12,6 @@ import { PageEvent, MatChipInputEvent, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
-import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -65,24 +64,27 @@ export class TagsComponent implements OnInit {
     this.getTags(1);
     this.filterForm = this.fb.group({
       name: new FormControl(),
-      last_login: new FormControl(),
-      created_at: new FormControl(),
-      company: new FormControl(),
-      company_type: new FormControl(),
-      score: new FormControl(),
-      pack: new FormControl(),
-      status: new FormControl(),
+      updated_at: new FormControl(),
+      type: new FormControl(),
+    });
+
+    this.filterForm.valueChanges.subscribe(value => {
+      if (value.updated_at){
+      value.updated_at = moment(value.updated_at).format('YYYY-MM-DD');}
+      console.log('filter', value);
+      this.getFilteredTag(value);
+
     });
   }
   openDialog(tag): void {
     this.tag = tag;
     const dialogRef = this.dialog.open(TagDetailsComponent, {
       disableClose: false,
-      height : '70%' ,
+      height : '40%' ,
+      width : '50%',
       position: { right: '100px'},
       data: {
         tag: this.tag
-
       }
 
     });
@@ -91,8 +93,7 @@ export class TagsComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-
-getTags(page) {
+getTags( page ) {
     this.apiService.apiGetAll('/tag?pageNo=' + page + '&size=' + this.pageSize).subscribe(
       (response: any) => {
         if (response) {
@@ -114,6 +115,29 @@ getTags(page) {
     error => {
       console.log(error);
     });
+  }
+
+  getFilteredTag( body: any ) {
+    this.apiService.apiPost('/tag/search', body).subscribe(
+      (response: any) => {
+        if (response) {
+          this.isLoading = false;
+          response.tags.forEach(element => {
+            if (element.synonyms) {
+              element.synonyms = element.synonyms.split(',');
+               } else {
+                element.synonyms = [];
+               }
+              });
+          this.tags = response.tags;
+          this.dataSource = new MatTableDataSource<Tag>(this.tags);
+        }
+      },
+    error => {
+      console.log(error);
+    });
+
+
   }
   onPaginateChange(event?: PageEvent) {
     this.pageSize = event.pageSize;
@@ -198,4 +222,13 @@ getTags(page) {
     }
     });
   }
+
+  updateType(element: any) {
+    this.apiService.apiPut('/tag', { id: element._id , type: element.type}).
+    subscribe((reponse: any) => { // sends post request to the apiService
+      this.snackBar.open(JSON.stringify(reponse.message)); }
+      );
+
+  }
+
 }

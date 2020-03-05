@@ -167,6 +167,7 @@
             {{element?.pack?.pack_name}}
           </td>
         </ng-container>
+
         <ng-container matColumnDef="created_at">
           <th mat-header-cell *matHeaderCellDef class="pr-5">
             created_at
@@ -176,6 +177,7 @@
                   {{moment(element.created_at).fromNow()}}
           </td>
         </ng-container>
+
         <ng-container matColumnDef="last_login">
           <th mat-header-cell *matHeaderCellDef class="pr-5">
             last_login
@@ -186,6 +188,7 @@
 
           </td>
         </ng-container>
+
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef class="pr-5">
             status
@@ -210,6 +213,7 @@
 
           </td>
         </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </mat-table>
