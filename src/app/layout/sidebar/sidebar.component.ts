@@ -61,18 +61,6 @@ export class SidebarComponent implements OnInit {
 
 
 
-  toggleActive(event:any){
-    debugger;
-    event.preventDefault();
-    if(this.element !== undefined){
-      this.element.style.backgroundColor = 'white';
-    }
-    var target = event.currentTarget;
-    target.style.backgroundColor = 'red';
-    this.element = target;
-  }
-
-
   logout(): void {
     this.authService.setLoggedOut();
     this.router.navigate(['/login']);

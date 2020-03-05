@@ -1,11 +1,11 @@
 <div class="main-content">
   <div class="container">
     <div class="card">
-      <div class="card-header card-header-danger">
+      <div class="card-header card-header-primary">
         <h4 class="card-title">Kpeiz Companys </h4>
       </div>
 
-      <h4 class="font-weight-bold text-danger pt-2 pl-2">Filters</h4>
+      <h4 class="font-weight-bold text-primary pt-2 pl-2">Filters</h4>
       <div class="d-md-inline-flex pl-4" [formGroup]="filterForm">
         <div class="container">
         <div class="row">
@@ -42,7 +42,7 @@
            Company Name
           </th>
           <td mat-cell *matCellDef="let element">
-            <a  (click)="openDialog(element._id)" class=" cursor-pointer text-danger font-weight-bold ">
+            <a  (click)="openDialog(element._id)" class=" cursor-pointer text-primary font-weight-bold ">
               {{element.name}}</a>
           </td>
         </ng-container>
