@@ -12,13 +12,8 @@ import { PageEvent, MatChipInputEvent, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
-import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+
+
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
@@ -34,7 +29,7 @@ export class TagsComponent implements OnInit {
   isLoading = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   filterForm: FormGroup;
-  displayedColumns: string[] = ['select', 'name', 'synonyms', 'type', 'updated_at', 'social_accounts', 'star' ];
+  displayedColumns: string[] = ['name', 'synonyms', 'type', 'updated_at', 'social_accounts', 'star' ];
   dataSource = new MatTableDataSource<Tag>();
   selection = new SelectionModel<Tag>(true, []);
   pageEvent: PageEvent;
@@ -154,7 +149,7 @@ getTags( page ) {
         this.dataSource.data.forEach(row => this.selection.select(row));
   }
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?: any): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -172,10 +167,7 @@ getTags( page ) {
     if (input) {
       input.value = '';
     }
-    this.apiService.apiPut('/tag', { id: element._id , synonyms: element.synonyms.join()}).
-    subscribe((reponse: any) => { // sends post request to the apiService
-      this.snackBar.open(JSON.stringify(reponse.message)); }
-      );
+    this.updateTag(element);
       }
 
   remove(element: any, synonym: any): void {
@@ -184,10 +176,7 @@ getTags( page ) {
      element.synonyms.splice(index, 1);
     }
 
-    this.apiService.apiPut('/tag', { id: element._id , synonyms: element.synonyms.join()}).
-    subscribe((reponse: any) => { // sends post request to the apiService
-      this.snackBar.open(JSON.stringify(reponse.message)); }
-      );
+    this.updateTag(element);
 
   }
   comfirmDialog(tag: any): void {
@@ -213,12 +202,37 @@ getTags( page ) {
     });
   }
 
-  updateType(element: any) {
-    this.apiService.apiPut('/tag', { id: element._id , type: element.type}).
+  updateTag(element: any) {
+
+    this.apiService.apiPut('/tag', { id: element._id ,
+       type: element.type,
+       name: element.name,
+       synonyms: element.synonyms.join(),
+       updated_at: moment().format()}).
     subscribe((reponse: any) => { // sends post request to the apiService
-      this.snackBar.open(JSON.stringify(reponse.message)); }
+      element.updated_at = moment().format();
+        }
       );
 
+  }
+
+  addTag() {
+      let tag: any = new Tag();
+      tag.type = '0';
+      tag.synonyms = '';
+      tag.created_at = moment().format();
+      tag.updated_at = moment().format();
+      this.apiService.apiPost('/tag', tag).subscribe((response: any) => {
+        console.log(response);
+        tag._id = response.tag._id ;
+        if (response.tag.synonyms) {
+            response.tag.synonyms = response.tag.synonyms.split(',');
+           } else {
+            response.tag.synonyms = [];
+           }
+        this.tags.push(response.tag);
+      });
+      this.dataSource = new MatTableDataSource<Tag>(this.tags);
   }
 
 }
