@@ -81,8 +81,9 @@ export class TagsComponent implements OnInit {
     const dialogRef = this.dialog.open(TagDetailsComponent, {
       disableClose: false,
       height : '40%' ,
-      width : '50%',
-      position: { right: '100px'},
+      width : 'auto',
+      position: {  right : '35%'},
+
       data: {
         tag: this.tag
       }
