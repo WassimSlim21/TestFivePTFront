@@ -10,19 +10,21 @@ import { MatDialog } from '@angular/material';
 import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
 import { MatSort } from '@angular/material/sort';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { ChartType, ChartOptions } from 'chart.js';
+import { Label } from 'ng2-charts';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  // tslint:disable-next-line: no-output-on-prefix
   @Output() onListChange = new EventEmitter<string[]>();
   isLoading = true;
-
+  packsNumber: any;
   filterForm: FormGroup;
   displayedColumns: string[] = ['picture', 'name', 'company', 'email', 'score', 'phone', 'pack', 'created_at', 'last_login', 'status'];
   dataSource;
@@ -35,6 +37,10 @@ export class UsersComponent implements OnInit {
   status: any[] = [{ value: 0, name: 'FB Connect' }, { value: 1, name: 'Signup' }, { value: 2, name: 'On Action' }];
 
   users: User[];
+  stats: any;
+  companyNumber: any;
+  packsTot: any;
+  companys: any;
   selectedOption: string;
   pageEvent: PageEvent;
   datasource: null;
@@ -45,24 +51,109 @@ export class UsersComponent implements OnInit {
   moment = moment;
   packs: any;
   @Input() userId: any;
-  constructor(private userService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) {
+
+  /*
+
+   // Pie users per packs
+
+  */
+
+  public pieChartOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'top',
+    },
+    plugins: {
+      datalabels: {
+        formatter: (value, ctx) => {
+          const label = ctx.chart.data.labels[ctx.dataIndex];
+          return label;
+        },
+      },
+    }
+  };
+  public userPackStat: any;
+  public pieChartLabels: Label[] = [];
+  public pieChartData: number[] = [];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartPlugins = [pluginDataLabels];
+  public pieChartColors = [
+    {
+      backgroundColor: ['#6563FF', '#3BA756', '#FB6B80', '#FCBE2Z', '#4C3C81', '#59D5FD', '#FCBE2C']
+    },
+  ];
+
+  /*
+
+  end Pie users per packs
+
+  */
+
+
+
+  constructor(private userService: ApiService,
+    private router: Router, public dialog: MatDialog,
+    private fb: FormBuilder) {
   }
 
+  /*
+  get Users per Packs Stats
+
+  */
+
+  getUserPerPackStats() {
+    this.userService.apiGetAll('/stats/UserPerPack').subscribe(
+      (data: any) => {
+        this.packsTot = data.total;
+        this.userPackStat = data.stats;
+        console.log('user pack', this.userPackStat);
+        data.stats.forEach(stat => {
+          this.pieChartData.push(stat.count);
+          this.pieChartLabels.push(stat.pack);
+        });
+        // console.log('data', data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  /*
+// events users per packs
+
+*/
+  public chartClicked({ event, active }: { event: MouseEvent, active: any[] }): void {
+    console.log(this.userPackStat[active[0]._index]);
+
+  }
+
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+  }
+
+
+  /*
+end events users per packs
+
+*/
   loadPacks(): void {
     this.userService.apiGetAll('/pack').subscribe(
       packs => {
-        this.packs = packs ;
+        this.packs = packs;
         console.log(this.packs);
       },
       error => {
         console.log(error);
       }
     );
-    }
+  }
 
   ngOnInit() {
     this.loadPacks();
-
+    this.getUserPerPackStats();
+    this.getCompany();
     this.getUsers(1);
     this.selectedOption = 'agency';
     this.filterForm = this.fb.group({
@@ -78,18 +169,19 @@ export class UsersComponent implements OnInit {
     this.filterForm.valueChanges.subscribe(value => {
       value.last_login = moment(value.last_login).format('YYYY-MM-DD');
       value.created_at = moment(value.created_at).format('YYYY-MM-DD');
-      if ( value.created_at === 'Invalid date') {
+      if (value.created_at === 'Invalid date') {
         value.created_at = null;
       }
-      if ( value.last_login === 'Invalid date' ) {
-        value.last_login = null; }
+      if (value.last_login === 'Invalid date') {
+        value.last_login = null;
+      }
 
       if (value.status !== null) {
-      if (value.status.indexOf(2) >= 0) {
-            value.status.push(3);
+        if (value.status.indexOf(2) >= 0) {
+          value.status.push(3);
         }
-      if (value.status.indexOf(3) && !value.status.indexOf(2)) {
-        value.status.splice(value.status.indexOf(3), 1);
+        if (value.status.indexOf(3) && !value.status.indexOf(2)) {
+          value.status.splice(value.status.indexOf(3), 1);
         }
       }
       this.onListChange.emit(value);
@@ -110,7 +202,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  onPaginateChange(event ?: PageEvent) {
+  onPaginateChange(event?: PageEvent) {
     this.pageSize = event.pageSize;
     if (event.pageIndex < 1) {
       event.pageIndex = event.pageIndex + 1;
@@ -144,12 +236,31 @@ export class UsersComponent implements OnInit {
       (users: any) => {
         console.log('users : ' + users);
         if (users) {
+          this.packsNumber = users.packsNumber;
           this.isLoading = false;
           this.length = users.total;
           this.pageIndex = users.pageIndex;
           this.users = users.message;
           this.dataSource = new MatTableDataSource<User>(this.users);
+          console.log("users", users);
 
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  getCompany() {
+
+    this.userService.apiGetAll('/company?pageNo=' + 1 + '&size=' + 10).subscribe(
+      (companys: any) => {
+        console.log('companys : ' + companys);
+        if (companys) {
+          this.isLoading = false;
+          this.companyNumber = companys.total;
         }
       },
       (error) => {
@@ -162,8 +273,8 @@ export class UsersComponent implements OnInit {
     this.userId = id;
     const dialogRef = this.dialog.open(UserDetailsComponent, {
       disableClose: false,
-      height : '100%' ,
-      position: { right: '0'},
+      height: '100%',
+      position: { right: '0' },
       data: {
         userId: this.userId
       }
@@ -174,5 +285,22 @@ export class UsersComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+  openDialogStat(pack): void {
+    const dialogRef = this.dialog.open(UserDetailsComponent, {
+      disableClose: false,
+      height: '100%',
+      position: { right: '0' },
+      data: {
+        userId: this.userId
+      }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
 }
 
