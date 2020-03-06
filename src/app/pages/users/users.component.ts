@@ -13,6 +13,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { ChartType, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
+import { PackUserListComponent } from 'src/app/popup/pack-user-list/pack-user-list.component';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -24,6 +25,7 @@ export class UsersComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @Output() onListChange = new EventEmitter<string[]>();
   isLoading = true;
+  isLoadingStats = true;
   packsNumber: any;
   filterForm: FormGroup;
   displayedColumns: string[] = ['picture', 'name', 'company', 'email', 'score', 'phone', 'pack', 'created_at', 'last_login', 'status'];
@@ -80,7 +82,8 @@ export class UsersComponent implements OnInit {
   public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
-      backgroundColor: ['#6563FF', '#3BA756', '#FB6B80', '#FCBE2Z', '#4C3C81', '#59D5FD', '#FCBE2C']
+      backgroundColor: ['rgb(244, 67, 54)', 'rgb(103, 58, 183)', 'rgb(3, 169, 244)',
+                        'rgb(3, 169, 244)', 'rgb(255, 235, 59)', 'rgb(233, 30, 99)']
     },
   ];
 
@@ -93,8 +96,8 @@ export class UsersComponent implements OnInit {
 
 
   constructor(private userService: ApiService,
-    private router: Router, public dialog: MatDialog,
-    private fb: FormBuilder) {
+              private router: Router, public dialog: MatDialog,
+              private fb: FormBuilder) {
   }
 
   /*
@@ -105,7 +108,7 @@ export class UsersComponent implements OnInit {
   getUserPerPackStats() {
     this.userService.apiGetAll('/stats/UserPerPack').subscribe(
       (data: any) => {
-        this.packsTot = data.total;
+        this.isLoadingStats = false;
         this.userPackStat = data.stats;
         console.log('user pack', this.userPackStat);
         data.stats.forEach(stat => {
@@ -126,9 +129,26 @@ export class UsersComponent implements OnInit {
 */
   public chartClicked({ event, active }: { event: MouseEvent, active: any[] }): void {
     console.log(this.userPackStat[active[0]._index]);
+    this.openDialogStat(this.userPackStat[active[0]._index]);
 
   }
 
+  /* Open Dialog pack details */
+    openDialogStat(pack): void {
+    const dialogRef = this.dialog.open(PackUserListComponent, {
+      disableClose: false,
+      height: '40%',
+      width: '50%',
+      data: {
+        stat: pack
+      }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }
@@ -285,21 +305,7 @@ end events users per packs
       console.log('The dialog was closed');
     });
   }
-  openDialogStat(pack): void {
-    const dialogRef = this.dialog.open(UserDetailsComponent, {
-      disableClose: false,
-      height: '100%',
-      position: { right: '0' },
-      data: {
-        userId: this.userId
-      }
 
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
 
 
 }

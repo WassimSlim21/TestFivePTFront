@@ -45,12 +45,12 @@
 
                             </mat-expansion-panel-header>
                            <div class="d-flex flex-row bd-highlight mb-3">
-                            <p class="m-4">{{user?.pack.pack_name}}</p>
+                            <p class="m-4">{{user?.pack?.pack_name}}</p>
                               <mat-form-field  class="w-25 p-4">
                                 <mat-label>Packs</mat-label>
                                 <mat-select [(ngModel)]="selectedPack">
                                   <mat-option *ngFor="let pack of this.packs" [value]="pack._id" >
-                                    {{pack.pack_name}}
+                                    {{pack?.pack_name}}
                                   </mat-option>
                                 </mat-select>
                               </mat-form-field>

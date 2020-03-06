@@ -62,7 +62,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   [ UserDetailsComponent,
     ComfirmDialogComponent,
     CompanyUsersComponent,
-    TagDetailsComponent
+    TagDetailsComponent,
+    PackUserListComponent
     ],
 })
 export class AppModule { }

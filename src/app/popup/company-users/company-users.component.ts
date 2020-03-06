@@ -12,8 +12,7 @@ import { UserDetailsComponent } from '../user-details/user-details.component';
 export class CompanyUsersComponent implements OnInit {
   users: any[] ;
   constructor(
-    private Api: ApiService, private router: Router,   private snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<CompanyUsersComponent>, private accountService: ApiService,
+    private Api: ApiService, public dialogRef: MatDialogRef<CompanyUsersComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog) {
 

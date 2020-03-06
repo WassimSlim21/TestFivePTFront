@@ -27,7 +27,7 @@
                       <i class="material-icons">apartment</i>
                   </div>
                   <p class="card-category">Companys</p>
-                  <h3 class="card-title">{{companyNumber}}</h3>
+                  <h3 class="card-title">{{companyNumber}} Companys</h3>
               </div>
               <div class="card-footer">
                   <div class="stats">
@@ -40,10 +40,10 @@
           <div class="card card-stats">
               <div class="card-header card-header-danger card-header-icon">
                   <div class="card-icon">
-                      <i class="material-icons">bookmark</i>
+                      <i class="material-icons">inbox</i>
                   </div>
                   <p class="card-category">Packs Total Users</p>
-                  <h3 class="card-title">{{packsTot}}</h3>
+                  <h3 class="card-title">{{packsTot}} Pack Users</h3>
               </div>
               <div class="card-footer">
                   <div class="stats">
@@ -55,15 +55,21 @@
   </div>
   <!-- Ng 2 chart pie chart User per pack -->
   <div class="row">
+
       <div class="col-md-12">
-          <div class="card card-chart">
+        <div class="card card-chart">
               <div class="card-header card-header-success">
                   <div class="ct-chart">User Per Pack</div>
               </div>
+
               <div class="card-body">
+                <div class="w-100  d-flex justify-content-center">
+                  <div *ngIf="isLoadingStats" class ="loader"></div>
+                </div>
                 <div>
                   <div>
                     <div class="chart">
+
                       <canvas baseChart
                         [data]="pieChartData"
                         [labels]="pieChartLabels"
@@ -72,8 +78,10 @@
                         [plugins]="pieChartPlugins"
                         [colors]="pieChartColors"
                         [legend]="pieChartLegend"
+                        class="font-weight-bold"
                         (chartClick)="chartClicked($event)"
                         >
+
                       </canvas>
                     </div>
                   </div>
@@ -81,7 +89,6 @@
               </div>
               <div class="card-footer">
                   <div class="stats">
-                      <i class="material-icons">access_time</i> updated 4 minutes ago
                   </div>
               </div>
           </div>
