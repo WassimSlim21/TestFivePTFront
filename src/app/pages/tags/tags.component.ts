@@ -241,8 +241,9 @@ getTags( page ) {
             response.tag.synonyms = response.tag.synonyms.split(',');
            } else {
             response.tag.synonyms = [];
+            response.tag.social_accounts = 0 ;
            }
-        this.tags.push(response.tag);
+        this.tags.unshift(response.tag);
         this.dataSource = new MatTableDataSource<Tag>(this.tags);
 
       });
