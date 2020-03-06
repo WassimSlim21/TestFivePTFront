@@ -17,6 +17,7 @@ import { ComfirmDialogComponent } from './popup/comfirm-dialog/comfirm-dialog.co
 import { CompanyModule } from './pages/company/company.module';
 import { CompanyUsersComponent } from './popup/company-users/company-users.component';
 import { TagDetailsComponent } from './popup/tag-details/tag-details.component';
+import { PackUserListComponent } from './popup/pack-user-list/pack-user-list.component';
 
 
 
@@ -32,7 +33,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   AdminLayoutComponent,
   ComfirmDialogComponent,
   CompanyUsersComponent,
-  TagDetailsComponent  ],
+  TagDetailsComponent,
+  PackUserListComponent  ],
   imports: [
     AngularFontAwesomeModule,
     HttpClientModule,
@@ -44,10 +46,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
     MaterialModule,
     MatSnackBarModule,
     JwtModule.forRoot(JWT_Module_Options),
-    CompanyModule,
-
-
-  ],
+    CompanyModule
+    ],
   exports: [
     MaterialModule
 
