@@ -82,8 +82,8 @@ export class UsersComponent implements OnInit {
   public pieChartPlugins = [pluginDataLabels];
   public pieChartColors = [
     {
-      backgroundColor: ['rgb(244, 67, 54)', 'rgb(103, 58, 183)', 'rgb(3, 169, 244)',
-                        'rgb(3, 169, 244)', 'rgb(255, 235, 59)', 'rgb(233, 30, 99)']
+      backgroundColor: ['#cb2025', '#f8b334', '#00a096',
+                        '#97bf0d', 'rgb(255, 235, 59)', 'rgb(233, 30, 99)']
     },
   ];
 
