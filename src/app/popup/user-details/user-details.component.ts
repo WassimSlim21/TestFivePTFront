@@ -15,7 +15,7 @@ import { ConfirmDialogModel } from '../comfirm-dialog/comfirm-dialog.component' 
 export class UserDetailsComponent implements OnInit {
   user: any ;
   userId: any;
-  imageUrl: any ;
+  image: any ;
   packs: any ;
   selectedPack: string;
   result: any;
@@ -33,6 +33,8 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit() {
     this.loadUser();
     this.loadPacks();
+    console.log(this.user);
+
   }
 
   loadUser(): void {
@@ -43,7 +45,8 @@ export class UserDetailsComponent implements OnInit {
     //    this.user.data = JSON.parse(user.data);
         this.user.data = user.data;
         this.user.actions = JSON.parse(user.actions);
-        this.imageUrl = 'https://graph.facebook.com/' + this.user.provider_userId + '/picture?height=150&width=150' ;
+        // this.imageUrl = 'https://graph.facebook.com/' + this.user.provider_userId + '/picture?height=150&width=150' ;
+        this.image = 'https://graph.facebook.com/961482093939704/picture?height=150&width=150' ;
         this.user.dashboards.forEach(element => {
         if ( element.type === 'SocialAccount') {
           element.color = 'primary';
