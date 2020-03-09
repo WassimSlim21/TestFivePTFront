@@ -121,7 +121,8 @@ export class CompanyComponent implements OnInit {
     this.userId = id;
     const dialogRef = this.dialog.open(CompanyUsersComponent, {
       disableClose: false,
-      height : '30%' ,
+      height : '50%' ,
+      width : '50%',
       data: {
         id
       }

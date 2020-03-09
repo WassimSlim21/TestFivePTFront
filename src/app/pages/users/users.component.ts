@@ -11,7 +11,7 @@ import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.co
 import { MatSort } from '@angular/material/sort';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { ChartType, ChartOptions } from 'chart.js';
+import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { PackUserListComponent } from 'src/app/popup/pack-user-list/pack-user-list.component';
 @Component({
@@ -93,6 +93,59 @@ export class UsersComponent implements OnInit {
 
   */
 
+/*
+  barChart User activity per date
+
+*/
+
+public barChartOptions: ChartOptions = {
+  responsive: true,
+  // We use these empty structures as placeholders for dynamic theming.
+  scales: { xAxes: [{}], yAxes: [{}] },
+  plugins: {
+    datalabels: {
+      anchor: 'end',
+      align: 'end',
+    }
+  }
+};
+public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+public barChartType: ChartType = 'bar';
+public barChartLegend = true;
+public barChartPlugins = [pluginDataLabels];
+public barChartColors = [
+  {
+    backgroundColor: ['#cb2025', '#f8b334', '#00a096', '#cb2025', '#f8b334', '#00a096', '#cb2025',
+                      '#f8b334', '#00a096','#cb2025', '#f8b334', '#00a096', '#cb2025', '#f8b334', '#00a096',
+                      '#cb2025', '#f8b334', '#00a096', '#cb2025', '#f8b334', '#00a096']
+  },
+];
+
+public barChartData: ChartDataSets[] = [
+  { data: [65, 59, 70, 61, 56, 55, 40], label: 'Series A' },
+  { data: [28, 48, 40, 19, 86, 27, 30], label: 'Series B' },
+  { data: [80, 68, 20, 25, 85, 90, 50], label: 'Series C' }
+
+];
+
+
+
+
+
+public barChartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  console.log(event, active);
+}
+
+public barChartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  console.log(event, active);
+}
+
+
+/*
+  /end barChart User activity per date
+
+*/
+
 
 
   constructor(private userService: ApiService,
@@ -110,6 +163,8 @@ export class UsersComponent implements OnInit {
       (data: any) => {
         this.isLoadingStats = false;
         this.userPackStat = data.stats;
+        this.packsTot = data.total;
+
         console.log('user pack', this.userPackStat);
         data.stats.forEach(stat => {
           this.pieChartData.push(stat.count);
