@@ -20,7 +20,7 @@ import {ViewEncapsulation} from '@angular/core';
   selector: 'app-tags',
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.scss'],
-  encapsulation: ViewEncapsulation.None // helps remove dialog paddings
+  // encapsulation: ViewEncapsulation.None // helps remove dialog paddings
 })
 export class TagsComponent implements OnInit {
   /* Synonyms Ships input variables */

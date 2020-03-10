@@ -1,5 +1,5 @@
 
-export class SocialAccounts {
+export class SocialAccount {
   constructor(
     public _id?: string,
     public remote_id?: string,

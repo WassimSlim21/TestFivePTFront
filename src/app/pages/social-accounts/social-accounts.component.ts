@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatTableDataSource, PageEvent } from '@angular/material';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
 import * as moment from 'moment';
+import { ApiService } from 'src/app/core/service/api.service';
+import { Router } from '@angular/router';
+import { SocialAccount } from 'src/app/core/models/social_account';
 
 
 @Component({
@@ -14,6 +17,7 @@ export class SocialAccountsComponent implements OnInit {
   filterForm: FormGroup;
   displayedColumns: string[] = ['cover', 'remote_id',  'title', 'provider', 'flagged_at', 'flagged_cause', 'created_at', 'updated_at'];
   dataSource: any;
+  socialAccounts: SocialAccount[] = [];
 
   selectedOption: string;
   pageEvent: PageEvent;
@@ -25,13 +29,14 @@ export class SocialAccountsComponent implements OnInit {
   moment = moment;
 
 
-  constructor() { }
+  constructor(private socialAccountService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.getSocialAccounts(1);
   }
 
 
-/*
+
 
   getSocialAccounts(page) {
 
@@ -42,16 +47,16 @@ export class SocialAccountsComponent implements OnInit {
 
           this.length = data.total;
           this.pageIndex = data.pageIndex;
-          this.social_accounts = data.social_accounts;
-          this.dataSource = new MatTableDataSource<SocialAccount>(this.social_accounts);
-          console.log('companies', this.social_accounts);
+          this.socialAccounts = data.social_accounts;
+          this.dataSource = new MatTableDataSource<SocialAccount>(this.socialAccounts);
+          console.log('social_accounts', this.socialAccounts);
         }
       },
     error => {
       console.log(error);
     });
   }
-*/
+
 
 
 
@@ -67,7 +72,7 @@ export class SocialAccountsComponent implements OnInit {
     if (event.pageIndex < 1) {
       event.pageIndex = event.pageIndex + 1;
     }
-    //this.getSocialAccount(event.pageIndex);
+    this.getSocialAccounts(event.pageIndex);
   }
 
 

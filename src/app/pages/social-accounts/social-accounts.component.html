@@ -2,7 +2,7 @@
   <div class="container">
     <div class="card">
       <div class="card-header card-header-primary">
-        <h4 class="card-title">Kpeiz Companys </h4>
+        <h4 class="card-title">Social Accounts </h4>
       </div>
 <div class="card-body">
       <h4 class="font-weight-bold text-primary pt-2 pl-2">Filters</h4>
@@ -78,7 +78,7 @@
             created_at
           </th>
           <td mat-cell *matCellDef="let element">
-            {{element.created_at}}
+            {{element.created_at!=''?moment(element.created_at).fromNow():null  }}
           </td>
         </ng-container>
 
@@ -88,7 +88,7 @@
             updated_at
           </th>
           <td mat-cell *matCellDef="let element">
-            {{element.updated_at}}
+            {{element.updated_at!=''?moment(element.updated_at).fromNow():null }}
           </td>
         </ng-container>
 
