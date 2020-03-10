@@ -12,12 +12,15 @@ import { PageEvent, MatChipInputEvent, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
+import {ViewEncapsulation} from '@angular/core';
+
 
 
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.scss']
+  styleUrls: ['./tags.component.scss'],
+  encapsulation: ViewEncapsulation.None // helps remove dialog paddings
 })
 export class TagsComponent implements OnInit {
   /* Synonyms Ships input variables */
@@ -76,9 +79,8 @@ export class TagsComponent implements OnInit {
     this.tag = tag;
     const dialogRef = this.dialog.open(TagDetailsComponent, {
       disableClose: false,
-      height : '40%' ,
+      height : 'auto' ,
       width : 'auto',
-      position: {  right : '35%'},
 
       data: {
         tag: this.tag

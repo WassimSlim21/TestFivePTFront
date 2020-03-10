@@ -20,14 +20,12 @@ import { CompanyUsersComponent } from 'src/app/popup/company-users/company-users
 export class CompanyComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  isLoading = true;
+  @Output() listChange = new EventEmitter<string[]>();
 
-  // tslint:disable-next-line: no-output-on-prefix
-  @Output() onListChange = new EventEmitter<string[]>();
+  isLoading = true;
   filterForm: FormGroup;
-  // tslint:disable-next-line: max-line-length
   displayedColumns: string[] = ['name', 'company_type',  'website', 'users'];
-  dataSource;
+  dataSource: MatTableDataSource<Company>;
   companyType: any[] = [
     { value: 0, name: 'agency' },
     { value: 1, name: 'Brand' },
@@ -59,7 +57,7 @@ export class CompanyComponent implements OnInit {
       website: new FormControl(),
     });
     this.filterForm.valueChanges.subscribe(value => {
-      this.onListChange.emit(value);
+      this.listChange.emit(value);
       console.log('filter', value);
       this.getFilteredCompany(value);
     });
