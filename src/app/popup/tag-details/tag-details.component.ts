@@ -58,7 +58,7 @@ export class TagDetailsComponent implements OnInit {
       );
       }
   loadAccount(tagId): void {
-    this.Api.apiGetAll('/socialAccount/' + tagId).subscribe(
+    this.Api.apiGetAll('/socialAccount/tag/' + tagId).subscribe(
       (socialAccount: any) => {
         if (socialAccount) {
           this.isLoading = false;

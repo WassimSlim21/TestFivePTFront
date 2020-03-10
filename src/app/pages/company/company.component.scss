@@ -52,3 +52,6 @@ tr:last-child td:last-child { border-bottom-right-radius: 4px; }
     padding: 8px 24px;
   }
 }
+.app-full-bleed-dialog .mat-dialog-container {
+  padding: 1000px;
+}
