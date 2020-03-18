@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Router } from '@angular/router';
 import { SocialAccount } from 'src/app/core/models/social_account';
+import { SocialAccountDetailsComponent } from 'src/app/popup/social-account-details/social-account-details.component';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class SocialAccountsComponent implements OnInit {
   length: number;
   pageSizeOptions: number[] = [5, 10];
   moment = moment;
+  socialAccountId: any;
 
 
   constructor(private socialAccountService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) { }
@@ -75,7 +77,23 @@ export class SocialAccountsComponent implements OnInit {
     this.getSocialAccounts(event.pageIndex);
   }
 
+  openDialog(id): void {
+    this.socialAccountId = id;
+    const dialogRef = this.dialog.open(SocialAccountDetailsComponent, {
+      disableClose: false,
+      panelClass: 'app-full-bleed-dialog',
+      height : '50%' ,
+      width : '50%',
+      data: {
+        id
+      }
 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
 
 
