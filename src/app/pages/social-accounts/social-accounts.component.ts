@@ -68,13 +68,26 @@ export class SocialAccountsComponent implements OnInit {
 
     this.filterForm.valueChanges.subscribe(value => {
 
-      console.log('filter', {name: value.name, tags : this.tags});
       this.getFilteredSocialAccounts({name: value.name, tags : this.tags});
 
     });
   }
   getFilteredSocialAccounts(value: any) {
-    throw new Error('Method not implemented.');
+    this.socialAccountService.apiPost('/socialAccount/search', value).subscribe(
+      (data: any) => {
+        if (data) {
+          this.isLoading = false;
+
+          this.socialAccounts = data ;
+          console.log(data);
+          this.dataSource = new MatTableDataSource<SocialAccount>(this.socialAccounts);
+          console.log('social_accounts', this.socialAccounts);
+        }
+      },
+    error => {
+      console.log(error);
+    });
+
   }
 
 
