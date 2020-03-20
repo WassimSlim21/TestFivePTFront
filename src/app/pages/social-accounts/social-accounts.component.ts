@@ -12,6 +12,7 @@ import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/a
 import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { SocialAccountDetailsComponent } from 'src/app/popup/social-account-details/social-account-details.component';
 
 
 @Component({
@@ -36,7 +37,8 @@ export class SocialAccountsComponent implements OnInit {
   pageSize = 5;
   length: number;
   pageSizeOptions: number[] = [5, 10];
- moment = moment;
+  moment = moment;
+  socialAccountId: any;
 
   /* -------------tag auto complete variables ------------*/
 
@@ -132,7 +134,23 @@ export class SocialAccountsComponent implements OnInit {
     this.getSocialAccounts(event.pageIndex);
   }
 
+  openDialog(id): void {
+    this.socialAccountId = id;
+    const dialogRef = this.dialog.open(SocialAccountDetailsComponent, {
+      disableClose: false,
+      panelClass: 'app-full-bleed-dialog',
+      height : '50%' ,
+      width : '50%',
+      data: {
+        id
+      }
 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
     /* ----------------------- Tag input Autocomplete ------------------ */
     add(event: MatChipInputEvent): void {
       const input = event.input;
