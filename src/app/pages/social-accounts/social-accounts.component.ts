@@ -99,7 +99,7 @@ export class SocialAccountsComponent implements OnInit {
            this.allTags.push(tag.name);
          });
         this.filteredTags = this.filterForm.controls.tagCtrl.valueChanges.pipe(
-        startWith(null),
+      //  startWith(null),
         map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
 
         }
