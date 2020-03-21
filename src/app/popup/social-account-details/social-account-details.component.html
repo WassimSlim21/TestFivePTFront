@@ -1,1 +1,104 @@
-<p>social-account-details works!</p>
+<div class="main-content">
+  <div class="container">
+      <div class="row-md-18">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-primary">
+                      <h4 class="card-title"><i *ngIf="socialAccount?.provider === 'instagram'" class="fa fa-instagram"></i> <i *ngIf="socialAccount?.provider === 'facebook'" class="fa fa-facebook"></i>  {{socialAccount?.title}}</h4>
+                  </div>
+                  <div class="card-body">
+
+                      <div class="row">
+                        <!-- USER IMAGE 'only if it's facebook ' -->
+                        <div class="col-md-6">
+                          <img src="{{socialAccount?.image}}"   class="rounded-circle align-center margin-auto">
+                         </div>
+                            <!-- USER INFORMATIONS -->
+                        <div class="col-md-6">
+
+                          <mat-list>
+
+                            <mat-list-item>
+
+
+                              Type :  {{socialAccount?.provider}}
+
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item *ngIf='socialAccount?.nickname'> Nickname : </mat-list-item>
+                            <mat-divider  *ngIf='socialAccount?.nickname'></mat-divider>
+                            <mat-list-item  *ngIf='socialAccount?.description'> Description :</mat-list-item>
+                            <mat-divider   *ngIf='socialAccount?.description'></mat-divider>
+                            <mat-list-item  *ngIf='socialAccount?.created_at'> Created At : </mat-list-item>
+                            <mat-divider *ngIf='socialAccount?.created_at'></mat-divider>
+                            <mat-list-item *ngIf='socialAccount?.flagged_at'> Flagged At </mat-list-item>
+                            <mat-divider *ngIf='socialAccount?.flagged_at'></mat-divider>
+                            <mat-list-item *ngIf='socialAccount?.flagged_cause'>Flagged Cause :</mat-list-item>
+                          </mat-list>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <mat-accordion>
+                          <!-- Users -->
+
+                          <mat-expansion-panel >
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                Users
+                              </mat-panel-title>
+
+                            </mat-expansion-panel-header>
+                            <mat-tab-group color="accent">
+                              <mat-tab label="Users">
+                                <mat-list *ngFor="let page of users">
+
+                                   <mat-list-item >
+                                    <p *ngIf="page.provider == 'facebook'"> <i class="fa fab fa-facebook pull-left"></i>  {{page.title}} </p>
+                                    </mat-list-item>
+                                  <mat-divider></mat-divider>
+                                </mat-list>
+                              </mat-tab>
+                            </mat-tab-group>
+
+                          </mat-expansion-panel>
+
+                          <!-- Tags -->
+                          <mat-expansion-panel >
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                Tags
+                              </mat-panel-title>
+
+                            </mat-expansion-panel-header>
+                           <div class="d-flex flex-row bd-highlight mb-3">
+                            <p class="m-4"></p>
+                              <mat-form-field  class="w-25 p-4">
+                                <mat-label>Tags</mat-label>
+                                <mat-select >
+                                  <mat-option *ngFor="" >
+
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          </mat-expansion-panel>
+                        </mat-accordion>
+
+
+                      </div>
+
+
+
+                    </div>
+                  </div>
+
+              </div>
+
+          </div>
+      </div>
+  </div>
+</div>
+
+

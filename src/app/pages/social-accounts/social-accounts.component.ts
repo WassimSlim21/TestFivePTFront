@@ -95,7 +95,6 @@ export class SocialAccountsComponent implements OnInit {
       (data: any) => {
         if (data) {
           this.isLoading = false;
-
           this.length = data.total;
           this.pageIndex = data.pageIndex;
           this.socialAccounts = data.social_accounts;
