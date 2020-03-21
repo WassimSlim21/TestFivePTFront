@@ -47,46 +47,67 @@ export class SocialAccountsComponent implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filteredTags: Observable<string[]>;
-  tags: string[] = ['Lemon'];
-  allTags: any[] = ['adqsd', 'qqdqsdqs', 'qsdqsdqsd'];
+  tags: string[] = [];
+  allTags: any[] = [];
 
 
   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto',  {static: false}) matAutocomplete: MatAutocomplete;
   constructor(private socialAccountService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) {
-
-    this.filteredTags = this.filterForm.controls.tagCtrl.valueChanges.pipe(
-      startWith(null),
-      map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
-
    }
 
   ngOnInit() {
-    this.getSocialAccounts(1);
     this.getAllTags();
+    this.getSocialAccounts(1);
+
+
+
+
 
 
 
     this.filterForm.valueChanges.subscribe(value => {
 
-      console.log('filter', value);
-      console.log('tags', this.tags);
-      // this.getFilteredSocialAccounts(value);
+      this.getFilteredSocialAccounts({name: value.name, tags : this.tags});
 
     });
   }
-
-
-  getAllTags() {
-    this.socialAccountService.apiGetAll('/tag/all').subscribe(
+  getFilteredSocialAccounts(value: any) {
+    this.socialAccountService.apiPost('/socialAccount/search', value).subscribe(
       (data: any) => {
         if (data) {
-          this.allTags = data ;
+          this.isLoading = false;
+
+          this.socialAccounts = data ;
+          console.log(data);
+          this.dataSource = new MatTableDataSource<SocialAccount>(this.socialAccounts);
+          console.log('social_accounts', this.socialAccounts);
         }
       },
     error => {
       console.log(error);
     });
+
+  }
+
+
+   getAllTags() {
+    this.socialAccountService.apiGetAll('/tag/all').subscribe(
+      (data: any) => {
+        if (data) {
+        data.forEach(tag => {
+           this.allTags.push(tag.name);
+         });
+        this.filteredTags = this.filterForm.controls.tagCtrl.valueChanges.pipe(
+      //  startWith(null),
+        map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
+
+        }
+      },
+    error => {
+      console.log(error);
+    });
+
   }
 
   getSocialAccounts(page) {
@@ -178,7 +199,13 @@ export class SocialAccountsComponent implements OnInit {
     private _filter(value: string): string[] {
       const filterValue = value.toLowerCase();
 
-      return this.allTags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
+
+      return this.allTags.filter( (element) => {
+        if (element) {
+        return element.toLowerCase().indexOf(filterValue) === 0;
+        }
+        return false ;
+      });
     }
 
 
