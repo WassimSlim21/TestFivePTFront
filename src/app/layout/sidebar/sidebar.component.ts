@@ -14,7 +14,11 @@ export const ROUTES: RouteInfo[] = [
     { path: '/users', title: 'Kpeiz Users',  icon: 'person', class: ''},
     { path: '/companys', title: 'Companies',  icon: 'apartment', class: ''},
     { path: '/tags', title: 'Tags',  icon: 'local_offer', class: ''},
-    { path: '/social-accounts', title: 'Social Accounts',  icon: 'people_alt', class: ''},
+    { path: '/social-accounts', title: 'Brand Insight',  icon: 'people_alt', class: ''},
+    { path: '/benchmarks', title: 'Market Insight',  icon: 'ballot', class: ''},
+    { path: '/packs', title: 'Packs',  icon: 'all_inbox', class: ''},
+
+
 
 
  ];

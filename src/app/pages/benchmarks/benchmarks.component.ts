@@ -1,0 +1,143 @@
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input, Inject } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { ApiService } from 'src/app/core/service/api.service';
+import { Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
+import * as moment from 'moment';
+import { MatDialog, MatSliderChange, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatSort } from '@angular/material/sort';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Benchmark } from 'src/app/core/models/benchmark';
+import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
+
+@Component({
+  selector: 'app-benchmarks',
+  templateUrl: './benchmarks.component.html',
+  styleUrls: ['./benchmarks.component.scss']
+})
+export class BenchmarksComponent implements OnInit {
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @Output() listChange = new EventEmitter<string[]>();
+
+
+  isLoading = true;
+  filterForm: FormGroup;
+  displayedColumns: string[] = ['name', 'type',  'owner', 'dashboards', 'tags', 'star'];
+  dataSource: MatTableDataSource<Benchmark>;
+  benchmarkTypes: any[] = [
+    { value: 'custom-benchmark	', name: 'custom-benchmark' },
+    { value: 'sectorial-benchmark', name: 'sectorial-benchmark' },
+    { value: 'regional-benchmark', name: 'regional-benchmark' }
+  ];
+  benchmarks: Benchmark[] = [];
+  pageEvent: PageEvent;
+  datasource: null;
+  pageIndex: number;
+  pageSize = 5;
+  length: number;
+  pageSizeOptions: number[] = [5, 10];
+  moment = moment;
+  result: any;
+
+  constructor(private apiService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder,
+              private snackBar: MatSnackBar,
+              public dialogRef: MatDialogRef<ComfirmDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any, ) {
+  }
+
+  ngOnInit() {
+
+    this.getBenchmarks(1);
+
+    this.filterForm = this.fb.group({
+      name: new FormControl(),
+      type: new FormControl(),
+    });
+
+    this.filterForm.valueChanges.subscribe(value => {
+      this.listChange.emit(value);
+      console.log('filter', value);
+      this.getFilteredBenchmarks(value);
+    });
+  }
+  getFilteredBenchmarks(value: any) {
+    this.apiService.apiPost('/benchmark/search', value).subscribe(
+      (response: any) => {
+        if (response) {
+          this.isLoading = false;
+          this.benchmarks = response;
+          this.dataSource = new MatTableDataSource<Benchmark>(this.benchmarks);
+        }
+      },
+    error => {
+      console.log(error);
+    });
+
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
+
+  onPaginateChange(event?: PageEvent) {
+    this.pageSize = event.pageSize;
+    if (event.pageIndex < 1) {
+      event.pageIndex = event.pageIndex + 1;
+    }
+    this.getBenchmarks(event.pageIndex);
+  }
+
+
+
+  getBenchmarks(page) {
+
+    this.apiService.apiGetAll('/benchmark?pageNo=' + page + '&size=' + this.pageSize).subscribe(
+      (rep: any) => {
+        if (rep) {
+          this.isLoading = false;
+
+          this.length = rep.total;
+          this.pageIndex = rep.pageIndex;
+          this.benchmarks = rep.benchmarks;
+          this.dataSource = new MatTableDataSource<Benchmark>(this.benchmarks);
+          console.log('benchmarks', this.benchmarks);
+        }
+      },
+    error => {
+      console.log(error);
+    });
+  }
+
+
+
+
+
+
+  comfirmDialog(benchmark: any): void {
+    const message = `Are you sure you want to do this?`;
+    const dialogData = new ConfirmDialogModel('Confirm Action', message);
+    const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      const index = this.benchmarks.indexOf(benchmark);
+      if ( this.result === true) {
+        this.apiService.apiDelete(`/benchmark/${benchmark._id}`).subscribe(
+          (response: any) => {
+            console.log('delete' + response);
+            this.snackBar.open(JSON.stringify(response.message));
+            this.getBenchmarks(this.pageIndex);
+          }
+      );
+        this.dialogRef.close();
+    }
+    });
+  }
+
+}

@@ -13,6 +13,10 @@ const routes: Routes = [
       { path: 'social-accounts', loadChildren: () => import('./pages/social-accounts/social-accounts.module')
          .then(m => m.SocialAccountsModule) },
       { path: 'tags', loadChildren: () => import('./pages/tags/tags.module').then(m => m.TagsModule) },
+      { path: 'benchmarks', loadChildren: () => import('./pages/benchmarks/benchmarks.module').then(m => m.BenchmarksModule) },
+      { path: 'packs', loadChildren: () => import('./pages/packs/packs.module').then(m => m.PacksModule) },
+
+
     ]
   },
   { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
