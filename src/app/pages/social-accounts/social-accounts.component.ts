@@ -151,8 +151,9 @@ export class SocialAccountsComponent implements OnInit {
     const dialogRef = this.dialog.open(SocialAccountDetailsComponent, {
       disableClose: false,
       panelClass: 'app-full-bleed-dialog',
-      height : '50%' ,
-      width : '50%',
+      height: '90%',
+      width: '50%',
+
       data: {
         id
       }
