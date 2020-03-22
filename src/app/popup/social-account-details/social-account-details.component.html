@@ -112,11 +112,12 @@
                                       <div mat-line> {{benchmark?.type}}</div>
                                       <div mat-line>{{moment(benchmark?.updated_at).fromNow()}}</div>
                                       <div mat-column>
-                                        <div mat-line> {{benchmark?.provider}}</div>
+                                    {{benchmark?.provider}}
                                       </div>
                                       <div mat-column>
-                                        <div mat-line> {{benchmark?.social_accounts.length}}</div>
-                                      </div>
+                                      {{benchmark?.social_accounts.length}}
+                                    </div>
+
 
                                     </mat-list-item>
                                     <mat-divider></mat-divider>

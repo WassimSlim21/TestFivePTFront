@@ -41,7 +41,7 @@
             Name
           </th>
           <td mat-cell *matCellDef="let element">
-              {{element.name}}
+             <a (click)="openDialog(element._id)" class="font-weight-bold text-primary cursor-pointer "> {{element.name}} </a>
           </td>
         </ng-container>
 

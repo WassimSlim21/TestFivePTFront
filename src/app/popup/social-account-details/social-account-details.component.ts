@@ -51,8 +51,8 @@ export class SocialAccountDetailsComponent implements OnInit {
   }
 
   // Get Social Account By Id
-  loadSocialAccount(tagId): void {
-    this.Api.apiGetAll('/socialAccount/' + tagId).subscribe(
+  loadSocialAccount(id): void {
+    this.Api.apiGetAll('/socialAccount/' + id).subscribe(
       (socialAccount: any) => {
         if (socialAccount) {
           this.socialAccount = socialAccount.social_account;

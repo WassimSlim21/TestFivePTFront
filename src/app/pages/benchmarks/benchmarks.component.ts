@@ -10,6 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Benchmark } from 'src/app/core/models/benchmark';
 import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
+import { BenchmarkDetailsComponent } from 'src/app/popup/benchmark-details/benchmark-details.component';
 
 @Component({
   selector: 'app-benchmarks',
@@ -24,7 +25,7 @@ export class BenchmarksComponent implements OnInit {
 
   isLoading = true;
   filterForm: FormGroup;
-  displayedColumns: string[] = ['name', 'type',  'owner', 'dashboards', 'tags', 'star'];
+  displayedColumns: string[] = ['name', 'type', 'owner', 'dashboards', 'tags', 'star'];
   dataSource: MatTableDataSource<Benchmark>;
   benchmarkTypes: any[] = [
     { value: 'custom-benchmark	', name: 'custom-benchmark' },
@@ -71,9 +72,9 @@ export class BenchmarksComponent implements OnInit {
           this.dataSource = new MatTableDataSource<Benchmark>(this.benchmarks);
         }
       },
-    error => {
-      console.log(error);
-    });
+      error => {
+        console.log(error);
+      });
 
   }
 
@@ -93,6 +94,22 @@ export class BenchmarksComponent implements OnInit {
 
 
 
+  openDialog(id): void {
+    const dialogRef = this.dialog.open(BenchmarkDetailsComponent, {
+      disableClose: false,
+      height: '70%',
+      width: '50%',
+      data: {
+        id
+      }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
   getBenchmarks(page) {
 
     this.apiService.apiGetAll('/benchmark?pageNo=' + page + '&size=' + this.pageSize).subscribe(
@@ -107,9 +124,9 @@ export class BenchmarksComponent implements OnInit {
           console.log('benchmarks', this.benchmarks);
         }
       },
-    error => {
-      console.log(error);
-    });
+      error => {
+        console.log(error);
+      });
   }
 
 
@@ -127,16 +144,16 @@ export class BenchmarksComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.result = dialogResult;
       const index = this.benchmarks.indexOf(benchmark);
-      if ( this.result === true) {
+      if (this.result === true) {
         this.apiService.apiDelete(`/benchmark/${benchmark._id}`).subscribe(
           (response: any) => {
             console.log('delete' + response);
             this.snackBar.open(JSON.stringify(response.message));
             this.getBenchmarks(this.pageIndex);
           }
-      );
+        );
         this.dialogRef.close();
-    }
+      }
     });
   }
 
