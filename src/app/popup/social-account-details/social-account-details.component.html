@@ -108,11 +108,14 @@
                                 <mat-tab>
                                   <mat-list *ngFor="let benchmark of benchmarks">
                                      <mat-list-item >
-                                      <div mat-line> {{benchmark.name}}</div>
-                                      <div mat-line> {{benchmark.type}}</div>
-                                      <div mat-line>{{moment(benchmark.updated_at).fromNow()}}</div>
+                                      <div mat-line> {{benchmark?.name}}</div>
+                                      <div mat-line> {{benchmark?.type}}</div>
+                                      <div mat-line>{{moment(benchmark?.updated_at).fromNow()}}</div>
                                       <div mat-column>
-                                        <div mat-line> {{benchmark.provider}}</div>
+                                        <div mat-line> {{benchmark?.provider}}</div>
+                                      </div>
+                                      <div mat-column>
+                                        <div mat-line> {{benchmark?.social_accounts.length}}</div>
                                       </div>
 
                                     </mat-list-item>
