@@ -64,7 +64,7 @@ tr:last-child td:last-child { border-bottom-right-radius: 4px; }
 .cen {
   position: relative;
   left: 3px;
-   top: 233px;
+   top: 100px;
     transition: none 0s ease 0s;
      cursor: move;
 }
@@ -97,20 +97,20 @@ tr:last-child td:last-child { border-bottom-right-radius: 4px; }
 
 @keyframes rotate {
   0% {
-    -webkit-transform: rotate(0deg) scale(3);
-    -moz-transform: rotate(0deg) scale(3);
+    -webkit-transform: rotate(0deg) scale(1.5);
+    -moz-transform: rotate(0deg) scale(1.5);
   }
   50% {
-    -webkit-transform: rotate(180deg) scale(3);
-    -moz-transform: rotate(180deg) scale(3);
+    -webkit-transform: rotate(180deg) scale(1.5);
+    -moz-transform: rotate(180deg) scale(1.5);
   }
   75% {
-    -webkit-transform: rotate(360deg) scale(3);
-    -moz-transform: rotate(360deg) scale(3);
+    -webkit-transform: rotate(360deg) scale(1.5);
+    -moz-transform: rotate(360deg) scale(1.5);
   }
   100% {
-    -webkit-transform: rotate(720deg) scale(3);
-    -moz-transform: rotate(720deg) scale(3);
+    -webkit-transform: rotate(720deg) scale(1.5);
+    -moz-transform: rotate(720deg) scale(1.5);
   }
 }
 
