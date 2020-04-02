@@ -1,11 +1,8 @@
 <div class="main-content">
   <div class="container">
-
    <!-- Statistique Users -->
-
   <!-- Ng 2 chart pie chart User per pack -->
   <div class="row">
-
       <div class="col-md-6">
         <div class="card card-chart">
               <div class="card-header card-header-success">
@@ -76,22 +73,17 @@
       </div>
   </div>
    <!-- /Statistique Users -->
-
    <!-- User Tables Users -->
-
     <div class="card">
       <div class="card-header card-header-primary">
-        <h4 class="card-title">Kpeiz Users Table </h4>
+        <h4 class="card-title">Kpeiz Users </h4>
       </div>
+      <!-- Card body -->
 <div class="card-body">
-
-
       <h4 class="font-weight-bold text-primary pt-2 pl-2">Filters</h4>
       <div class="d-md-inline-flex pl-4" [formGroup]="filterForm">
-
         <!-- Filter Row -->
         <div class="row">
-
           <!-- Search -->
           <div class="col">
             <mat-form-field>
@@ -183,7 +175,6 @@
 
         </div>
       </div>
-
       <mat-table #table [dataSource]="dataSource">
         <!-- Position Column -->
         <ng-container matColumnDef="picture">
@@ -309,8 +300,9 @@
         (page)="onPaginateChange($event)">
       </mat-paginator>
     </div>
-
   </div>
+
+
   <div class="row">
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card card-stats">

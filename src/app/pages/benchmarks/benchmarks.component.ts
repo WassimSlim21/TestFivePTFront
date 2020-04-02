@@ -41,17 +41,13 @@ export class BenchmarksComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10];
   moment = moment;
   result: any;
-
   constructor(private apiService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder,
               private snackBar: MatSnackBar,
               public dialogRef: MatDialogRef<ComfirmDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, ) {
   }
-
   ngOnInit() {
-
     this.getBenchmarks(1);
-
     this.filterForm = this.fb.group({
       name: new FormControl(),
       type: new FormControl(),
@@ -75,15 +71,12 @@ export class BenchmarksComponent implements OnInit {
       error => {
         console.log(error);
       });
-
   }
-
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
-
   onPaginateChange(event?: PageEvent) {
     this.pageSize = event.pageSize;
     if (event.pageIndex < 1) {
@@ -91,9 +84,6 @@ export class BenchmarksComponent implements OnInit {
     }
     this.getBenchmarks(event.pageIndex);
   }
-
-
-
   openDialog(id): void {
     const dialogRef = this.dialog.open(BenchmarkDetailsComponent, {
       disableClose: false,
@@ -102,21 +92,16 @@ export class BenchmarksComponent implements OnInit {
       data: {
         id
       }
-
     });
-
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
-
   getBenchmarks(page) {
-
     this.apiService.apiGetAll('/benchmark?pageNo=' + page + '&size=' + this.pageSize).subscribe(
       (rep: any) => {
         if (rep) {
           this.isLoading = false;
-
           this.length = rep.total;
           this.pageIndex = rep.pageIndex;
           this.benchmarks = rep.benchmarks;
@@ -128,12 +113,6 @@ export class BenchmarksComponent implements OnInit {
         console.log(error);
       });
   }
-
-
-
-
-
-
   comfirmDialog(benchmark: any): void {
     const message = `Are you sure you want to do this?`;
     const dialogData = new ConfirmDialogModel('Confirm Action', message);
