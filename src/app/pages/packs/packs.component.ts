@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ApiService } from 'src/app/core/service/api.service';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
 import { Pack } from 'src/app/core/models/pack';
 import * as moment from 'moment';
+import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
 
 
 @Component({
@@ -18,7 +19,11 @@ export class PacksComponent implements OnInit {
   displayedColumns: string[] = ['Packname', 'AnnualSubscriiption', 'DataHistory', 'SocialAccounts',
                                 'Benchmarks', 'CreatedAt', 'UpdatedAt' , 'star'];
   dataSource: MatTableDataSource<Pack>;
-  constructor(private apiService: ApiService) {
+  result: any;
+
+
+  constructor(private apiService: ApiService, public dialog: MatDialog,  private snackBar: MatSnackBar,
+              public dialogRef: MatDialogRef<ComfirmDialogComponent>) {
 
    }
   ngOnInit() {
@@ -53,6 +58,29 @@ export class PacksComponent implements OnInit {
       error => {
         console.log(error);
       });
+  }
+
+  comfirmDialog(pack: any): void {
+    const message = `Are you sure you want to do this?`;
+    const dialogData = new ConfirmDialogModel('Confirm Action', message);
+    const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      const index = this.packs.indexOf(pack);
+      if ( this.result === true) {
+        this.apiService.apiDelete(`/pack/${pack._id}`).subscribe(
+          (response: any) => {
+            console.log('delete' + response);
+            this.snackBar.open(JSON.stringify(response.message));
+            this.getPacks();
+          }
+      );
+        this.dialogRef.close();
+    }
+    });
   }
 
 }
