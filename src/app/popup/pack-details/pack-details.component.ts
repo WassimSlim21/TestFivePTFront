@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/core/service/api.service';
 import * as moment from 'moment';
 import { Pack } from 'src/app/core/models/pack';
+import { UserDetailsComponent } from '../user-details/user-details.component';
 
 @Component({
   selector: 'app-pack-details',
@@ -15,7 +16,7 @@ export class PackDetailsComponent implements OnInit {
   result: any;
   moment = moment;
   dataSource: MatTableDataSource<Pack>;
-
+  users: any[];
   displayedColumns: string[] = ['Dashboard', 'Audienceinsight', 'trendengrep', 'custombenchmark',
                                 'nationalreport', 'competitorcontent', 'emailsupport' , 'brandingdesign'];
   constructor(public dialogRef: MatDialogRef<PackDetailsComponent>,
@@ -35,6 +36,7 @@ export class PackDetailsComponent implements OnInit {
         if (result) {
           this.isLoading = false;
           this.result = result;
+          this.users = result.users;
           this.dataSource = new MatTableDataSource<Pack>(this.result.pack);
           console.log('pack : ', this.result);
           console.log('data source ', this.dataSource);
@@ -45,5 +47,19 @@ export class PackDetailsComponent implements OnInit {
     );
   }
 
+  openDialogUser(id): void {
+    const dialogRef = this.dialog.open(UserDetailsComponent, {
+      disableClose: false,
+      height: '100%',
+      position: { right: '0' },
+      data: {
+        userId: id
+      }
 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }

@@ -21,6 +21,7 @@ import { PackUserListComponent } from './popup/pack-user-list/pack-user-list.com
 import { SocialAccountDetailsComponent } from './popup/social-account-details/social-account-details.component';
 import { BenchmarkDetailsComponent } from './popup/benchmark-details/benchmark-details.component';
 import { PackDetailsComponent } from './popup/pack-details/pack-details.component';
+import { UpdatePackComponent } from './popup/update-pack/update-pack.component';
 
 
 
@@ -40,7 +41,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   PackUserListComponent,
   SocialAccountDetailsComponent,
   BenchmarkDetailsComponent,
-  PackDetailsComponent  ],
+  PackDetailsComponent,
+  UpdatePackComponent  ],
   imports: [
     AngularFontAwesomeModule,
     HttpClientModule,
@@ -72,7 +74,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
     PackUserListComponent,
     BenchmarkDetailsComponent,
     SocialAccountDetailsComponent,
-    PackDetailsComponent
+    PackDetailsComponent,
+    UpdatePackComponent
     ],
 })
 export class AppModule { }

@@ -6,6 +6,7 @@ import { Pack } from 'src/app/core/models/pack';
 import * as moment from 'moment';
 import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
 import { PackDetailsComponent } from 'src/app/popup/pack-details/pack-details.component';
+import { UpdatePackComponent } from 'src/app/popup/update-pack/update-pack.component';
 
 
 @Component({
@@ -101,7 +102,22 @@ export class PacksComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+  openDialogUpdate(id): void {
+    const dialogRef = this.dialog.open(UpdatePackComponent, {
+      disableClose: false,
+      height : 'auto' ,
+      width : 'auto',
 
+      data: {
+        packId: id
+      }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
 
 }
