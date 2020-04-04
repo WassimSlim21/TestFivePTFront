@@ -20,6 +20,7 @@ import { TagDetailsComponent } from './popup/tag-details/tag-details.component';
 import { PackUserListComponent } from './popup/pack-user-list/pack-user-list.component';
 import { SocialAccountDetailsComponent } from './popup/social-account-details/social-account-details.component';
 import { BenchmarkDetailsComponent } from './popup/benchmark-details/benchmark-details.component';
+import { AddPackComponent } from './popup/add-pack/add-pack.component';
 
 
 
@@ -38,7 +39,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   TagDetailsComponent,
   PackUserListComponent,
   SocialAccountDetailsComponent,
-  BenchmarkDetailsComponent  ],
+  BenchmarkDetailsComponent,
+  AddPackComponent  ],
   imports: [
     AngularFontAwesomeModule,
     HttpClientModule,
@@ -67,9 +69,10 @@ const JWT_Module_Options: JwtModuleOptions = ({
     ComfirmDialogComponent,
     CompanyUsersComponent,
     TagDetailsComponent,
+    AddPackComponent,
     PackUserListComponent,
     BenchmarkDetailsComponent,
-    SocialAccountDetailsComponent
+    SocialAccountDetailsComponent,
     ],
 })
 export class AppModule { }

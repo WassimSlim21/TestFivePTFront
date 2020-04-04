@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ApiService } from 'src/app/core/service/api.service';
-import { MatTableDataSource, MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Pack } from 'src/app/core/models/pack';
 import * as moment from 'moment';
-import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
+import { AddPackComponent } from 'src/app/popup/add-pack/add-pack.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,11 +20,10 @@ export class PacksComponent implements OnInit {
   displayedColumns: string[] = ['Packname', 'AnnualSubscriiption', 'DataHistory', 'SocialAccounts',
                                 'Benchmarks', 'CreatedAt', 'UpdatedAt' , 'star'];
   dataSource: MatTableDataSource<Pack>;
-  result: any;
-
-
-  constructor(private apiService: ApiService, public dialog: MatDialog,  private snackBar: MatSnackBar,
-              public dialogRef: MatDialogRef<ComfirmDialogComponent>) {
+  constructor(private apiService: ApiService,
+              private router: Router,
+              public dialog: MatDialog,
+    ) {
 
    }
   ngOnInit() {
@@ -45,41 +45,14 @@ export class PacksComponent implements OnInit {
     });
   }
 
-
-  getBenchmarks(page) {
-    this.apiService.apiGetAll('/pack').subscribe(
-      (rep: any) => {
-        if (rep) {
-          this.isLoading = false;
-          this.dataSource = new MatTableDataSource<Pack>(this.packs);
-          console.log('packs', this.packs);
-        }
-      },
-      error => {
-        console.log(error);
-      });
-  }
-
-  comfirmDialog(pack: any): void {
-    const message = `Are you sure you want to do this?`;
-    const dialogData = new ConfirmDialogModel('Confirm Action', message);
-    const dialogRef = this.dialog.open(ComfirmDialogComponent, {
-      maxWidth: '400px',
-      data: dialogData
+  openNewPack(): void {
+    const dialogRef = this.dialog.open(AddPackComponent, {
+      disableClose: false,
+      height: '75%',
     });
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      this.result = dialogResult;
-      const index = this.packs.indexOf(pack);
-      if ( this.result === true) {
-        this.apiService.apiDelete(`/pack/${pack._id}`).subscribe(
-          (response: any) => {
-            console.log('delete' + response);
-            this.snackBar.open(JSON.stringify(response.message));
-            this.getPacks();
-          }
-      );
-        this.dialogRef.close();
-    }
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 
