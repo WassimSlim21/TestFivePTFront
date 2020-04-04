@@ -61,7 +61,6 @@ import {
     MatExpansionModule,
     MatFormFieldModule,
     MatGridListModule,
-    MatIconModule,
     MatInputModule,
     MatLineModule,
     MatListModule,
@@ -86,5 +85,6 @@ import {
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    MatIconModule
   ]})
 export class MaterialModule {}
