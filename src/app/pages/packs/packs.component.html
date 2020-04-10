@@ -82,11 +82,11 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="comfirmDialog(element)">
+                <button mat-menu-item (click)="comfirmDialog(element._id)">
                   <mat-icon>delete</mat-icon>
                   <span>delete</span>
                 </button>
-                <button mat-menu-item (click)="openDialogUpdate(element)">
+                <button mat-menu-item (click)="openDialogUpdate(element._id)">
                   <mat-icon>update</mat-icon>
                   <span>update</span>
                 </button>

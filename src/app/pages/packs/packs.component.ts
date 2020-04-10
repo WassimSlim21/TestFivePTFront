@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ApiService } from 'src/app/core/service/api.service';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
 import { Pack } from 'src/app/core/models/pack';
 import * as moment from 'moment';
 import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
@@ -20,12 +20,16 @@ export class PacksComponent implements OnInit {
   isLoading = true ;
   moment = moment;
   public packs: any[];
+  result: any;
+
   displayedColumns: string[] = ['Packname', 'AnnualSubscriiption', 'DataHistory', 'SocialAccounts',
                                 'Benchmarks', 'CreatedAt', 'UpdatedAt' , 'star'];
   dataSource: MatTableDataSource<Pack>;
   constructor(private apiService: ApiService,
               private router: Router,
               public dialog: MatDialog,
+              private snackBar: MatSnackBar,
+              public dialogRef: MatDialogRef<PacksComponent>
     ) {
 
    }
@@ -93,5 +97,26 @@ export class PacksComponent implements OnInit {
     });
   }
 
+  comfirmDialog(idPack): void {
+    const message = `Are you sure you want to do this?`;
+    const dialogData = new ConfirmDialogModel('Confirm Action', message);
+    const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      if ( this.result === true) {
+        this.apiService.apiDelete(`/pack/${idPack}`).subscribe(
+          (response: any) => {
+            console.log('delete' + response);
+            this.snackBar.open(JSON.stringify(response.message));
+            this.getPacks();
+          }
+      );
+        this.dialogRef.close();
 
+    }
+    });
+  }
 }

@@ -4,11 +4,11 @@
       <div class="col-md-">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title">Create new Pack</h4>
-            <p class="card-category">Complete pack informations</p>
+            <h4 class="card-title">Update Pack</h4>
+            <p class="card-category">Update pack informations</p>
           </div>
           <div class="card-body">
-            <form [formGroup]="updatePackForm">
+            <form [formGroup]="updateForm">
               <div class="row">
 
                 <div class="col-md-6">
@@ -123,7 +123,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <button mat-raised-button type="submit" class="btn btn-primary pull-left"
-                    (click)="UpdatePack()">Create</button>
+                    (click)="updatePack()">Update</button>
                 </div>
                 <div class="col-md-6" pull-right>
                   <a mat-raised-button class="btn">Cancel</a>
