@@ -23,6 +23,7 @@ import { BenchmarkDetailsComponent } from './popup/benchmark-details/benchmark-d
 import { PackDetailsComponent } from './popup/pack-details/pack-details.component';
 import { UpdatePackComponent } from './popup/update-pack/update-pack.component';
 import { AddPackComponent } from './popup/add-pack/add-pack.component';
+import { AddFileComponent } from './popup/add-file/add-file.component';
 
 
 
@@ -44,7 +45,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   BenchmarkDetailsComponent,
   PackDetailsComponent,
   UpdatePackComponent,
-  AddPackComponent    ],
+  AddPackComponent,
+  AddFileComponent    ],
   imports: [
     AngularFontAwesomeModule,
     HttpClientModule,
@@ -78,8 +80,9 @@ const JWT_Module_Options: JwtModuleOptions = ({
     SocialAccountDetailsComponent,
     PackDetailsComponent,
     UpdatePackComponent,
-    AddPackComponent
-    ],
+    AddPackComponent,
+    AddFileComponent
+      ],
 })
 export class AppModule { }
 export function jwtTokenGetter() {

@@ -16,6 +16,7 @@ const routes: Routes = [
       { path: 'benchmarks', loadChildren: () => import('./pages/benchmarks/benchmarks.module').then(m => m.BenchmarksModule) },
       { path: 'packs', loadChildren: () => import('./pages/packs/packs.module').then(m => m.PacksModule) },
 
+      { path: 'files', loadChildren: () => import('./pages/file/file.module').then(m => m.FileModule) },
 
     ]
   },
@@ -25,6 +26,7 @@ const routes: Routes = [
     path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
   { path: '', loadChildren: () => import('./layout/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule) },
+  { path: 'file', loadChildren: () => import('./pages/file/file.module').then(m => m.FileModule) },
 
 
 ];

@@ -17,6 +17,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/social-accounts', title: 'Brand Insight',  icon: 'people_alt', class: ''},
     { path: '/benchmarks', title: 'Market Insight',  icon: 'ballot', class: ''},
     { path: '/packs', title: 'Packs',  icon: 'all_inbox', class: ''},
+    { path: '/files', title: 'Files',  icon: 'attach_file', class: ''},
+
 
 
 
