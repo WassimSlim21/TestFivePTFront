@@ -43,9 +43,6 @@ export class UpdatePackComponent implements OnInit {
   }
   ngOnInit() {
     this.loadPack();
-    console.log('fromngOniInit', this.pack);
-
-
   }
 
   updatePack() {
@@ -71,7 +68,7 @@ export class UpdatePackComponent implements OnInit {
             benchmarks: new FormControl(this.pack.benchmarks.max_have, [, Validators.required]),
             annualSubscription: new FormControl(this.pack.annualSubscription, [, Validators.required]),
             maxFansNumber: new FormControl(this.pack.maxFansNumber, [, Validators.required]),
-            dataHistoryYears: new FormControl(this.pack.dataHistoryYears, [, Validators.required]),
+            dataHistoryYears: new FormControl(parseInt(this.pack.dataHistoryYears), [, Validators.required]),
             dashboard: new FormControl(this.pack.dashboard, [, Validators.required]),
             audienceInsights: new FormControl(this.pack.audienceInsights, [, Validators.required]),
             trendengagementreports: new FormControl(this.pack.trendengagementreports, [, Validators.required]),
@@ -84,6 +81,12 @@ export class UpdatePackComponent implements OnInit {
             addPage: new FormControl(this.pack.addPage, [, Validators.required]),
             addUser: new FormControl(this.pack.addUser, [, Validators.required]),
             addBenchmark: new FormControl(this.pack.addBenchmark, [, Validators.required]),
+          });
+          this.updateForm.valueChanges.subscribe(value => {
+            console.log(value);
+            value.benchmarks = {max_have : value.benchmarks , deletes: value.benchmarks};
+            value.socialAccounts = {max_have : value.socialAccounts , deletes: value.socialAccounts};
+            value.dataHistoryYears = value.dataHistoryYears + ' YEARS';
           });
         }
       },
