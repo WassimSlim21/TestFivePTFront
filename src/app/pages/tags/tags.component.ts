@@ -57,7 +57,7 @@ export class TagsComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder,
               private snackBar: MatSnackBar,
               public dialogRef: MatDialogRef<ComfirmDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, ) { }
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
   ngOnInit() {
     this.getTags(1);
     this.filterForm = this.fb.group({

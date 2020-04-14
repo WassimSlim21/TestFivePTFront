@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { FileRoutingModule } from './file-routing.module';
 import { FileComponent } from './file.component';
+import { ProgressComponent } from 'src/app/layout/progress/progress.component';
 
 
 @NgModule({
-  declarations: [FileComponent],
+  declarations: [FileComponent, ProgressComponent],
   imports: [
     CommonModule,
     FileRoutingModule
