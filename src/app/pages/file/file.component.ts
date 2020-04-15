@@ -34,7 +34,9 @@ export class FileComponent implements OnInit {
 // this.files.forEach(element => {
   const formData = new FormData();
   formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
-  formData.append('files', this.files[0]);
+  this.files.forEach(file => {
+    formData.append('files', file, file.name);
+  });
   const httpOptions = {
     headers: new HttpHeaders({
       Accept: '*/*',
@@ -120,4 +122,8 @@ export class FileComponent implements OnInit {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
+
+
+
+
 }
