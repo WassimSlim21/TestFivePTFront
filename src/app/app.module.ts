@@ -23,7 +23,6 @@ import { BenchmarkDetailsComponent } from './popup/benchmark-details/benchmark-d
 import { PackDetailsComponent } from './popup/pack-details/pack-details.component';
 import { UpdatePackComponent } from './popup/update-pack/update-pack.component';
 import { AddPackComponent } from './popup/add-pack/add-pack.component';
-import { DndDirective } from './pages/file/dnd.directive';
 
 
 const JWT_Module_Options: JwtModuleOptions = ({
@@ -44,7 +43,6 @@ const JWT_Module_Options: JwtModuleOptions = ({
   BenchmarkDetailsComponent,
   PackDetailsComponent,
   UpdatePackComponent,
-  DndDirective,
   AddPackComponent    ],
   imports: [
     AngularFontAwesomeModule,

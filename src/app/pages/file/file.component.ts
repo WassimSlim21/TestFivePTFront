@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ApiService } from 'src/app/core/service/api.service';
+import * as moment from 'moment';
+import { HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-file',
@@ -8,25 +11,44 @@ import { ApiService } from 'src/app/core/service/api.service';
   styleUrls: ['./file.component.scss']
 })
 export class FileComponent implements OnInit {
-
+  moment = moment ;
+  allFiles: any[] = [];
   files: any[] = [];
 
   constructor(private apiService: ApiService,
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.getAllFiles();
+  }
+
+
+  getAllFiles() {
+    this.apiService.apiGetAll('/file').subscribe((response: any) => {
+      this.allFiles = response ;
+      console.log('the existing files are ', this.allFiles);
+    });
   }
 
   uploadFile() {
-this.files.forEach(element => {
+// this.files.forEach(element => {
   const formData = new FormData();
-  formData.append(element.name, element);
-  this.apiService.apiPost('/file', formData).subscribe(response => {
-    console.log(element);
-    console.log(formData);
+  formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
+  formData.append('files', this.files[0]);
+  const httpOptions = {
+    headers: new HttpHeaders({
+      Accept: '*/*',
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'multipart/form-data',
+      'Access-Control-Allow-Headers': 'Authorization'
+    })
+  };
+
+  this.apiService.apiPostWithOptions('/file', formData, httpOptions).subscribe(response => {
     console.log(response);
   });
-});    }
+// });
+}
 
   /**
    * on file drop handler

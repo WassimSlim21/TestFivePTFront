@@ -121,5 +121,10 @@ getUserAllData(id: string) {
 
 
 
+apiPostWithOptions( endpoint, body, options) {
+  return this.http.post(this.apiUrl + endpoint, body, options);
+}
+
+
 
 }
