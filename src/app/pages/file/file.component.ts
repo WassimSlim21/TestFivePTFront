@@ -39,14 +39,14 @@ export class FileComponent implements OnInit {
   });
   const httpOptions = {
     headers: new HttpHeaders({
-      Accept: '*/*',
+      'Accept': 'application/json',
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'multipart/form-data',
       'Access-Control-Allow-Headers': 'Authorization'
     })
   };
 
-  this.apiService.apiPostWithOptions('/file', formData, httpOptions).subscribe(response => {
+  this.apiService.apiPostWithOptions('/file/add', formData, httpOptions).subscribe(response => {
     console.log(response);
   });
 // });
