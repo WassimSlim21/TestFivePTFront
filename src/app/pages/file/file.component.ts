@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { ApiService } from 'src/app/core/service/api.service';
-import { HttpClient } from '@angular/common/http';
+import * as moment from 'moment';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-file',
@@ -9,28 +11,46 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./file.component.scss']
 })
 export class FileComponent implements OnInit {
-  title = 'fileUpload';
-  images;
-
+  moment = moment ;
+  allFiles: any[] = [];
   files: any[] = [];
 
   constructor(private apiService: ApiService,
               private snackBar: MatSnackBar, private http: HttpClient) { }
 
   ngOnInit() {
+    this.getAllFiles();
+  }
+
+
+  getAllFiles() {
+    this.apiService.apiGetAll('/file').subscribe((response: any) => {
+      this.allFiles = response ;
+      console.log('the existing files are ', this.allFiles);
+    });
   }
 
   uploadFile() {
-this.files.forEach(element => {
+// this.files.forEach(element => {
   const formData = new FormData();
-  console.log(element);
-  console.log(formData);
-  formData.append(element.name, element);
-  this.apiService.apiPost('/file', formData).subscribe(response => {
+  formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
+  this.files.forEach(file => {
+    formData.append('files', file, file.name);
+  });
+  const httpOptions = {
+    headers: new HttpHeaders({
+      Accept: '*/*',
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'multipart/form-data',
+      'Access-Control-Allow-Headers': 'Authorization'
+    })
+  };
 
+  this.apiService.apiPostWithOptions('/file', formData, httpOptions).subscribe(response => {
     console.log(response);
   });
-});    }
+// });
+}
 
   /**
    * on file drop handler
@@ -105,44 +125,5 @@ this.files.forEach(element => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- *
- *
- * Exemple Hendi
-*/
-
-selectImage(event) {
-  if (event.target.files.length > 0) {
-    const file = event.target.files[0];
-    this.images = file;
-    console.log("haw lfichier ", file);
-
-  }
-}
-
-Khraa() {
-  const formData = new FormData();
-  formData.append('file', this.images);
-  console.log('Haw formData ', formData);
-
-  this.apiService.apiPost('/file', formData).subscribe(response => {
-    console.log(response);
-  });
-}
 
 }
