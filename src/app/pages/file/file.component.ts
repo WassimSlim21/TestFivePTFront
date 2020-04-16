@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { ApiService } from 'src/app/core/service/api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-file',
@@ -8,11 +9,13 @@ import { ApiService } from 'src/app/core/service/api.service';
   styleUrls: ['./file.component.scss']
 })
 export class FileComponent implements OnInit {
+  title = 'fileUpload';
+  images;
 
   files: any[] = [];
 
   constructor(private apiService: ApiService,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar, private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -20,10 +23,11 @@ export class FileComponent implements OnInit {
   uploadFile() {
 this.files.forEach(element => {
   const formData = new FormData();
+  console.log(element);
+  console.log(formData);
   formData.append(element.name, element);
   this.apiService.apiPost('/file', formData).subscribe(response => {
-    console.log(element);
-    console.log(formData);
+
     console.log(response);
   });
 });    }
@@ -98,4 +102,47 @@ this.files.forEach(element => {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ *
+ *
+ * Exemple Hendi
+*/
+
+selectImage(event) {
+  if (event.target.files.length > 0) {
+    const file = event.target.files[0];
+    this.images = file;
+    console.log("haw lfichier ", file);
+
+  }
+}
+
+Khraa() {
+  const formData = new FormData();
+  formData.append('file', this.images);
+  console.log('Haw formData ', formData);
+
+  this.apiService.apiPost('/file', formData).subscribe(response => {
+    console.log(response);
+  });
+}
+
 }
