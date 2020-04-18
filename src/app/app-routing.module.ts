@@ -15,8 +15,8 @@ const routes: Routes = [
       { path: 'tags', loadChildren: () => import('./pages/tags/tags.module').then(m => m.TagsModule) },
       { path: 'benchmarks', loadChildren: () => import('./pages/benchmarks/benchmarks.module').then(m => m.BenchmarksModule) },
       { path: 'packs', loadChildren: () => import('./pages/packs/packs.module').then(m => m.PacksModule) },
-
-      { path: 'files', loadChildren: () => import('./pages/file/file.module').then(m => m.FileModule) },
+      { path: 'markcom/files', loadChildren: () => import('./pages/file/file.module').then(m => m.FileModule) },
+      { path: 'markcom/files/own', loadChildren: () => import('./pages/own-file/own-file.module').then(m => m.OwnFileModule) },
 
     ]
   },
@@ -26,7 +26,6 @@ const routes: Routes = [
     path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
   { path: '', loadChildren: () => import('./layout/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule) },
-  { path: 'file', loadChildren: () => import('./pages/file/file.module').then(m => m.FileModule) },
 
 
 ];
