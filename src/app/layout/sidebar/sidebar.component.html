@@ -59,12 +59,54 @@
 </div>
   <ul class="nav">
       <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+        <div *ngIf="menuItem.path !=='/markcom'">
       <a class="nav-link" [routerLink]="[menuItem.path]">
               <i    matTooltip="{{menuItem.title}}"
                     matTooltipPosition="right"
-              class="material-icons">{{menuItem.icon}}</i>
+              class="material-icons">{{menuItem.icon}}
+            </i>
                <p>{{menuItem.title}}</p>
           </a>
+        </div>
+          <div class="pl-2" *ngIf="menuItem.path ==='/markcom'">
+            <div class="dropdown">
+              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               {{menuItem.title}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div *ngFor="let item of menuItem.children">
+                  <a class="nav-link" [routerLink]="[menuItem.path]+[item.path]">
+                    <i    matTooltip="{{item.title}}"
+                          matTooltipPosition="left"
+                    class="material-icons">{{item.icon}}
+                  </i>
+                     <p>{{item.title}}</p>
+                </a>
+              </div>
+              </div>
+            </div>
+          </div>
+      </li>
+
+      <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+          <div class="pl-2" *ngIf="menuItem.path ==='/markcom'">
+            <div class="dropdown">
+              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               {{menuItem.title}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div *ngFor="let item of menuItem.children">
+                  <a class="nav-link" [routerLink]="[menuItem.path]+[item.path]">
+                    <i    matTooltip="{{item.title}}"
+                          matTooltipPosition="left"
+                    class="material-icons">{{item.icon}}
+                  </i>
+                     <p>{{item.title}}</p>
+                </a>
+              </div>
+              </div>
+            </div>
+          </div>
       </li>
   </ul>
 </div>

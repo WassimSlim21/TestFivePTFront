@@ -9,20 +9,16 @@ declare interface RouteInfo {
     title: string;
     icon: string;
     class: string;
+    children: any;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/users', title: 'Kpeiz Users',  icon: 'person', class: ''},
-    { path: '/companys', title: 'Companies',  icon: 'apartment', class: ''},
-    { path: '/tags', title: 'Tags',  icon: 'local_offer', class: ''},
-    { path: '/social-accounts', title: 'Brand Insight',  icon: 'people_alt', class: ''},
-    { path: '/benchmarks', title: 'Market Insight',  icon: 'ballot', class: ''},
-    { path: '/packs', title: 'Packs',  icon: 'all_inbox', class: ''},
-    { path: '/files', title: 'Files',  icon: 'attach_file', class: ''},
-
-
-
-
-
+    { path: '/users', title: 'Kpeiz Users',  icon: 'person', class: '', children: []},
+    { path: '/companys', title: 'Companies',  icon: 'apartment', class: '', children: []},
+    { path: '/tags', title: 'Tags',  icon: 'local_offer', class: '', children: []},
+    { path: '/social-accounts', title: 'Brand Insight',  icon: 'people_alt', class: '', children: []},
+    { path: '/benchmarks', title: 'Market Insight',  icon: 'ballot', class: '', children: []},
+    { path: '/packs', title: 'Packs',  icon: 'all_inbox', class: '', children: []},
+    { path: '/files', title: 'Files',  icon: 'attach_file', class: '', children: []},
  ];
 
 
