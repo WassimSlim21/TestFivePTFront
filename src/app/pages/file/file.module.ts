@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FileRoutingModule } from './file-routing.module';
 import { FileComponent } from './file.component';
@@ -14,7 +13,7 @@ import { MaterialModule } from 'src/app/shared/material.module';
     CommonModule,
     FileRoutingModule,
     MaterialModule,
-    FormsModule, ReactiveFormsModule
+
   ]
 })
 export class FileModule { }
