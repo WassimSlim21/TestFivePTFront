@@ -28,6 +28,14 @@ export class FileComponent implements OnInit {
   getAllFiles() {
     this.apiService.apiGetAll('/file').subscribe((response: any) => {
       this.allFiles = response ;
+      this.allFiles.forEach(element => {
+        if ( element.account_id._id ===  (JSON.parse(localStorage.getItem('account'))._id)) {
+            element.deletable = true ;
+         } else {
+          element.deletable = false ;
+
+         }
+      });
       console.log('the existing files are ', this.allFiles);
     });
   }
@@ -36,6 +44,10 @@ export class FileComponent implements OnInit {
     const id = JSON.parse(localStorage.getItem('account'))._id ;
     this.apiService.apiGetAll(`/file/${id}`).subscribe((response: any) => {
       this.allFiles = response ;
+      this.allFiles.forEach(element => {
+          element.deletable = true ;
+
+      });
       console.log('the existing files are ', this.allFiles);
     });
   }
@@ -144,5 +156,17 @@ export class FileComponent implements OnInit {
     }
   }
 
+  deleteFileById(file: any){
+    this.apiService.apiDelete(`/file/${file._id}`).subscribe((response: any) => {
+      console.log(response);
+
+      const index = this.allFiles.indexOf(file, 0);
+      if (index > -1) {
+        this.allFiles.splice(index, 1);
+        this.snackBar.open(JSON.stringify(response.message));
+      }
+    });
+
+  }
 
 }
