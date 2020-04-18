@@ -14,6 +14,8 @@ export class FileComponent implements OnInit {
   moment = moment ;
   allFiles: any[] = [];
   files: any[] = [];
+  filesChoice: string;
+
 
   constructor(private apiService: ApiService,
               private snackBar: MatSnackBar) { }
@@ -25,6 +27,14 @@ export class FileComponent implements OnInit {
 
   getAllFiles() {
     this.apiService.apiGetAll('/file').subscribe((response: any) => {
+      this.allFiles = response ;
+      console.log('the existing files are ', this.allFiles);
+    });
+  }
+
+  getMyFiles() {
+    const id = JSON.parse(localStorage.getItem('account'))._id ;
+    this.apiService.apiGetAll(`/file/${id}`).subscribe((response: any) => {
       this.allFiles = response ;
       console.log('the existing files are ', this.allFiles);
     });
@@ -124,6 +134,15 @@ export class FileComponent implements OnInit {
   }
 
 
+
+  ChoiceselectionChange(event) {
+    console.log(event.value);
+    if (event.value === '0') {
+      this.getAllFiles();
+    } else {
+      this.getMyFiles();
+    }
+  }
 
 
 }

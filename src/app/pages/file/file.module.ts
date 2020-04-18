@@ -12,7 +12,8 @@ import { MaterialModule } from 'src/app/shared/material.module';
   imports: [
     CommonModule,
     FileRoutingModule,
-    MaterialModule
+    MaterialModule,
+
   ]
 })
 export class FileModule { }

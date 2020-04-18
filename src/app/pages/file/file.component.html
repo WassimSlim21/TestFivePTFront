@@ -6,6 +6,30 @@
         <h4 class="card-title">Kpeiz Files</h4>
       </div>
 <div class="card-body">
+  <h4 class="font-weight-bold text-primary pt-2 pl-2">Filters</h4>
+  <div class="d-md-inline-flex pl-4">
+    <div class="row">
+
+      <!-- My files or all Files -->
+      <div class="col-sm">
+        <mat-form-field>
+          <mat-label>Files</mat-label>
+          <mat-select (selectionChange)="ChoiceselectionChange($event)">
+            <mat-option value="0" >
+                all Files
+            </mat-option>
+
+            <mat-option value="1" >
+              My Files
+          </mat-option>
+
+          </mat-select>
+
+          </mat-form-field>
+      </div>
+
+    </div>
+    </div>
   <div class="row">
     <div class="col-md-4 mt-4" *ngFor="let file of allFiles">
   <mat-card class="example-card">
