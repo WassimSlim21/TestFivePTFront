@@ -19,9 +19,9 @@ export const ROUTES: RouteInfo[] = [
     { path: '/benchmarks', title: 'Market Insight',  icon: 'ballot', class: '', children : []},
     { path: '/packs', title: 'Packs',  icon: 'all_inbox', class: '', children : []},
     { path: '/markcom', title: 'Marketing et Commerciale',  icon: 'web', class: '', children : [
-      { path: '/files', title: 'Files',  icon: 'attach_file', class: 'bg-warning'},
-      { path: '/bug', title: 'Bugs',  icon: 'bug_report', class: 'bg-danger'},
-      { path: '/calendar', title: 'Calendar',  icon: 'calendar_today', class: 'bg-success'},
+      { path: '/files', title: 'Files',  icon: 'attach_file', class: ''},
+      { path: '/bug', title: 'Bugs',  icon: 'bug_report', class: ''},
+      { path: '/calendar', title: 'Calendar',  icon: 'calendar_today', class: ''},
 
     ]},
  ];
