@@ -7,6 +7,7 @@ import { ProgressComponent } from 'src/app/layout/progress/progress.component';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     CommonModule,
     FileRoutingModule,
     MaterialModule,
-    PickerModule
+    PickerModule,
+    FormsModule, ReactiveFormsModule,
 
   ],
   providers: [

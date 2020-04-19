@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input, Inject } from '@angular/core';
 import { MatTableDataSource, MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
 import { ApiService } from 'src/app/core/service/api.service';
 import * as moment from 'moment';
 import { HttpHeaders } from '@angular/common/http';
 import { CommentsComponent } from 'src/app/popup/comments/comments.component';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 
 @Component({
@@ -15,15 +16,40 @@ export class FileComponent implements OnInit {
   moment = moment ;
   allFiles: any[] = [];
   files: any[] = [];
+  filterForm: FormGroup;
+  @Output() listChange = new EventEmitter<string[]>();
   filesChoice: string;
   id: any;
+  isLoading = true;
 
-  constructor(private apiService: ApiService, public dialog: MatDialog,
+  constructor(private apiService: ApiService, public dialog: MatDialog, private fb: FormBuilder,
               public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.id = JSON.parse(localStorage.getItem('account'))._id ;
     this.getAllFiles();
+    this.filterForm = this.fb.group({
+      name: new FormControl(),
+    });
+    this.filterForm.valueChanges.subscribe(value => {
+      this.listChange.emit(value);
+      console.log('filter', value);
+      this.getFilteredFile(value);
+    });
+  }
+
+
+  getFilteredFile(value: any) {
+    this.apiService.apiPost('/file/search', value).subscribe(
+      (response: any) => {
+        if (response) {
+          this.isLoading = false;
+          this.allFiles = response;
+        }
+      },
+      error => {
+        console.log(error);
+      });
   }
 
 

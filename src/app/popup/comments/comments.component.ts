@@ -38,8 +38,6 @@ export class CommentsComponent implements OnInit {
       console.log('File : ', this.file);
       console.log('Comments : ', this.comments);
       console.log('Account : ', this.account);
-
-
   });
 }
 
