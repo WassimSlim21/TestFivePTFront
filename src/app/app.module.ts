@@ -23,6 +23,8 @@ import { BenchmarkDetailsComponent } from './popup/benchmark-details/benchmark-d
 import { PackDetailsComponent } from './popup/pack-details/pack-details.component';
 import { UpdatePackComponent } from './popup/update-pack/update-pack.component';
 import { AddPackComponent } from './popup/add-pack/add-pack.component';
+import { OwnFileModule } from './pages/own-file/own-file.module';
+import { CommentsComponent } from './popup/comments/comments.component';
 
 
 const JWT_Module_Options: JwtModuleOptions = ({
@@ -32,8 +34,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
 
 @NgModule({
   declarations: [
-    UserDetailsComponent,
-    AppComponent,
+  UserDetailsComponent,
+  AppComponent,
   AdminLayoutComponent,
   ComfirmDialogComponent,
   CompanyUsersComponent,
@@ -43,7 +45,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   BenchmarkDetailsComponent,
   PackDetailsComponent,
   UpdatePackComponent,
-  AddPackComponent    ],
+  AddPackComponent,
+  CommentsComponent    ],
   imports: [
     AngularFontAwesomeModule,
     HttpClientModule,
@@ -55,7 +58,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
     MaterialModule,
     MatSnackBarModule,
     JwtModule.forRoot(JWT_Module_Options),
-    CompanyModule
+    CompanyModule,
+    OwnFileModule
     ],
   exports: [
     MaterialModule
@@ -77,7 +81,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
     SocialAccountDetailsComponent,
     PackDetailsComponent,
     UpdatePackComponent,
-    AddPackComponent
+    AddPackComponent,
+    CommentsComponent
       ],
 })
 export class AppModule { }
