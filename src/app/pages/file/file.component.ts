@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
 import { ApiService } from 'src/app/core/service/api.service';
 import * as moment from 'moment';
 import { HttpHeaders } from '@angular/common/http';
+import { CommentsComponent } from 'src/app/popup/comments/comments.component';
 
 
 @Component({
@@ -15,12 +16,13 @@ export class FileComponent implements OnInit {
   allFiles: any[] = [];
   files: any[] = [];
   filesChoice: string;
+  id: any;
 
-
-  constructor(private apiService: ApiService,
-              private snackBar: MatSnackBar) { }
+  constructor(private apiService: ApiService, public dialog: MatDialog,
+              public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.id = JSON.parse(localStorage.getItem('account'))._id ;
     this.getAllFiles();
   }
 
@@ -28,29 +30,40 @@ export class FileComponent implements OnInit {
   getAllFiles() {
     this.apiService.apiGetAll('/file').subscribe((response: any) => {
       this.allFiles = response ;
+      if (this.allFiles) {
       this.allFiles.forEach(element => {
         if ( element.account_id._id ===  (JSON.parse(localStorage.getItem('account'))._id)) {
             element.deletable = true ;
          } else {
           element.deletable = false ;
-
          }
       });
       console.log('the existing files are ', this.allFiles);
+    }
     });
   }
 
   getMyFiles() {
-    const id = JSON.parse(localStorage.getItem('account'))._id ;
-    this.apiService.apiGetAll(`/file/${id}`).subscribe((response: any) => {
-      this.allFiles = response ;
+    this.apiService.apiGetAll(`/file/${this.id}`).subscribe((response: any) => {
+      this.allFiles = response;
+      if (this.allFiles ) {
       this.allFiles.forEach(element => {
           element.deletable = true ;
-
       });
       console.log('the existing files are ', this.allFiles);
+      }
     });
   }
+
+  ChoiceselectionChange(event) {
+    console.log(event.value);
+    if (event.value === '0') {
+      this.getAllFiles();
+    } else {
+      this.getMyFiles();
+    }
+  }
+
 
   uploadFile() {
 // this.files.forEach(element => {
@@ -147,14 +160,6 @@ export class FileComponent implements OnInit {
 
 
 
-  ChoiceselectionChange(event) {
-    console.log(event.value);
-    if (event.value === '0') {
-      this.getAllFiles();
-    } else {
-      this.getMyFiles();
-    }
-  }
 
   deleteFileById(file: any){
     this.apiService.apiDelete(`/file/${file._id}`).subscribe((response: any) => {
@@ -167,6 +172,24 @@ export class FileComponent implements OnInit {
       }
     });
 
+  }
+
+
+  openDialog(id): void {
+    const dialogRef = this.dialog.open(CommentsComponent, {
+      disableClose: false,
+      height : 'auto' ,
+      width : 'auto',
+
+      data: {
+        fileId: id
+      }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

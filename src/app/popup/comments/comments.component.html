@@ -1,0 +1,69 @@
+
+<div class="container">
+<!-- <mat-form-field class="example-full-width">
+  <mat-label>Leave a comment</mat-label>
+  <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+</mat-form-field> -->
+<mat-card tdMediaToggle="gt-xs" Class="['push-sm']">
+  <mat-card-header class="bg-info">
+    <mat-card-title class="text-light">Commets</mat-card-title>
+</mat-card-header>
+  <mat-list>
+    <ng-template let-item let-i="index" let-last="last" ngFor let-comment [ngForOf]="comments">
+      <mat-list-item>
+        <img mat-list-avatar src="../../../assets/img/person.png" />
+        <h3 mat-line class="font-weight-bold text-secondary"> {{comment?.account_id?.userName}} </h3>
+        <h4 mat-line>{{comment?.account_id?.role}}</h4>
+        <h6 mat-column class="text-warning">{{moment(comment?.created_at).fromNow()}}</h6>
+
+        <p mat-line>
+          <span class="text-wrap">
+            {{comment?.content}}
+          </span>
+        </p>
+      </mat-list-item>
+      <mat-divider *ngIf="!last" mat-inset></mat-divider>
+    </ng-template>
+  </mat-list>
+  <td>
+    <div layout="row" layout-align="start center">
+      <div>
+        <button md-icon-button mdTooltip="Add content" mdTooltipPosition="after" [mdMenuTriggerFor]="chatMenu"><md-icon>add</md-icon></button>
+        <md-menu #chatMenu="mdMenu">
+          <button md-menu-item>Code or text snippet</button>
+          ...
+        </md-menu>
+      </div>
+      <mat-input class="push-left push-right" flex layout="row" floatPlaceholder="never">
+        <textarea flex mdInput placeholder="message"></textarea>
+      </mat-input>
+    <div>
+    <button md-icon-button mdTooltip="Add emoji" mdTooltipPosition="before" [mdMenuTriggerFor]="emojiMenu"><md-icon>sentiment_very_satisfied</md-icon></button>
+    <mat-menu #emojiMenu="mdMenu" x-position="before">
+      <td-menu>
+        <div td-menu-header>
+          <md-button-toggle><md-icon>access_time</md-icon></md-button-toggle>
+          ...
+        </div>
+        <div class="push">
+          <div layout="row" layout-wrap>
+            <button flex="20" md-icon-button><md-icon>mood</md-icon></button>
+             <button flex="20" md-icon-button><md-icon>mood_bad</md-icon></button>
+            ...
+          </div>
+        </div>
+        <div td-menu-footer>
+          <div layout="row" layout-align="center center" class="push-sm">
+            <span class="md-subhead">Emoji Deluxe</span>
+            <span flex></span>
+            <span>:happy:</span>
+            <md-icon>sentiment_very_satisfied</md-icon>
+          </div>
+        </div>
+      </td-menu>
+    </mat-menu>
+    </div>
+   </div>
+  </td>
+</mat-card>
+</div>

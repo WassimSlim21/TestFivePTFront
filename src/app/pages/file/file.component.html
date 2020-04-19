@@ -36,26 +36,20 @@
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"><mat-icon class="display-4">folder</mat-icon></div>
       <mat-card-title><h5>{{file?.name}}</h5></mat-card-title>
-      <mat-card-subtitle> <h6> {{moment(file?.updated_at).fromNow()}} by {{file?.account_id?.userName}}       {{file?.deletable}}
+      <mat-card-subtitle> <h6> {{moment(file?.updated_at).fromNow()}} by {{file?.account_id?.userName}}
       </h6></mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
       <button mat-button><a href='{{file?.fileUrl}}'><mat-icon>cloud_download</mat-icon></a> </button>
-      <button mat-button> <mat-icon> comment</mat-icon></button>
+      <button (click)="openDialog(file?._id)" mat-button> <mat-icon> comment</mat-icon></button>
       <button mat-button *ngIf="file.deletable" (click)="deleteFileById(file)"> <mat-icon> delete</mat-icon></button>
 
     </mat-card-actions>
   </mat-card>
 </div>
 
-
 </div>
-
-
-
-
   </div>
-
 
 
   <div class="container2"  appDnd (fileDropped)="onFileDropped($event)">
