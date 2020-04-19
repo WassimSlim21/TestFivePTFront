@@ -119,12 +119,8 @@ getUserAllData(id: string) {
   return this.http.get<any>('http://localhost:3000/api/user/' + id );
 }
 
-
-
 apiPostWithOptions( endpoint, body, options) {
   return this.http.post(this.apiUrl + endpoint, body, options);
 }
-
-
 
 }
