@@ -25,7 +25,7 @@ import { UpdatePackComponent } from './popup/update-pack/update-pack.component';
 import { AddPackComponent } from './popup/add-pack/add-pack.component';
 import { OwnFileModule } from './pages/own-file/own-file.module';
 import { CommentsComponent } from './popup/comments/comments.component';
-
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 const JWT_Module_Options: JwtModuleOptions = ({
   config: {
@@ -46,7 +46,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   PackDetailsComponent,
   UpdatePackComponent,
   AddPackComponent,
-  CommentsComponent    ],
+  CommentsComponent,
+      ],
   imports: [
     AngularFontAwesomeModule,
     HttpClientModule,
@@ -58,8 +59,10 @@ const JWT_Module_Options: JwtModuleOptions = ({
     MaterialModule,
     MatSnackBarModule,
     JwtModule.forRoot(JWT_Module_Options),
+    PickerModule,
     CompanyModule,
-    OwnFileModule
+    OwnFileModule,
+
     ],
   exports: [
     MaterialModule

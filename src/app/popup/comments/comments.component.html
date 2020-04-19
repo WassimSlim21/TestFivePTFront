@@ -1,9 +1,5 @@
 
 <div class="container">
-<!-- <mat-form-field class="example-full-width">
-  <mat-label>Leave a comment</mat-label>
-  <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-</mat-form-field> -->
 <mat-card tdMediaToggle="gt-xs" Class="['push-sm']">
   <mat-card-header class="bg-info">
     <mat-card-title class="text-light">Commets</mat-card-title>
@@ -25,6 +21,13 @@
       <mat-divider *ngIf="!last" mat-inset></mat-divider>
     </ng-template>
   </mat-list>
-
+  <mat-form-field class="example-full-width">
+    <mat-label>Leave a comment</mat-label>
+    <textarea name="text" matInput [(ngModel)]="myText" placeholder="Leave a comment"></textarea>
+    <a (click)="addComment()" class="btn btn-info btn-lg">
+      <span class="glyphicon glyphicon-send"></span> Comment
+    </a>
+</mat-form-field>
 </mat-card>
+
 </div>
