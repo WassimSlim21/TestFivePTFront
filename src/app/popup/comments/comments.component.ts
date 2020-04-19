@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Account } from 'src/app/core/models/account';
 import * as moment from 'moment';
 import 'emoji-mart/css/emoji-mart.css';
+import { ComfirmDialogComponent, ConfirmDialogModel } from '../comfirm-dialog/comfirm-dialog.component';
 @Component({
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss']
@@ -18,11 +19,14 @@ export class CommentsComponent implements OnInit {
   myText: any = '';
   body: any;
   account_id: string;
+  result: any;
   content: string;
 
   constructor(private apiService: ApiService,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private snackBar: MatSnackBar
+              private snackBar: MatSnackBar,
+              public dialog: MatDialog,
+              public dialogRef: MatDialogRef<ComfirmDialogComponent>,
   ) { }
 
   ngOnInit() {
@@ -49,6 +53,26 @@ addComment() {
     console.log(response);
     this.myText = '';
     this.getFiles(this.data.fileId);
+  });
+}
+comfirmDialog(id_comment: any): void {
+  const message = `Are you sure you want to do this?`;
+  const dialogData = new ConfirmDialogModel('Confirm Action', message);
+  const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+    maxWidth: '400px',
+    data: dialogData
+  });
+  dialogRef.afterClosed().subscribe(dialogResult => {
+    this.result = dialogResult;
+    if (this.result === true) {
+      this.apiService.apiPut(`/file/comment/${this.file._id}`, {comment_id : id_comment}).subscribe(
+        (response: any) => {
+          console.log('delete' + response);
+          this.snackBar.open('Comment Deleted!');
+          this.getFiles(this.data.fileId);
+        }
+      );
+    }
   });
 }
 
