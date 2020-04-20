@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/shared/material.module';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EmojiPickerModule } from 'ng-emoji-picker';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FileRoutingModule,
     MaterialModule,
-    PickerModule,
+    PickerModule, EmojiPickerModule,
     FormsModule, ReactiveFormsModule,
 
   ],

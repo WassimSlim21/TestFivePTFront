@@ -21,6 +21,8 @@ export class FileComponent implements OnInit {
   filesChoice: string;
   id: any;
   isLoading = true;
+  openPopup: Function;
+  myText: any = '';
 
   constructor(private apiService: ApiService, public dialog: MatDialog, private fb: FormBuilder,
               public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar) { }
@@ -38,7 +40,10 @@ export class FileComponent implements OnInit {
     });
   }
 
-
+  setPopupAction(fn: any) {
+    console.log('setPopupAction');
+    this.openPopup = fn;
+  }
   getFilteredFile(value: any) {
     this.apiService.apiPost('/file/search', value).subscribe(
       (response: any) => {
@@ -58,11 +63,13 @@ export class FileComponent implements OnInit {
       this.allFiles = response ;
       if (this.allFiles) {
       this.allFiles.forEach(element => {
-        if ( element.account_id._id ===  (JSON.parse(localStorage.getItem('account'))._id)) {
+        if (element.account_id) {
+        if ( element.account_id._id === (JSON.parse(localStorage.getItem('account'))._id)) {
             element.deletable = true ;
          } else {
           element.deletable = false ;
          }
+        }
       });
       console.log('the existing files are ', this.allFiles);
     }
@@ -217,5 +224,7 @@ export class FileComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+
 
 }

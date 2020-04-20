@@ -34,11 +34,22 @@ export class CommentsComponent implements OnInit {
     this.getFiles(this.data.fileId);
 
   }
+
+
   getFiles(id) {
     this.apiService.apiGetAll(`/file/own/${id}`).subscribe((response: any) => {
       this.file = response.file;
       this.account = response.file.account_id;
       this.comments = response.file.comments;
+      this.comments.forEach(element => {
+        if (element.account_id) {
+        if ( element.account_id._id === (JSON.parse(localStorage.getItem('account'))._id)) {
+            element.deletable = true ;
+         } else {
+          element.deletable = false ;
+         }
+        }
+      });
       console.log('File : ', this.file);
       console.log('Comments : ', this.comments);
       console.log('Account : ', this.account);

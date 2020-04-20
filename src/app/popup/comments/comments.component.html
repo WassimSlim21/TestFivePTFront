@@ -13,7 +13,7 @@
 
         <h6 mat-column class="text-warning">{{moment(comment?.created_at).fromNow()}}</h6>
         <div mat-column>
-          <button type="button" class="close" aria-label="Close" (click)="comfirmDialog(comment?._id)">
+          <button type="button" *ngIf="comment?.deletable" class="close" aria-label="Close" (click)="comfirmDialog(comment?._id)">
             <span class="colorchanged" aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -28,13 +28,26 @@
   </mat-list>
   <mat-form-field class="example-full-width">
     <mat-label>Leave a comment</mat-label>
-    <textarea name="text" matInput [(ngModel)]="myText" placeholder="Leave a comment"></textarea>
-    <div class="float-right">
-    <a (click)="addComment()" class="btn btn-info">
-      Comment  <i class="fa fa-send-o"></i>
-    </a>
-  </div>
+    <textarea name="text" matInput [(ngModel)]="myText" placeholder="Leave a comment">
+
+    </textarea>
+
+
 </mat-form-field>
+<!--
+  Error a revoir
+<emoji-input name="text" [(ngModel)]="myText"
+[closeAfterSelection]="false"
+style="display: inline-block;"
+(click)="openPopup(false)"
+
+(setPopupAction)="setPopupAction($event)">
+</emoji-input> -->
+<div class="float-right">
+  <a (click)="addComment()" class="btn btn-info">
+    Comment  <i class="fa fa-send-o"></i>
+  </a>
+</div>
 </mat-card>
 
 </div>
