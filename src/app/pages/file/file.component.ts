@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output, Input, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input, Inject, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
 import { ApiService } from 'src/app/core/service/api.service';
 import * as moment from 'moment';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { CommentsComponent } from 'src/app/popup/comments/comments.component';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 
 @Component({
@@ -13,7 +15,8 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./file.component.scss']
 })
 export class FileComponent implements OnInit {
-  moment = moment ;
+  @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
+  moment = moment;
   allFiles: any[] = [];
   files: any[] = [];
   filterForm: FormGroup;
@@ -25,10 +28,10 @@ export class FileComponent implements OnInit {
   myText: any = '';
 
   constructor(private apiService: ApiService, public dialog: MatDialog, private fb: FormBuilder,
-              public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar) { }
+    public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.id = JSON.parse(localStorage.getItem('account'))._id ;
+    this.id = JSON.parse(localStorage.getItem('account'))._id;
     this.getAllFiles();
     this.filterForm = this.fb.group({
       name: new FormControl(),
@@ -60,30 +63,30 @@ export class FileComponent implements OnInit {
 
   getAllFiles() {
     this.apiService.apiGetAll('/file').subscribe((response: any) => {
-      this.allFiles = response ;
+      this.allFiles = response;
       if (this.allFiles) {
-      this.allFiles.forEach(element => {
-        if (element.account_id) {
-        if ( element.account_id._id === (JSON.parse(localStorage.getItem('account'))._id)) {
-            element.deletable = true ;
-         } else {
-          element.deletable = false ;
-         }
-        }
-      });
-      console.log('the existing files are ', this.allFiles);
-    }
+        this.allFiles.forEach(element => {
+          if (element.account_id) {
+            if (element.account_id._id === (JSON.parse(localStorage.getItem('account'))._id)) {
+              element.deletable = true;
+            } else {
+              element.deletable = false;
+            }
+          }
+        });
+        console.log('the existing files are ', this.allFiles);
+      }
     });
   }
 
   getMyFiles() {
     this.apiService.apiGetAll(`/file/${this.id}`).subscribe((response: any) => {
       this.allFiles = response;
-      if (this.allFiles ) {
-      this.allFiles.forEach(element => {
-          element.deletable = true ;
-      });
-      console.log('the existing files are ', this.allFiles);
+      if (this.allFiles) {
+        this.allFiles.forEach(element => {
+          element.deletable = true;
+        });
+        console.log('the existing files are ', this.allFiles);
       }
     });
   }
@@ -98,27 +101,52 @@ export class FileComponent implements OnInit {
   }
 
 
-  uploadFile() {
-// this.files.forEach(element => {
-  const formData = new FormData();
-  formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
-  this.files.forEach(file => {
-    formData.append('files', file, file.name);
-  });
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Accept': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'multipart/form-data',
-      'Access-Control-Allow-Headers': 'Authorization'
-    })
-  };
+    uploadFile() {
+  this.files.forEach(element => {
+    const formData = new FormData();
+    formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
+    this.files.forEach(file => {
+      formData.append('files', file, file.name);
+    });
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Headers': 'Authorization'
+      })
+    };
 
-  this.apiService.apiPostWithOptions('/file/add', formData, httpOptions).subscribe(response => {
-    console.log(response);
+    this.apiService.apiPostWithOptions('/file/add', formData, httpOptions).subscribe(response => {
+      console.log(response);
+    });
   });
-// });
-}
+  }
+
+
+  // uploadFile(file) {
+  //   const formData = new FormData();
+  //   formData.append('file', file.data);
+  //   formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
+  //   file.inProgress = true;
+  //   this.apiService.upload('/file/add', formData).pipe(map(event => {
+  //       switch (event.type) {
+  //         case HttpEventType.UploadProgress:
+  //           file.progress = Math.round(event.loaded * 100 / event.total);
+  //           break;
+  //         case HttpEventType.Response:
+  //           return event;
+  //       }
+  //     }),
+  //     catchError((error: HttpErrorResponse) => {
+  //       file.inProgress = false;
+  //       return of(`${file.data.name} upload failed.`);
+  //     })).subscribe((event: any) => {
+  //       if (typeof (event) === 'object') {
+  //         console.log(event.body);
+  //       }
+  //     });
+  // }
 
   /**
    * on file drop handler
@@ -194,7 +222,7 @@ export class FileComponent implements OnInit {
 
 
 
-  deleteFileById(file: any){
+  deleteFileById(file: any) {
     this.apiService.apiDelete(`/file/${file._id}`).subscribe((response: any) => {
       console.log(response);
 
@@ -211,8 +239,8 @@ export class FileComponent implements OnInit {
   openDialog(id): void {
     const dialogRef = this.dialog.open(CommentsComponent, {
       disableClose: false,
-      height : 'auto' ,
-      width : 'auto',
+      height: 'auto',
+      width: 'auto',
 
       data: {
         fileId: id
