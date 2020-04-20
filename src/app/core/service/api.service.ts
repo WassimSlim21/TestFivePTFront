@@ -123,9 +123,9 @@ apiPostWithOptions( endpoint, body, options) {
   return this.http.post(this.apiUrl + endpoint, body, options);
 }
 
-public upload(endpoint, formData) {
+public upload(endpoint, body) {
 
-return this.http.post<any>(this.apiUrl + endpoint, formData, {
+return this.http.post<any>(this.apiUrl + endpoint, body, {
       reportProgress: true,
       observe: 'events'
     });
