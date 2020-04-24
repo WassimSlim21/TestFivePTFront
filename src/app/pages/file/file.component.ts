@@ -102,8 +102,9 @@ export class FileComponent implements OnInit {
 
 
     uploadFile() {
+
   this.files.forEach(element => {
-    const formData = new FormData();
+   const formData = new FormData();
     formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
     this.files.forEach(file => {
       formData.append('files', file, file.name);
@@ -152,6 +153,7 @@ export class FileComponent implements OnInit {
    * on file drop handler
    */
   onFileDropped($event) {
+    console.log("event", $event);
     this.prepareFilesList($event);
   }
 
@@ -159,7 +161,17 @@ export class FileComponent implements OnInit {
    * handle file from browsing
    */
   fileBrowseHandler(files) {
-    this.prepareFilesList(files);
+    console.log("file azswdqdcs vdjrks,qk /", files);
+    // for (let i = 0; i<files.length; i++) {
+    //   const reader = new FileReader();
+    //   // reader.onload = (event: any) => {
+
+    //   // }
+    //   reader.readAsDataURL(files[i]);
+    // }
+    this.files = Array.from(files);
+
+    // this.prepareFilesList(files);
   }
 
   /**
