@@ -44,21 +44,26 @@ export class SidebarComponent implements OnInit {
   constructor(public dialog: MatDialog,
     private authService: ApiService,
     private router: Router
-  ) { }
+  ) {
+
+  }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.marketmenuItems = ROUTESMarket.filter(marketmenuItems => marketmenuItems);
+
   }
   isMobileMenu() {
     if ($(window).width() > 991) {
       return false;
     }
+    if (this.router.url === '/markcom/bug') {
+     return true;
+    }
     return true;
   }
   sidebarClose() {
     const body = document.getElementsByTagName('body')[0];
-
     body.classList.remove('nav-open');
   }
   openDialog(): void {

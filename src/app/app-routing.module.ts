@@ -16,7 +16,7 @@ const routes: Routes = [
       { path: 'benchmarks', loadChildren: () => import('./pages/benchmarks/benchmarks.module').then(m => m.BenchmarksModule) },
       { path: 'packs', loadChildren: () => import('./pages/packs/packs.module').then(m => m.PacksModule) },
       { path: 'markcom/files', loadChildren: () => import('./pages/file/file.module').then(m => m.FileModule) },
-      { path: 'markcom/files/own', loadChildren: () => import('./pages/own-file/own-file.module').then(m => m.OwnFileModule) },
+      { path: 'markcom/bug', loadChildren: () => import('./pages/bug/bug.module').then(m => m.BugModule) },
 
     ]
   },
@@ -26,6 +26,7 @@ const routes: Routes = [
     path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
   { path: '', loadChildren: () => import('./layout/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule) },
+  { path: 'bug', loadChildren: () => import('./pages/bug/bug.module').then(m => m.BugModule) },
 
 
 ];
