@@ -6,50 +6,179 @@
       </div>
       <div class="card-body">
         <div class="row" cdkDropListGroup>
-          <div class="col">
-            <div class="drag-container">
-              <div class="section-heading">New Bug</div>
-              <div cdkDropList [cdkDropListData]="newBug" class="item-list" (cdkDropListDropped)="drop($event)">
-                <div class="item-box" *ngFor="let item of newBug" cdkDrag>{{item}}</div>
-                <div class="fab-container float-none">
-                  <button mat-mini-fab class="fab-toggler" class="btn btn-info" (click)="addBugDialog()">
-                    <i class="material-icons">add</i>
-                  </button>
+          <div class="col-">
+            <div class="card">
+              <div class="drag-container">
+                <div class="card-header card-header-danger">
+                  <h4 class="card-title"> New Bug</h4>
+                </div>
+                <div class="card-body">
+                  <div cdkDropList [cdkDropListData]="newBug" class="item-list" (cdkDropListDropped)="drop($event)">
+                    <mat-list class="item-box" *ngFor="let bug of newBug" cdkDrag>
+                      <mat-list-item>
+                        <img mat-list-avatar src="../../../assets/img/person.png" />
+                        <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
+                        <h4 mat-line>{{bug?.account_id?.role}}</h4>
+
+                        <h6 mat-column class="text-warning">{{moment(bug?.created_at).fromNow()}}</h6>
+                        <!-- <div mat-column>
+                      <button type="button" *ngIf="comment?.deletable" class="close" aria-label="Close" (click)="comfirmDialog(comment?._id)">
+                        <span class="colorchanged" aria-hidden="true">&times;</span>
+                      </button>
+                    </div> -->
+                        <p mat-line>
+                          <span class="text-wrap">
+                            <b class="text-secondary">Description :</b> {{bug?.description}}
+                          </span>
+                        </p>
+                      </mat-list-item>
+                    </mat-list>
+                  </div>
+                  <div class="fab-container float-none">
+                    <button mat-mini-fab class="fab-toggler" class="btn btn-info" (click)="addBugDialog()">
+                      <i class="material-icons">add</i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col">
-            <div class="drag-container">
-              <div class="section-heading">In Progress</div>
 
-              <div cdkDropList [cdkDropListData]="inProgress" class="item-list" (cdkDropListDropped)="drop($event)">
-                <div class="item-box" *ngFor="let item of inProgress" cdkDrag>{{item}}</div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="drag-container">
-              <div class="section-heading">Ready For Test</div>
-              <div cdkDropList [cdkDropListData]="readyForTest" class="item-list" (cdkDropListDropped)="drop($event)">
-                <div class="item-box" *ngFor="let item of readyForTest" cdkDrag>{{item}}</div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="drag-container">
-              <div class="section-heading">Done</div>
-              <div cdkDropList [cdkDropListData]="done" class="item-list" (cdkDropListDropped)="drop($event)">
-                <div class="item-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="drag-container">
-              <div class="section-heading">Need Info</div>
+          <div class="col-">
+            <div class="card">
+              <div class="drag-container">
+                <div class="card-header card-header-warning">
+                  <h4 class="card-title"> In Progress
+                  </h4>
+                </div>
+                <div class="card-body">
+                  <div cdkDropList [cdkDropListData]="inProgress" class="item-list" (cdkDropListDropped)="drop($event)">
+                    <mat-list class="item-box" *ngFor="let bug of inProgress" cdkDrag>
+                      <mat-list-item>
+                        <img mat-list-avatar src="../../../assets/img/person.png" />
+                        <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
+                        <h4 mat-line>{{bug?.account_id?.role}}</h4>
 
-              <div cdkDropList [cdkDropListData]="needInfo" class="item-list" (cdkDropListDropped)="drop($event)">
-                <div class="item-box" *ngFor="let item of needInfo" cdkDrag>{{item}}</div>
+                        <h6 mat-column class="text-warning">{{moment(bug?.created_at).fromNow()}}</h6>
+                        <!-- <div mat-column>
+                      <button type="button" *ngIf="comment?.deletable" class="close" aria-label="Close" (click)="comfirmDialog(comment?._id)">
+                        <span class="colorchanged" aria-hidden="true">&times;</span>
+                      </button>
+                    </div> -->
+                        <p mat-line>
+                          <span class="text-wrap">
+                            <b class="text-secondary">Description :</b> {{bug?.description}}
+                          </span>
+                        </p>
+                      </mat-list-item>
+                    </mat-list>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-">
+            <div class="card">
+              <div class="drag-container">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title"> Ready For Test
+                  </h4>
+                </div>
+                <div class="card-body">
+                  <div cdkDropList [cdkDropListData]="readyForTest" class="item-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <mat-list class="item-box" *ngFor="let bug of readyForTest" cdkDrag>
+                      <mat-list-item>
+                        <img mat-list-avatar src="../../../assets/img/person.png" />
+                        <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
+                        <h4 mat-line>{{bug?.account_id?.role}}</h4>
+
+                        <h6 mat-column class="text-warning">{{moment(bug?.created_at).fromNow()}}</h6>
+                        <!-- <div mat-column>
+                      <button type="button" *ngIf="comment?.deletable" class="close" aria-label="Close" (click)="comfirmDialog(comment?._id)">
+                        <span class="colorchanged" aria-hidden="true">&times;</span>
+                      </button>
+                    </div> -->
+                        <p mat-line>
+                          <span class="text-wrap">
+                            <b class="text-secondary">Description :</b> {{bug?.description}}
+                          </span>
+                        </p>
+                      </mat-list-item>
+                    </mat-list>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-">
+            <div class="card">
+              <div class="drag-container">
+                <div class="card-header card-header-success">
+                  <h4 class="card-title"> Done
+                  </h4>
+                </div>
+                <div class="card-body">
+                  <div cdkDropList [cdkDropListData]="done" class="item-list" (cdkDropListDropped)="drop($event)">
+                    <mat-list class="item-box" *ngFor="let bug of done" cdkDrag>
+                      <mat-list-item>
+                        <img mat-list-avatar src="../../../assets/img/person.png" />
+                        <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
+                        <h4 mat-line>{{bug?.account_id?.role}}</h4>
+
+                        <h6 mat-column class="text-warning">{{moment(bug?.created_at).fromNow()}}</h6>
+                        <!-- <div mat-column>
+                      <button type="button" *ngIf="comment?.deletable" class="close" aria-label="Close" (click)="comfirmDialog(comment?._id)">
+                        <span class="colorchanged" aria-hidden="true">&times;</span>
+                      </button>
+                    </div> -->
+                        <p mat-line>
+                          <span class="text-wrap">
+                            <b class="text-secondary">Description :</b> {{bug?.description}}
+                          </span>
+                        </p>
+                      </mat-list-item>
+                    </mat-list>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-">
+            <div class="card">
+              <div class="drag-container">
+                <div class="card-header card-header-info">
+                  <h4 class="card-title"> Need Info
+                  </h4>
+                </div>
+                <div class="card-body">
+                  <div cdkDropList [cdkDropListData]="needInfo" class="item-list" (cdkDropListDropped)="drop($event)">
+                    <mat-list class="item-box" *ngFor="let bug of needInfo" cdkDrag>
+                      <mat-list-item>
+                        <img mat-list-avatar src="../../../assets/img/person.png" />
+                        <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
+                        <h4 mat-line>{{bug?.account_id?.role}}</h4>
+
+                        <h6 mat-column class="text-warning">{{moment(bug?.created_at).fromNow()}}</h6>
+                        <!-- <div mat-column>
+                      <button type="button" *ngIf="comment?.deletable" class="close" aria-label="Close" (click)="comfirmDialog(comment?._id)">
+                        <span class="colorchanged" aria-hidden="true">&times;</span>
+                      </button>
+                    </div> -->
+                        <p mat-line>
+                          <span class="text-wrap">
+                            <b class="text-secondary">Description :</b> {{bug?.description}}
+                          </span>
+                        </p>
+                      </mat-list-item>
+                    </mat-list>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

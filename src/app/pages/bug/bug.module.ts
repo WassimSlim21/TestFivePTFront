@@ -5,6 +5,7 @@ import { BugRoutingModule } from './bug-routing.module';
 import { BugComponent } from './bug.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MaterialModule } from 'src/app/shared/material.module';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   imports: [
     CommonModule,
     BugRoutingModule,
+    MaterialModule,
     DragDropModule
   ],
   providers: [

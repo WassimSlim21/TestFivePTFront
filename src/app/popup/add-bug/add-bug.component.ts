@@ -25,7 +25,6 @@ export class AddBugComponent implements OnInit {
     });
 }
 
-//(JSON.parse(localStorage.getItem('account'))._id)
 
 getAllAccounts() {
   this.apiService.apiGetAll('/account/get').subscribe(

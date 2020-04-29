@@ -4,6 +4,8 @@ import { ApiService } from 'src/app/core/service/api.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
 import { AddBugComponent } from 'src/app/popup/add-bug/add-bug.component';
+import { Bug } from 'src/app/core/models/bug';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-bug',
@@ -12,49 +14,23 @@ import { AddBugComponent } from 'src/app/popup/add-bug/add-bug.component';
 })
 export class BugComponent implements OnInit {
 
+  bugs: Bug[];
+  moment = moment ;
 
-  todo = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
+  todo: Bug[] = [
+
   ];
 
-   newBug = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
+   newBug: Bug[] = [];
 
-  inProgress = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
+  inProgress: Bug[] = [];
 
-  readyForTest = [
-    'Take bath',
-    'Wash car',
-  ];
+  readyForTest: Bug[]  = [];
 
-  done = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
+  done: Bug[]  = [
+   ];
 
-  needInfo = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
+  needInfo: Bug[] = [];
   constructor(
               private apiService: ApiService,
               private router: Router,
@@ -64,6 +40,7 @@ export class BugComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getAllBugs();
   }
 
 
@@ -93,5 +70,36 @@ export class BugComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+  getAllBugs() {
+    this.apiService.apiGetAll('/bug').subscribe(
+      (response: any) => {
+        if (response) {
+          this.bugs = response;
+          this.bugs.forEach(element => {
+            if (element.etat === 'newBug') {
+              this.newBug.push(element);
+            }
+            if (element.etat === 'inProgress') {
+              this.inProgress.push(element);
+            }
+            if (element.etat === 'readyForTest') {
+              this.readyForTest.push(element);
+            }
+            if (element.etat === 'done') {
+              this.done.push(element);
+            }
+            if (element.etat === 'needInfo') {
+              this.needInfo.push(element);
+            }
+              });
+          console.log(this.bugs);
+        }
+      },
+    error => {
+      console.log(error);
+    });
+  }
+
 
 }
