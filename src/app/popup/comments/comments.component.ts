@@ -66,6 +66,9 @@ addComment() {
     this.getFiles(this.data.fileId);
   });
 }
+
+
+
 comfirmDialog(id_comment: any): void {
   const message = `Are you sure you want to do this?`;
   const dialogData = new ConfirmDialogModel('Confirm Action', message);

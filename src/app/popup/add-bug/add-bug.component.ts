@@ -45,6 +45,7 @@ addBug() {
   this.apiService.apiPost('/bug/add', this.addBugForm.value).subscribe(response => {
     console.log(response);
   });
+  this.dialogRef.close();
 }
 
   ngOnInit() {

@@ -60,6 +60,8 @@ export class PacksComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getPacks();
+
     });
   }
 
