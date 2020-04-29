@@ -1,8 +1,8 @@
 export class Account {
 
   constructor(
-    public userId?: string,
-    public username?: string,
+    public _id?: string,
+    public userName?: string,
     public email?: string,
     public role?: string,
     public password?: string
