@@ -27,6 +27,7 @@ import { OwnFileModule } from './pages/own-file/own-file.module';
 import { CommentsComponent } from './popup/comments/comments.component';
 import { EmojiPickerModule } from 'ng-emoji-picker';
 import { FileSelectDirective } from 'ng2-file-upload';
+import { AddBugComponent } from './popup/add-bug/add-bug.component';
 
 const JWT_Module_Options: JwtModuleOptions = ({
   config: {
@@ -48,7 +49,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   UpdatePackComponent,
   AddPackComponent,
   CommentsComponent,
-  FileSelectDirective
+  FileSelectDirective,
+  AddBugComponent
 
       ],
   imports: [
@@ -88,7 +90,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
     PackDetailsComponent,
     UpdatePackComponent,
     AddPackComponent,
-    CommentsComponent
+    CommentsComponent,
+    AddBugComponent
       ],
 })
 export class AppModule { }

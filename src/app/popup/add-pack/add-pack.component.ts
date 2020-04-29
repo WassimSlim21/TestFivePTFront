@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/core/service/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-add-pack',
@@ -13,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AddPackComponent implements OnInit {
   addPackForm: FormGroup;
 
-  constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar, public dialogRef: MatDialogRef<AddPackComponent>) {
     this.addPackForm = new FormGroup({
       pack_name: new FormControl('', Validators.required),
       socialAccounts: new FormControl(0, [, Validators.required]),
@@ -53,5 +54,7 @@ export class AddPackComponent implements OnInit {
       console.log(response);
     });
   }
-
+  onReset() {
+    this.dialogRef.close();
+   }
 }
