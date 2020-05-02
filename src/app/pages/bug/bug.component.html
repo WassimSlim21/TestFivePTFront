@@ -18,11 +18,9 @@
                   <div cdkDropList id="newBug" [cdkDropListData]="newBug" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of newBug" cdkDrag>
-                      <mat-list-item>
-
+                      <mat-list-item matTooltip="Assigned to : {{bug.account_assigned_id.userName}}">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
-
                         <h3 mat-line class="font-weight-bold text-secondary">
                           <i class="material-icons"></i>
                           {{bug?.account_id?.userName}} </h3>
@@ -92,7 +90,7 @@
                   <div cdkDropList id="inProgress" [cdkDropListData]="inProgress" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of inProgress" cdkDrag>
-                      <mat-list-item>
+                      <mat-list-item matTooltip="Assigned to : {{bug.account_assigned_id.userName}}">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
@@ -154,7 +152,7 @@
                   <div cdkDropList id="readyForTest" [cdkDropListData]="readyForTest" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of readyForTest" cdkDrag>
-                      <mat-list-item>
+                      <mat-list-item matTooltip="Assigned to : {{bug.account_assigned_id.userName}}">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
@@ -218,7 +216,7 @@
                   <div cdkDropList id="done" [cdkDropListData]="done" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of done" cdkDrag>
-                      <mat-list-item>
+                      <mat-list-item matTooltip="Assigned to : {{bug.account_assigned_id.userName}}">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
 
@@ -282,7 +280,7 @@
                   <div cdkDropList id="needInfo" [cdkDropListData]="needInfo" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of needInfo" cdkDrag>
-                      <mat-list-item>
+                      <mat-list-item matTooltip="Assigned to : {{bug.account_assigned_id.userName}}">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
