@@ -5,6 +5,7 @@
         <h4 class="card-title">Bugs WorkFlow</h4>
       </div>
       <div class="card-body">
+
         <div class="row" cdkDropListGroup>
           <div class="col-">
             <div class="card">
@@ -13,27 +14,60 @@
                   <h4 class="card-title"> New Bug</h4>
                 </div>
                 <div class="card-body">
+
                   <div cdkDropList id="newBug" [cdkDropListData]="newBug" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of newBug" cdkDrag>
                       <mat-list-item>
+
                         <img mat-list-avatar src="../../../assets/img/person.png" />
-                        <h3 mat-line class="font-weight-bold text-secondary">Bug Name :  {{bug?.name}} </h3>
+                        <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
 
-                        <h3 mat-line class="font-weight-bold text-secondary">add by : {{bug?.account_id?.userName}} </h3>
+                        <h3 mat-line class="font-weight-bold text-secondary">
+                          <i class="material-icons"></i>
+                          {{bug?.account_id?.userName}} </h3>
                         <h4 mat-line>{{bug?.account_id?.role}}</h4>
-
-                        <h6 mat-column class="text-warning">{{moment(bug?.updated_at).fromNow()}}</h6>
+                        <h6 mat-column class="text-warning">
+                          {{moment(bug?.updated_at).fromNow()}}
+                        </h6>
                         <div mat-column>
-                          <button type="button" class="close" aria-label="Close" (click)="comfirmDialog(bug)">
-                            <span class="colorchanged" aria-hidden="true">&times;</span>
+                          <button mat-icon-button [matMenuTriggerFor]="menu"
+                            aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
                           </button>
+                          <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="openDialogListUser(bug)">
+                              <mat-icon>person_add</mat-icon>
+                              <span>Assigned to</span>
+                            </button>
+                            <button mat-menu-item (click)="comfirmDialog(bug)">
+                              <mat-icon>delete</mat-icon>
+                              <span>delete</span>
+                            </button>
+                          </mat-menu>
                         </div>
-                        <p mat-line>
-                          <span class="text-wrap">
-                            <b class="text-secondary">Description :</b> {{bug?.description}}
-                          </span>
-                        </p>
+                        <div mat-line>
+                          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <p *ngIf="bug.account_assigned_id">
+                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug.account_assigned_id.userName}}
+                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug.account_assigned_id.role}}
+                            </p>
+                            <p>
+                              <span class="font-weight-bold text-secondary">Description :</span> {{bug.description}}
+                            </p>
+                            <p>
+                              <span class="font-weight-bold text-secondary">Type :</span> {{bug.type}}
+                            </p>
+                            <p *ngIf="bug.info!==''">
+                              <span class="font-weight-bold text-secondary">Info :</span> {{bug.info}}
+                            </p>
+                          </mat-expansion-panel>
+                        </div>
+
                       </mat-list-item>
                     </mat-list>
                   </div>
@@ -60,20 +94,47 @@
                     <mat-list class="item-box" *ngFor="let bug of inProgress" cdkDrag>
                       <mat-list-item>
                         <img mat-list-avatar src="../../../assets/img/person.png" />
-                        <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.name}} </h3>
+                        <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
                         <h4 mat-line>{{bug?.account_id?.role}}</h4>
-                        <h6 mat-column class="text-warning">{{moment(bug?.created_at).fromNow()}}</h6>
+                        <h6 mat-column class="text-warning">{{moment(bug?.updated_at).fromNow()}}</h6>
                         <div mat-column>
-                          <button type="button" class="close" aria-label="Close" (click)="comfirmDialog(bug)">
-                            <span class="colorchanged" aria-hidden="true">&times;</span>
+                          <button mat-icon-button [matMenuTriggerFor]="menu"
+                            aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
                           </button>
+                          <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="openDialogListUser(bug)">
+                              <mat-icon>person_add</mat-icon>
+                              <span>Assigned to</span>
+                            </button>
+                            <button mat-menu-item (click)="comfirmDialog(bug)">
+                              <mat-icon>delete</mat-icon>
+                              <span>delete</span>
+                            </button>
+                          </mat-menu>
                         </div>
-                        <p mat-line>
-                          <span class="text-wrap">
-                            <b class="text-secondary">Description :</b> {{bug?.description}}
-                          </span>
-                        </p>
+                        <div mat-line>
+                          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <p *ngIf="bug.account_assigned_id">
+                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug.account_assigned_id.userName}}
+                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug.account_assigned_id.role}}
+                            </p>
+                            <p>
+                              <span class="font-weight-bold text-secondary">Description :</span> {{bug.description}}
+                            </p>
+                            <p>
+                              <span class="font-weight-bold text-secondary">Type :</span> {{bug.type}}
+                            </p>
+                            <p *ngIf="bug.info!==''">
+                              <span class="font-weight-bold text-secondary">Info :</span> {{bug.info}}
+                            </p>
+                          </mat-expansion-panel>
+                        </div>
                       </mat-list-item>
                     </mat-list>
                   </div>
@@ -95,21 +156,49 @@
                     <mat-list class="item-box" *ngFor="let bug of readyForTest" cdkDrag>
                       <mat-list-item>
                         <img mat-list-avatar src="../../../assets/img/person.png" />
-                        <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.name}} </h3>
+                        <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
                         <h4 mat-line>{{bug?.account_id?.role}}</h4>
 
-                        <h6 mat-column class="text-warning">{{moment(bug?.created_at).fromNow()}}</h6>
+                        <h6 mat-column class="text-warning">{{moment(bug?.updated_at).fromNow()}}</h6>
                         <div mat-column>
-                          <button type="button" class="close" aria-label="Close" (click)="comfirmDialog(bug)">
-                            <span class="colorchanged" aria-hidden="true">&times;</span>
+                          <button mat-icon-button [matMenuTriggerFor]="menu"
+                            aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
                           </button>
+                          <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="openDialogListUser(bug)">
+                              <mat-icon>person_add</mat-icon>
+                              <span>Assigned to</span>
+                            </button>
+                            <button mat-menu-item (click)="comfirmDialog(bug)">
+                              <mat-icon>delete</mat-icon>
+                              <span>delete</span>
+                            </button>
+                          </mat-menu>
                         </div>
-                        <p mat-line>
-                          <span class="text-wrap">
-                            <b class="text-secondary">Description :</b> {{bug?.description}}
-                          </span>
-                        </p>
+                        <div mat-line>
+                          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <p *ngIf="bug.account_assigned_id">
+                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug.account_assigned_id.userName}}
+                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug.account_assigned_id.role}}
+                            </p>
+                            <p>
+                              <span class="font-weight-bold text-secondary">Description :</span> {{bug.description}}
+                            </p>
+                            <p>
+                              <span class="font-weight-bold text-secondary">Type :</span> {{bug.type}}
+                            </p>
+                            <p *ngIf="bug.info!==''">
+                              <span class="font-weight-bold text-secondary">Info :</span> {{bug.info}}
+                            </p>
+                          </mat-expansion-panel>
+                        </div>
+
                       </mat-list-item>
                     </mat-list>
                   </div>
@@ -131,22 +220,49 @@
                     <mat-list class="item-box" *ngFor="let bug of done" cdkDrag>
                       <mat-list-item>
                         <img mat-list-avatar src="../../../assets/img/person.png" />
-                        <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.name}} </h3>
+                        <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
 
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
                         <h4 mat-line>{{bug?.account_id?.role}}</h4>
 
-                        <h6 mat-column class="text-warning">{{moment(bug?.created_at).fromNow()}}</h6>
+                        <h6 mat-column class="text-warning">{{moment(bug?.updated_at).fromNow()}}</h6>
                         <div mat-column>
-                          <button type="button" class="close" aria-label="Close" (click)="comfirmDialog(bug)">
-                            <span class="colorchanged" aria-hidden="true">&times;</span>
+                          <button mat-icon-button [matMenuTriggerFor]="menu"
+                            aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
                           </button>
+                          <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="openDialogListUser(bug)">
+                              <mat-icon>person_add</mat-icon>
+                              <span>Assigned to</span>
+                            </button>
+                            <button mat-menu-item (click)="comfirmDialog(bug)">
+                              <mat-icon>delete</mat-icon>
+                              <span>delete</span>
+                            </button>
+                          </mat-menu>
                         </div>
-                        <p mat-line>
-                          <span class="text-wrap">
-                            <b class="text-secondary">Description :</b> {{bug?.description}}
-                          </span>
-                        </p>
+                        <div mat-line>
+                          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <p *ngIf="bug.account_assigned_id">
+                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug.account_assigned_id.userName}}
+                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug.account_assigned_id.role}}
+                            </p>
+                            <p>
+                              <span class="font-weight-bold text-secondary">Description :</span> {{bug.description}}
+                            </p>
+                            <p>
+                              <span class="font-weight-bold text-secondary">Type :</span> {{bug.type}}
+                            </p>
+                            <p *ngIf="bug.info!==''">
+                              <span class="font-weight-bold text-secondary">Info :</span> {{bug.info}}
+                            </p>
+                          </mat-expansion-panel>
+                        </div>
                       </mat-list-item>
                     </mat-list>
                   </div>
@@ -168,21 +284,48 @@
                     <mat-list class="item-box" *ngFor="let bug of needInfo" cdkDrag>
                       <mat-list-item>
                         <img mat-list-avatar src="../../../assets/img/person.png" />
-                        <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.name}} </h3>
+                        <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
                         <h4 mat-line>{{bug?.account_id?.role}}</h4>
 
-                        <h6 mat-column class="text-warning">{{moment(bug?.created_at).fromNow()}}</h6>
+                        <h6 mat-column class="text-warning">{{moment(bug?.updated_at).fromNow()}}</h6>
                         <div mat-column>
-                          <button type="button" class="close" aria-label="Close" (click)="comfirmDialog(bug)">
-                            <span class="colorchanged" aria-hidden="true">&times;</span>
+                          <button mat-icon-button [matMenuTriggerFor]="menu"
+                            aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
                           </button>
+                          <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="openDialogListUser(bug)">
+                              <mat-icon>person_add</mat-icon>
+                              <span>Assigned to</span>
+                            </button>
+                            <button mat-menu-item (click)="comfirmDialog(bug)">
+                              <mat-icon>delete</mat-icon>
+                              <span>delete</span>
+                            </button>
+                          </mat-menu>
                         </div>
-                        <p mat-line>
-                          <span class="text-wrap">
-                            <b class="text-secondary">Description :</b> {{bug?.description}}
-                          </span>
-                        </p>
+                        <div mat-line>
+                          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <p *ngIf="bug.account_assigned_id">
+                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug.account_assigned_id.userName}}
+                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug.account_assigned_id.role}}
+                            </p>
+                            <p>
+                              <span class="font-weight-bold text-secondary">Description :</span> {{bug.description}}
+                            </p>
+                            <p>
+                              <span class="font-weight-bold text-secondary">Type :</span> {{bug.type}}
+                            </p>
+                            <p *ngIf="bug.info!==''">
+                              <span class="font-weight-bold text-secondary">Info :</span> {{bug.info}}
+                            </p>
+                          </mat-expansion-panel>
+                        </div>
                       </mat-list-item>
                     </mat-list>
                   </div>

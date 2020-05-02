@@ -28,6 +28,7 @@ import { CommentsComponent } from './popup/comments/comments.component';
 import { EmojiPickerModule } from 'ng-emoji-picker';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { AddBugComponent } from './popup/add-bug/add-bug.component';
+import { ListUserAssignedBugComponent } from './popup/list-user-assigned-bug/list-user-assigned-bug.component';
 
 const JWT_Module_Options: JwtModuleOptions = ({
   config: {
@@ -50,7 +51,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   AddPackComponent,
   CommentsComponent,
   FileSelectDirective,
-  AddBugComponent
+  AddBugComponent,
+  ListUserAssignedBugComponent
 
       ],
   imports: [
@@ -91,7 +93,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
     UpdatePackComponent,
     AddPackComponent,
     CommentsComponent,
-    AddBugComponent
+    AddBugComponent,
+    ListUserAssignedBugComponent
       ],
 })
 export class AppModule { }

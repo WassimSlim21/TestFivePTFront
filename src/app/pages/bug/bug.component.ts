@@ -8,6 +8,7 @@ import { Bug } from 'src/app/core/models/bug';
 import * as moment from 'moment';
 import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
 import { log } from 'util';
+import { ListUserAssignedBugComponent } from 'src/app/popup/list-user-assigned-bug/list-user-assigned-bug.component';
 
 @Component({
   selector: 'app-bug',
@@ -25,6 +26,8 @@ export class BugComponent implements OnInit {
   readyForTest: Bug[] = [];
   done: Bug[] = [];
   needInfo: Bug[] = [];
+  panelOpenState = false;
+
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -140,6 +143,21 @@ export class BugComponent implements OnInit {
     });
   }
 
+  openDialogListUser(bugselected): void {
+    const dialogRef = this.dialog.open(ListUserAssignedBugComponent, {
+      disableClose: false,
+      height: 'auto',
+      width: '20%',
+        data: {
+        bug: bugselected
+      }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getAllBugs();
+
+    });
+  }
 
 }
