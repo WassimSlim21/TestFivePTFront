@@ -18,7 +18,7 @@
                   <div cdkDropList id="newBug" [cdkDropListData]="newBug" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of newBug" cdkDrag>
-                      <mat-list-item matTooltip="Assigned to : {{bug.account_assigned_id.userName}}">
+                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary">
@@ -51,17 +51,17 @@
                               </mat-panel-title>
                             </mat-expansion-panel-header>
                             <p *ngIf="bug.account_assigned_id">
-                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug.account_assigned_id.userName}}
-                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug.account_assigned_id.role}}
+                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug?.account_assigned_id?.userName}}
+                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug?.account_assigned_id?.role}}
                             </p>
                             <p>
-                              <span class="font-weight-bold text-secondary">Description :</span> {{bug.description}}
+                              <span class="font-weight-bold text-secondary">Description :</span> {{bug?.description}}
                             </p>
                             <p>
-                              <span class="font-weight-bold text-secondary">Type :</span> {{bug.type}}
+                              <span class="font-weight-bold text-secondary">Type :</span> {{bug?.type}}
                             </p>
                             <p *ngIf="bug.info!==''">
-                              <span class="font-weight-bold text-secondary">Info :</span> {{bug.info}}
+                              <span class="font-weight-bold text-secondary">Info :</span> {{bug?.info}}
                             </p>
                           </mat-expansion-panel>
                         </div>
@@ -90,7 +90,7 @@
                   <div cdkDropList id="inProgress" [cdkDropListData]="inProgress" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of inProgress" cdkDrag>
-                      <mat-list-item matTooltip="Assigned to : {{bug.account_assigned_id.userName}}">
+                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
@@ -119,17 +119,17 @@
                               </mat-panel-title>
                             </mat-expansion-panel-header>
                             <p *ngIf="bug.account_assigned_id">
-                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug.account_assigned_id.userName}}
-                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug.account_assigned_id.role}}
+                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug?.account_assigned_id?.userName}}
+                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug?.account_assigned_id?.role}}
                             </p>
                             <p>
-                              <span class="font-weight-bold text-secondary">Description :</span> {{bug.description}}
+                              <span class="font-weight-bold text-secondary">Description :</span> {{bug?.description}}
                             </p>
                             <p>
-                              <span class="font-weight-bold text-secondary">Type :</span> {{bug.type}}
+                              <span class="font-weight-bold text-secondary">Type :</span> {{bug?.type}}
                             </p>
                             <p *ngIf="bug.info!==''">
-                              <span class="font-weight-bold text-secondary">Info :</span> {{bug.info}}
+                              <span class="font-weight-bold text-secondary">Info :</span> {{bug?.info}}
                             </p>
                           </mat-expansion-panel>
                         </div>
@@ -152,7 +152,7 @@
                   <div cdkDropList id="readyForTest" [cdkDropListData]="readyForTest" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of readyForTest" cdkDrag>
-                      <mat-list-item matTooltip="Assigned to : {{bug.account_assigned_id.userName}}">
+                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
@@ -182,17 +182,17 @@
                               </mat-panel-title>
                             </mat-expansion-panel-header>
                             <p *ngIf="bug.account_assigned_id">
-                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug.account_assigned_id.userName}}
-                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug.account_assigned_id.role}}
+                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug?.account_assigned_id?.userName}}
+                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug?.account_assigned_id?.role}}
                             </p>
                             <p>
-                              <span class="font-weight-bold text-secondary">Description :</span> {{bug.description}}
+                              <span class="font-weight-bold text-secondary">Description :</span> {{bug?.description}}
                             </p>
                             <p>
-                              <span class="font-weight-bold text-secondary">Type :</span> {{bug.type}}
+                              <span class="font-weight-bold text-secondary">Type :</span> {{bug?.type}}
                             </p>
                             <p *ngIf="bug.info!==''">
-                              <span class="font-weight-bold text-secondary">Info :</span> {{bug.info}}
+                              <span class="font-weight-bold text-secondary">Info :</span> {{bug?.info}}
                             </p>
                           </mat-expansion-panel>
                         </div>
@@ -216,7 +216,7 @@
                   <div cdkDropList id="done" [cdkDropListData]="done" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of done" cdkDrag>
-                      <mat-list-item matTooltip="Assigned to : {{bug.account_assigned_id.userName}}">
+                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
 
@@ -247,17 +247,17 @@
                               </mat-panel-title>
                             </mat-expansion-panel-header>
                             <p *ngIf="bug.account_assigned_id">
-                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug.account_assigned_id.userName}}
-                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug.account_assigned_id.role}}
+                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug?.account_assigned_id?.userName}}
+                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug?.account_assigned_id?.role}}
                             </p>
                             <p>
-                              <span class="font-weight-bold text-secondary">Description :</span> {{bug.description}}
+                              <span class="font-weight-bold text-secondary">Description :</span> {{bug?.description}}
                             </p>
                             <p>
-                              <span class="font-weight-bold text-secondary">Type :</span> {{bug.type}}
+                              <span class="font-weight-bold text-secondary">Type :</span> {{bug?.type}}
                             </p>
                             <p *ngIf="bug.info!==''">
-                              <span class="font-weight-bold text-secondary">Info :</span> {{bug.info}}
+                              <span class="font-weight-bold text-secondary">Info :</span> {{bug?.info}}
                             </p>
                           </mat-expansion-panel>
                         </div>
@@ -280,7 +280,7 @@
                   <div cdkDropList id="needInfo" [cdkDropListData]="needInfo" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of needInfo" cdkDrag>
-                      <mat-list-item matTooltip="Assigned to : {{bug.account_assigned_id.userName}}">
+                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
@@ -310,17 +310,17 @@
                               </mat-panel-title>
                             </mat-expansion-panel-header>
                             <p *ngIf="bug.account_assigned_id">
-                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug.account_assigned_id.userName}}
-                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug.account_assigned_id.role}}
+                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug?.account_assigned_id?.userName}}
+                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug?.account_assigned_id?.role}}
                             </p>
                             <p>
-                              <span class="font-weight-bold text-secondary">Description :</span> {{bug.description}}
+                              <span class="font-weight-bold text-secondary">Description :</span> {{bug?.description}}
                             </p>
                             <p>
-                              <span class="font-weight-bold text-secondary">Type :</span> {{bug.type}}
+                              <span class="font-weight-bold text-secondary">Type :</span> {{bug?.type}}
                             </p>
                             <p *ngIf="bug.info!==''">
-                              <span class="font-weight-bold text-secondary">Info :</span> {{bug.info}}
+                              <span class="font-weight-bold text-secondary">Info :</span> {{bug?.info}}
                             </p>
                           </mat-expansion-panel>
                         </div>
