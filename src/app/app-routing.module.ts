@@ -17,6 +17,8 @@ const routes: Routes = [
       { path: 'packs', loadChildren: () => import('./pages/packs/packs.module').then(m => m.PacksModule) },
       { path: 'markcom/files', loadChildren: () => import('./pages/file/file.module').then(m => m.FileModule) },
       { path: 'markcom/bug', loadChildren: () => import('./pages/bug/bug.module').then(m => m.BugModule) },
+      { path: 'markcom/calendar', loadChildren: () => import('./pages/calendar/calendars.module').then(m => m.CalendarsModule) },
+
 
     ]
   },
