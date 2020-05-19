@@ -35,8 +35,7 @@
               "src/styles.scss",
               "src/assets/scss/material-dashboard.scss",
               "./node_modules/font-awesome/css/font-awesome.css",
-              "./node_modules/@ctrl/ngx-emoji-mart/picker.css"
-            ],
+              "./node_modules/@ctrl/ngx-emoji-mart/picker.css"            ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
               "node_modules/popper.js/dist/umd/popper.js",
@@ -46,8 +45,7 @@
               "node_modules/moment/moment.js",
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
-              "node_modules/chartist/dist/chartist.js"
-            ]
+              "node_modules/chartist/dist/chartist.js"            ]
           },
           "configurations": {
             "production": {
