@@ -122,7 +122,6 @@ export class CalendarComponent implements OnInit {
   activeDayIsOpen: boolean = true;
 
   constructor(private modal: NgbModal) {}
-
   ngOnInit(): void {
   }
 

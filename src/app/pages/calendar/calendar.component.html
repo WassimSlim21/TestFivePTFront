@@ -3,6 +3,7 @@
 
     <div class="row text-center">
       <div class="col-md-4">
+        <!-- Group today next pervious -->
         <div class="btn-group">
           <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
             (viewDateChange)="closeOpenMonthViewDay()">
@@ -21,6 +22,7 @@
         <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
       </div>
       <div class="col-md-4">
+        <!-- Group Week mounth Day -->
         <div class="btn-group">
           <div class="btn btn-primary" (click)="setView(CalendarView.Month)"
             [class.active]="view === CalendarView.Month">
@@ -35,16 +37,19 @@
         </div>
       </div>
     </div>
-    <br />
+    <br/>
     <div [ngSwitch]="view">
+      <!-- Mounth View -->
       <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
         [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
         (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-month-view>
+      <!-- Week View  -->
       <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
         [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-week-view>
+      <!-- Day View -->
       <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events"
         [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
         (eventTimesChanged)="eventTimesChanged($event)">
@@ -55,7 +60,7 @@
       </button>
       <div class="clearfix"></div>
 
-    <!-- <div class="table-responsive">
+    <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -69,7 +74,8 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let event of events">
+          <tr>
+            <div  *ngFor="let event of events">
             <td>
               <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()" />
             </td>
@@ -80,24 +86,25 @@
               <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()" />
             </td>
             <td>
-              <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start"
-                (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true" [enableTime]="true"
-                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
+              <input class="form-control" type="text"  [(ngModel)]="event.start"
+                (ngModelChange)="refresh.next()"
+                dateFormat="Y-m-dTH:i"  placeholder="Not set" />
             </td>
             <td>
-              <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end"
-                (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true" [enableTime]="true"
-                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
+              <input class="form-control" type="text"  [(ngModel)]="event.end"
+                (ngModelChange)="refresh.next()"
+                dateFormat="Y-m-dTH:i" placeholder="Not set" />
             </td>
             <td>
               <button class="btn btn-danger" (click)="deleteEvent(event)">
                 Delete
               </button>
             </td>
+            </div>
           </tr>
         </tbody>
       </table>
-    </div> -->
+    </div>
 
     <ng-template #modalContent let-close="close">
       <div class="modal-header">
