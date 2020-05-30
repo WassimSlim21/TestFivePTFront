@@ -2,8 +2,8 @@
   <div class="container-fluid">
 
     <div class="row text-center">
+      <!-- Group today next pervious -->
       <div class="col-md-4">
-        <!-- Group today next pervious -->
         <div class="btn-group">
           <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
             (viewDateChange)="closeOpenMonthViewDay()">
@@ -18,11 +18,12 @@
           </div>
         </div>
       </div>
+      <!-- Day now -->
       <div class="col-md-4">
         <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
       </div>
+       <!-- Group Week mounth Day -->
       <div class="col-md-4">
-        <!-- Group Week mounth Day -->
         <div class="btn-group">
           <div class="btn btn-primary" (click)="setView(CalendarView.Month)"
             [class.active]="view === CalendarView.Month">
@@ -40,6 +41,7 @@
     <br/>
     <div [ngSwitch]="view">
       <!-- Mounth View -->
+      <!-- ActiveDayIsOpen = onda -->
       <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
         [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
         (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
