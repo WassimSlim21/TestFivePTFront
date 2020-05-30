@@ -8,6 +8,8 @@ const routes: Routes = [
   {
     path: '', component: AdminLayoutComponent, canActivate: [AuthGuardService],
     children: [
+      { path: 'espace-administarteur', loadChildren: () => import('./pages/espace-administarteur/espace-administarteur.module')
+      .then(m => m.EspaceAdministarteurModule) },
       { path: 'users', loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule) },
       { path: 'companys', loadChildren: () => import('./pages/company/company.module').then(m => m.CompanyModule) },
       { path: 'social-accounts', loadChildren: () => import('./pages/social-accounts/social-accounts.module')

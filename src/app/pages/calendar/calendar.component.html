@@ -41,7 +41,7 @@
     <br/>
     <div [ngSwitch]="view">
       <!-- Mounth View -->
-      <!-- ActiveDayIsOpen = onda -->
+      <!-- ActiveDayIsOpen = onday -->
       <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
         [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
         (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">

@@ -36,9 +36,11 @@ export const ROUTESMarket: RouteInfo[] = [
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  super_admin: any =   { path: '/espace-administarteur', title: 'Espace Administrateur',
+   icon: 'admin_panel_settings', class: '', children: [] };
   menuItems: any[];
   marketmenuItems: any[];
-
+  account: any;
   isExpanded = false;
   element: HTMLElement;
   constructor(public dialog: MatDialog,
@@ -51,7 +53,11 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.marketmenuItems = ROUTESMarket.filter(marketmenuItems => marketmenuItems);
-
+    this.account = JSON.parse(localStorage.getItem('account'));
+    if ( this.account.role === 'super-admin')
+      {
+        this.menuItems.unshift(this.super_admin);
+    }
   }
   isMobileMenu() {
     if ($(window).width() > 991) {
