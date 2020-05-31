@@ -92,39 +92,14 @@ export class CalendarComponent implements OnInit {
         afterEnd: true,
       },
       draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
+    }
   ];
   activeDayIsOpen: boolean = true;
 
   constructor(private modal: NgbModal) {}
   ngOnInit(): void {
   }
-
+/* On Day Click*/
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -138,6 +113,8 @@ export class CalendarComponent implements OnInit {
       this.viewDate = date;
     }
   }
+
+/** Time change */
 
   eventTimesChanged({
     event,
