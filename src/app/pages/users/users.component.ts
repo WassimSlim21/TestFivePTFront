@@ -184,6 +184,17 @@ public barChartHovered({ event, active }: { event: MouseEvent, active: {}[] }): 
 // events users per packs
 
 */
+
+
+
+public getUsersWeeklyStats (){
+  this.userService.apiGetAll('/stats/usersWeeklyStats').subscribe(
+    (response: any) => {
+      this.barChartData = response.barChartData ;
+      this.barChartLabels = response.labels ;
+    }
+  );
+}
   public chartClicked({ event, active }: { event: MouseEvent, active: any[] }): void {
     console.log(this.userPackStat[active[0]._index]);
     this.openDialogStat(this.userPackStat[active[0]._index]);
@@ -232,6 +243,7 @@ end events users per packs
     this.getUserPerPackStats();
     this.getCompany();
     this.getUsers(1);
+    this.getUsersWeeklyStats();
     this.selectedOption = 'agency';
     this.filterForm = this.fb.group({
       name: new FormControl(),
