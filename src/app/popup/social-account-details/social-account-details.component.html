@@ -25,9 +25,9 @@
 
                             </mat-list-item>
                             <mat-divider></mat-divider>
-                            <mat-list-item *ngIf='socialAccount?.nickname'> Nickname : </mat-list-item>
+                            <mat-list-item *ngIf='socialAccount?.nickname'> Nickname : {{socialAccount?.nickname}}</mat-list-item>
                             <mat-divider  *ngIf='socialAccount?.nickname'></mat-divider>
-                            <mat-list-item  *ngIf='socialAccount?.description'> Description :</mat-list-item>
+                            <mat-list-item  *ngIf='socialAccount?.description'> Description : {{socialAccount?.description}} </mat-list-item>
                             <mat-divider   *ngIf='socialAccount?.description'></mat-divider>
                             <mat-list-item  *ngIf='socialAccount?.created_at'> Created At : </mat-list-item>
                             <mat-divider *ngIf='socialAccount?.created_at'></mat-divider>

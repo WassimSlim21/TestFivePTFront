@@ -139,7 +139,7 @@ public barChartClicked({ event, active }: { event: MouseEvent, active: {}[] }): 
 }
 
 public barChartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-  console.log(event, active);
+  //  console.log(event, active);
 }
 
 
