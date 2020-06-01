@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
 import { Account } from 'src/app/core/models/account';
 import { ApiService } from 'src/app/core/service/api.service';
+import { ComfirmDialogComponent, ConfirmDialogModel } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
+import { UpdateAccountRoleComponent } from 'src/app/popup/update-account-role/update-account-role.component';
+import { Router } from '@angular/router';
 
 declare interface Role {
   id: string;
@@ -19,18 +22,50 @@ export const Roles: Role[] = [
 export class EspaceAdministarteurComponent implements OnInit {
   isLoading = true;
   menuRoles: any[];
-  displayedColumns: string[] = ['user_id', 'userName',  'role', 'email', 'change_role', 'delete'];
+  displayedColumns: string[] = ['user_id', 'userName',  'role', 'email', 'star'];
   dataSource: MatTableDataSource<Account>;
   accounts: Account[];
   selectedRole: string;
-  constructor(private apiService: ApiService) { }
+  result: any;
+
+  constructor(private apiService: ApiService,
+              private snackBar: MatSnackBar,
+              public dialog: MatDialog,
+              public dialogRef: MatDialogRef<ComfirmDialogComponent>,
+              public router: Router) { }
 
   ngOnInit(): void {
+
+   let account = JSON.parse(localStorage.getItem('account'));
+if(account.role != "super-admin"){
+  this.router
+}
     this.menuRoles = Roles.filter(menuItem => menuItem);
 
     this.getAllAccounts();
   }
 
+  comfirmDialog(element: any): void {
+    const message = `Are you sure you want to do this?`;
+    const dialogData = new ConfirmDialogModel('Confirm Action', message);
+    const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.result = dialogResult;
+      if (this.result === true) {
+        this.apiService.apiDelete(`/account/${element._id}`).subscribe(
+          (response: any) => {
+            console.log('delete' + response);
+            this.snackBar.open(JSON.stringify(response.message));
+            this.getAllAccounts();
+          }
+        );
+        this.dialogRef.close();
+      }
+    });
+  }
   getAllAccounts() {
     this.apiService.apiGetAll('/account/get').subscribe(
       (response: any) => {
@@ -46,5 +81,21 @@ export class EspaceAdministarteurComponent implements OnInit {
       console.log(error);
     });
   }
+
+  openDialog(compte): void {
+    const dialogRef = this.dialog.open(UpdateAccountRoleComponent, {
+      disableClose: false,
+      data: {
+        account: compte
+      }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getAllAccounts();
+    });
+  }
+
 
 }

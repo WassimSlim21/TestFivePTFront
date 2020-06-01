@@ -5,6 +5,7 @@ import { EspaceAdministarteurRoutingModule } from './espace-administarteur-routi
 import { EspaceAdministarteurComponent } from './espace-administarteur.component';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { FormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
 @NgModule({
@@ -14,6 +15,9 @@ import { FormsModule } from '@angular/forms';
     EspaceAdministarteurRoutingModule,
     MaterialModule,
     FormsModule
-  ]
+  ],
+  providers: [
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: [] }, ],
 })
 export class EspaceAdministarteurModule { }
