@@ -31,6 +31,10 @@ import { AddBugComponent } from './popup/add-bug/add-bug.component';
 import { ListUserAssignedBugComponent } from './popup/list-user-assigned-bug/list-user-assigned-bug.component';
 import { UpdateAccountRoleComponent } from './popup/update-account-role/update-account-role.component';
 import { AddAccountComponent } from './popup/add-account/add-account.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { SocketioService } from './core/service/socketio.service';
+
+const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
 const JWT_Module_Options: JwtModuleOptions = ({
   config: {
@@ -60,6 +64,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
 
       ],
   imports: [
+    SocketIoModule.forRoot(config),
     EmojiPickerModule,
     AngularFontAwesomeModule,
     HttpClientModule,
@@ -82,6 +87,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
+    SocketioService
 ],
   bootstrap: [AppComponent]
   ,

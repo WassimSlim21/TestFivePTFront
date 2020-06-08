@@ -43,7 +43,7 @@ export class UserDetailsComponent implements OnInit {
       user => {
         this.user = user ;
         this.user.data = user.data;
-        this.user.actions = JSON.parse(user.actions);
+     //   this.user.actions = JSON.parse(user.actions);
         this.image = 'https://graph.facebook.com/961482093939704/picture?height=150&width=150' ;
         this.user.dashboards.forEach(element => {
         if ( element.type === 'SocialAccount') {
