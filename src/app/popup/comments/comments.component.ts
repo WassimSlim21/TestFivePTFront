@@ -6,12 +6,16 @@ import { Account } from 'src/app/core/models/account';
 import * as moment from 'moment';
 import 'emoji-mart/css/emoji-mart.css';
 import { ComfirmDialogComponent, ConfirmDialogModel } from '../comfirm-dialog/comfirm-dialog.component';
+import * as io from 'socket.io-client';
+import { environment } from 'src/environments/environment';
 @Component({
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss']
 })
 
 export class CommentsComponent implements OnInit {
+  socket: any;
+
   account: Account;
   file: any;
   comments: any;
@@ -32,6 +36,14 @@ export class CommentsComponent implements OnInit {
   ngOnInit() {
     console.log(this.data.fileId);
     this.getFiles(this.data.fileId);
+    this.socket = io(environment.SOCKET_ENDPOINT);
+
+    this.socket.on('comment', (UpdatedfileId: string) => {
+      if (UpdatedfileId === this.data.fileId) {
+       this.getFiles(this.data.fileId);
+      }
+    });
+
 
   }
 
@@ -61,6 +73,8 @@ addComment() {
   this.account_id = JSON.parse(localStorage.getItem('account'))._id;
   this.apiService.apiPost(`/file/comment/` + this.data.fileId,
   {account_id: this.account_id, content: this.content}).subscribe((response: any) => {
+    this.socket.emit('comment', this.data.fileId);
+
     console.log(response);
     this.myText = '';
     this.getFiles(this.data.fileId);
