@@ -5,14 +5,15 @@ import { ApiService } from 'src/app/core/service/api.service';
 import { ComfirmDialogComponent, ConfirmDialogModel } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
 import { UpdateAccountRoleComponent } from 'src/app/popup/update-account-role/update-account-role.component';
 import { Router } from '@angular/router';
+import { AddAccountComponent } from 'src/app/popup/add-account/add-account.component';
 
 declare interface Role {
   id: string;
   role: string;
 }
 export const Roles: Role[] = [
-  { id: '1', role: 'admin'},
-  { id: '2', role: 'super-admin'}
+  { id: '1', role: 'admin' },
+  { id: '2', role: 'super-admin' }
 ];
 @Component({
   selector: 'app-espace-administarteur',
@@ -22,24 +23,24 @@ export const Roles: Role[] = [
 export class EspaceAdministarteurComponent implements OnInit {
   isLoading = true;
   menuRoles: any[];
-  displayedColumns: string[] = ['user_id', 'userName',  'role', 'email', 'star'];
+  displayedColumns: string[] = ['user_id', 'userName', 'role', 'email', 'star'];
   dataSource: MatTableDataSource<Account>;
   accounts: Account[];
   selectedRole: string;
   result: any;
 
   constructor(private apiService: ApiService,
-              private snackBar: MatSnackBar,
-              public dialog: MatDialog,
-              public dialogRef: MatDialogRef<ComfirmDialogComponent>,
-              public router: Router) { }
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<ComfirmDialogComponent>,
+    public router: Router) { }
 
   ngOnInit(): void {
 
-   let account = JSON.parse(localStorage.getItem('account'));
-if(account.role != "super-admin"){
-  this.router
-}
+    let account = JSON.parse(localStorage.getItem('account'));
+    if (account.role != "super-admin") {
+      this.router
+    }
     this.menuRoles = Roles.filter(menuItem => menuItem);
 
     this.getAllAccounts();
@@ -66,6 +67,18 @@ if(account.role != "super-admin"){
       }
     });
   }
+  addNewAccountDialog() {
+    const dialogRef = this.dialog.open(AddAccountComponent, {
+      disableClose: false,
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getAllAccounts();
+    });
+
+  }
   getAllAccounts() {
     this.apiService.apiGetAll('/account/get').subscribe(
       (response: any) => {
@@ -77,9 +90,9 @@ if(account.role != "super-admin"){
           this.isLoading = false;
         }
       },
-    error => {
-      console.log(error);
-    });
+      error => {
+        console.log(error);
+      });
   }
 
   openDialog(compte): void {

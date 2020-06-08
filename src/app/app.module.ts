@@ -30,6 +30,7 @@ import { FileSelectDirective } from 'ng2-file-upload';
 import { AddBugComponent } from './popup/add-bug/add-bug.component';
 import { ListUserAssignedBugComponent } from './popup/list-user-assigned-bug/list-user-assigned-bug.component';
 import { UpdateAccountRoleComponent } from './popup/update-account-role/update-account-role.component';
+import { AddAccountComponent } from './popup/add-account/add-account.component';
 
 const JWT_Module_Options: JwtModuleOptions = ({
   config: {
@@ -54,7 +55,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   FileSelectDirective,
   AddBugComponent,
   ListUserAssignedBugComponent,
-  UpdateAccountRoleComponent
+  UpdateAccountRoleComponent,
+  AddAccountComponent
 
       ],
   imports: [
@@ -97,7 +99,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
     CommentsComponent,
     AddBugComponent,
     ListUserAssignedBugComponent,
-    UpdateAccountRoleComponent
+    UpdateAccountRoleComponent,
+    AddAccountComponent
       ],
 })
 export class AppModule { }
