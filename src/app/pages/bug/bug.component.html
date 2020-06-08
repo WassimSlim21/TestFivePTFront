@@ -14,11 +14,11 @@
                   <h4 class="card-title"> New Bug</h4>
                 </div>
                 <div class="card-body">
-
                   <div cdkDropList id="newBug" [cdkDropListData]="newBug" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of newBug" cdkDrag>
-                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}">
+                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}"  [matTooltipDisabled]="(bug.account_assigned_id == null)"  [matTooltipDisabled]="(bug.account_assigned_id == null)"
+                      >
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary">
@@ -45,25 +45,7 @@
                           </mat-menu>
                         </div>
                         <div mat-line>
-                          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                            <mat-expansion-panel-header>
-                              <mat-panel-title>
-                              </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <p *ngIf="bug.account_assigned_id">
-                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug?.account_assigned_id?.userName}}
-                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug?.account_assigned_id?.role}}
-                            </p>
-                            <p>
-                              <span class="font-weight-bold text-secondary">Description :</span> {{bug?.description}}
-                            </p>
-                            <p>
-                              <span class="font-weight-bold text-secondary">Type :</span> {{bug?.type}}
-                            </p>
-                            <p *ngIf="bug.info!==''">
-                              <span class="font-weight-bold text-secondary">Info :</span> {{bug?.info}}
-                            </p>
-                          </mat-expansion-panel>
+                          <button class="btn btn-danger btn-sm" (click)="OpenBugDetailsDialog(bug._id)">Details</button>
                         </div>
 
                       </mat-list-item>
@@ -90,7 +72,7 @@
                   <div cdkDropList id="inProgress" [cdkDropListData]="inProgress" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of inProgress" cdkDrag>
-                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}">
+                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}"  [matTooltipDisabled]="(bug.account_assigned_id == null)">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
@@ -113,25 +95,7 @@
                           </mat-menu>
                         </div>
                         <div mat-line>
-                          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                            <mat-expansion-panel-header>
-                              <mat-panel-title>
-                              </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <p *ngIf="bug.account_assigned_id">
-                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug?.account_assigned_id?.userName}}
-                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug?.account_assigned_id?.role}}
-                            </p>
-                            <p>
-                              <span class="font-weight-bold text-secondary">Description :</span> {{bug?.description}}
-                            </p>
-                            <p>
-                              <span class="font-weight-bold text-secondary">Type :</span> {{bug?.type}}
-                            </p>
-                            <p *ngIf="bug.info!==''">
-                              <span class="font-weight-bold text-secondary">Info :</span> {{bug?.info}}
-                            </p>
-                          </mat-expansion-panel>
+                          <button class="btn btn-warning btn-sm" (click)="OpenBugDetailsDialog(bug._id)">Details</button>
                         </div>
                       </mat-list-item>
                     </mat-list>
@@ -152,7 +116,7 @@
                   <div cdkDropList id="readyForTest" [cdkDropListData]="readyForTest" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of readyForTest" cdkDrag>
-                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}">
+                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}"  [matTooltipDisabled]="(bug.account_assigned_id == null)">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
@@ -176,25 +140,7 @@
                           </mat-menu>
                         </div>
                         <div mat-line>
-                          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                            <mat-expansion-panel-header>
-                              <mat-panel-title>
-                              </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <p *ngIf="bug.account_assigned_id">
-                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug?.account_assigned_id?.userName}}
-                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug?.account_assigned_id?.role}}
-                            </p>
-                            <p>
-                              <span class="font-weight-bold text-secondary">Description :</span> {{bug?.description}}
-                            </p>
-                            <p>
-                              <span class="font-weight-bold text-secondary">Type :</span> {{bug?.type}}
-                            </p>
-                            <p *ngIf="bug.info!==''">
-                              <span class="font-weight-bold text-secondary">Info :</span> {{bug?.info}}
-                            </p>
-                          </mat-expansion-panel>
+                          <button class="btn btn-primary btn-sm" (click)="OpenBugDetailsDialog(bug._id)">Details</button>
                         </div>
 
                       </mat-list-item>
@@ -216,7 +162,7 @@
                   <div cdkDropList id="done" [cdkDropListData]="done" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of done" cdkDrag>
-                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}">
+                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}"  [matTooltipDisabled]="(bug.account_assigned_id == null)">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
 
@@ -241,25 +187,7 @@
                           </mat-menu>
                         </div>
                         <div mat-line>
-                          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                            <mat-expansion-panel-header>
-                              <mat-panel-title>
-                              </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <p *ngIf="bug.account_assigned_id">
-                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug?.account_assigned_id?.userName}}
-                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug?.account_assigned_id?.role}}
-                            </p>
-                            <p>
-                              <span class="font-weight-bold text-secondary">Description :</span> {{bug?.description}}
-                            </p>
-                            <p>
-                              <span class="font-weight-bold text-secondary">Type :</span> {{bug?.type}}
-                            </p>
-                            <p *ngIf="bug.info!==''">
-                              <span class="font-weight-bold text-secondary">Info :</span> {{bug?.info}}
-                            </p>
-                          </mat-expansion-panel>
+                          <button class="btn btn-success btn-sm" (click)="OpenBugDetailsDialog(bug._id)">Details</button>
                         </div>
                       </mat-list-item>
                     </mat-list>
@@ -280,7 +208,7 @@
                   <div cdkDropList id="needInfo" [cdkDropListData]="needInfo" class="item-list"
                     (cdkDropListDropped)="drop($event)">
                     <mat-list class="item-box" *ngFor="let bug of needInfo" cdkDrag>
-                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}">
+                      <mat-list-item matTooltip="Assigned to : {{bug?.account_assigned_id?.userName}}"  [matTooltipDisabled]="(bug.account_assigned_id == null)">
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
                         <h3 mat-line class="font-weight-bold text-secondary"> {{bug?.account_id?.userName}} </h3>
@@ -304,25 +232,7 @@
                           </mat-menu>
                         </div>
                         <div mat-line>
-                          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                            <mat-expansion-panel-header>
-                              <mat-panel-title>
-                              </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <p *ngIf="bug.account_assigned_id">
-                              <span class="font-weight-bold text-secondary">Assigned to :</span> {{bug?.account_assigned_id?.userName}}
-                              <span class="font-weight-bold text-secondary">Account Type : </span> {{bug?.account_assigned_id?.role}}
-                            </p>
-                            <p>
-                              <span class="font-weight-bold text-secondary">Description :</span> {{bug?.description}}
-                            </p>
-                            <p>
-                              <span class="font-weight-bold text-secondary">Type :</span> {{bug?.type}}
-                            </p>
-                            <p *ngIf="bug.info!==''">
-                              <span class="font-weight-bold text-secondary">Info :</span> {{bug?.info}}
-                            </p>
-                          </mat-expansion-panel>
+                          <button class="btn btn-info btn-sm" (click)="OpenBugDetailsDialog(bug._id)">Details</button>
                         </div>
                       </mat-list-item>
                     </mat-list>

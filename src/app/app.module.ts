@@ -31,6 +31,7 @@ import { AddBugComponent } from './popup/add-bug/add-bug.component';
 import { ListUserAssignedBugComponent } from './popup/list-user-assigned-bug/list-user-assigned-bug.component';
 import { UpdateAccountRoleComponent } from './popup/update-account-role/update-account-role.component';
 import { AddAccountComponent } from './popup/add-account/add-account.component';
+import { BugDetailsComponent } from './popup/bug-details/bug-details.component';
 
 const JWT_Module_Options: JwtModuleOptions = ({
   config: {
@@ -56,7 +57,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   AddBugComponent,
   ListUserAssignedBugComponent,
   UpdateAccountRoleComponent,
-  AddAccountComponent
+  AddAccountComponent,
+  BugDetailsComponent
 
       ],
   imports: [
@@ -100,7 +102,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
     AddBugComponent,
     ListUserAssignedBugComponent,
     UpdateAccountRoleComponent,
-    AddAccountComponent
+    AddAccountComponent,
+    BugDetailsComponent
       ],
 })
 export class AppModule { }

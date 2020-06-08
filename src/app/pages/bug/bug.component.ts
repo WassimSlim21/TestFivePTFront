@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
 import { log } from 'util';
 import { ListUserAssignedBugComponent } from 'src/app/popup/list-user-assigned-bug/list-user-assigned-bug.component';
+import { BugDetailsComponent } from 'src/app/popup/bug-details/bug-details.component';
 
 @Component({
   selector: 'app-bug',
@@ -67,9 +68,28 @@ export class BugComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-
+      this.getAllBugs();
     });
-    this.getAllBugs();
+
+  }
+
+
+  /* Popup Bug Details and Update */
+  OpenBugDetailsDialog(id): void {
+    console.log('idk,dkx lxn:', id);
+    const dialogRef = this.dialog.open(BugDetailsComponent, {
+      disableClose: false,
+      height: 'auto',
+      width: 'auto',
+      data: {
+        bug_id: id
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getAllBugs();
+    });
 
   }
 
@@ -118,7 +138,6 @@ export class BugComponent implements OnInit {
         this.snackBar.open(JSON.stringify(response.message));
       }
     );
-    this.getAllBugs();
   }
 
   /* Delete Bug */
