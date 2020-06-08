@@ -48,6 +48,7 @@
     "date-fns": "^2.13.0",
     "emoji-mart": "^3.0.0",
     "emojionearea": "^3.0.0",
+    "engine.io-client": "^3.4.3",
     "express": "^4.17.1",
     "favicon": "0.0.2",
     "flatpickr": "^4.6.3",
