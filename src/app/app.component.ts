@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
   constructor(private socketService: SocketioService) {}
   ngOnInit() {
     this.socketService.setupSocketConnection();
+
+
   }
 
 }

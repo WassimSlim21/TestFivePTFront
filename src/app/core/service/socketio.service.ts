@@ -12,5 +12,20 @@ export class SocketioService {
   constructor() { }
   setupSocketConnection() {
     this.socket = io(environment.SOCKET_ENDPOINT);
+    this.socket.emit('my message', JSON.parse(localStorage.getItem('account')).userName + 'is connected');
+    this.socket.on('my broadcast', (data: string) => {
+      console.log(data);
+    });
+/*
+    this.socket = io(environment.SOCKET_ENDPOINT, {
+      query: {
+        token: 'cde'
+      }
+    });
+*/
+
   }
+
+
+
 }
