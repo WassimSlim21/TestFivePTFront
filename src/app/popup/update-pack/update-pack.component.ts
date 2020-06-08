@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/core/service/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { Pack } from 'src/app/core/models/pack';
 
 
@@ -16,6 +16,7 @@ export class UpdatePackComponent implements OnInit {
   updateForm: FormGroup;
   pack: any;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  public dialogRef: MatDialogRef<UpdatePackComponent>,
     public dialog: MatDialog, private apiService: ApiService,
     private snackBar: MatSnackBar) {
     this.updateForm = new FormGroup({
@@ -51,7 +52,7 @@ export class UpdatePackComponent implements OnInit {
         this.snackBar.open(JSON.stringify(response.message));
       }
     );
-    this.loadPack();
+    this.dialogRef.close();
   }
 
   loadPack(): void {
@@ -93,6 +94,9 @@ export class UpdatePackComponent implements OnInit {
       error => {
         console.log(error);
       });
+  }
+  cancel(){
+    this.loadPack();
   }
 }
 

@@ -53,6 +53,8 @@ export class AddPackComponent implements OnInit {
     this.apiService.apiPost('/pack/add', this.addPackForm.value).subscribe(response => {
       console.log(response);
     });
+    this.dialogRef.close();
+
   }
   onReset() {
     this.dialogRef.close();

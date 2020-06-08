@@ -1,19 +1,20 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/core/service/api.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { MatSnackBar, MatDialogRef } from '@angular/material';
+import { UpdateAccountRoleComponent } from '../update-account-role/update-account-role.component';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-add-account',
+  templateUrl: './add-account.component.html',
+  styleUrls: ['./add-account.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class AddAccountComponent implements OnInit {
   registerForm: FormGroup;
   invalid = false; // custom validator for password comfirmation
-  constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar,
+              public dialogRef: MatDialogRef<UpdateAccountRoleComponent>,
+    ) {
     this.registerForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
       email: new FormControl(null, [Validators.email, Validators.required]),
@@ -60,7 +61,10 @@ export class RegisterComponent implements OnInit {
      this.registerForm.reset();
 
     });
+    this.dialogRef.close();
   }
   }
-
+  close(){
+    this.dialogRef.close();
+  }
 }

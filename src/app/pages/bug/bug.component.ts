@@ -67,9 +67,10 @@ export class BugComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getAllBugs();
 
     });
+    this.getAllBugs();
+
   }
 
   /*Get All Bug*/
