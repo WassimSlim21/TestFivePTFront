@@ -57,6 +57,18 @@
                   </mat-list>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <button mat-raised-button type="submit" class="btn btn-primary pull-left"
+                  (click)="updateBugDialog(bug)">Update</button>
+              </div>
+              <div class="col-md-6" pull-right>
+                <a mat-raised-button class="btn" (click)="close()">Cancel</a>
+              </div>
+              <div class="clearfix"></div>
+
+            </div>
           </div>
         </div>
       </div>
