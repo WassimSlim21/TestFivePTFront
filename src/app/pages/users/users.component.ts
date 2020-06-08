@@ -116,7 +116,7 @@ public barChartPlugins = [pluginDataLabels];
 public barChartColors = [
   {
     backgroundColor: ['#cb2025', '#f8b334', '#00a096', '#cb2025', '#f8b334', '#00a096', '#cb2025',
-                      '#f8b334', '#00a096', '#cb2025', '#f8b334', '#00a096', '#cb2025', '#f8b334', '#00a096',
+                      '#f8b334', '#00a096','#cb2025', '#f8b334', '#00a096', '#cb2025', '#f8b334', '#00a096',
                       '#cb2025', '#f8b334', '#00a096', '#cb2025', '#f8b334', '#00a096']
   },
 ];
@@ -124,8 +124,6 @@ public barChartColors = [
 public barChartData: ChartDataSets[] = [
   { data: [65, 59, 70, 61, 56, 55, 40], label: 'Series A' },
   { data: [28, 48, 40, 19, 86, 27, 30], label: 'Series B' },
-  { data: [28, 48, 40, 19, 86, 27, 30], label: 'Series E' },
-
   { data: [80, 68, 20, 25, 85, 90, 50], label: 'Series C' }
 
 ];
@@ -136,6 +134,8 @@ public barChartData: ChartDataSets[] = [
 
 public barChartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
   console.log(event, active);
+ // this.openDialogStat(this.userPackStat[active[0]._index]);
+
 }
 
 public barChartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
