@@ -95,6 +95,7 @@ comfirmDialog(id_comment: any): void {
     if (this.result === true) {
       this.apiService.apiPut(`/file/comment/${this.file._id}`, {comment_id : id_comment}).subscribe(
         (response: any) => {
+          this.socket.emit('comment', this.data.fileId);
           console.log('delete' + response);
           this.snackBar.open('Comment Deleted!');
           this.getFiles(this.data.fileId);

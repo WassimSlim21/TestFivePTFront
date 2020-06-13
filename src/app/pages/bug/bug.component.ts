@@ -10,6 +10,8 @@ import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfir
 import { log } from 'util';
 import { ListUserAssignedBugComponent } from 'src/app/popup/list-user-assigned-bug/list-user-assigned-bug.component';
 import { BugDetailsComponent } from 'src/app/popup/bug-details/bug-details.component';
+import * as io from 'socket.io-client';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-bug',
@@ -17,6 +19,7 @@ import { BugDetailsComponent } from 'src/app/popup/bug-details/bug-details.compo
   styleUrls: ['./bug.component.scss']
 })
 export class BugComponent implements OnInit {
+  socket: any;
 
   bugs: Bug[];
   moment = moment;
@@ -39,6 +42,12 @@ export class BugComponent implements OnInit {
 
   ngOnInit() {
     this.getAllBugs();
+    this.socket = io(environment.SOCKET_ENDPOINT);
+
+    this.socket.on('bug', (account_id: any) => {
+      if (JSON.parse(localStorage.getItem('account'))._id !== account_id){
+      this.getAllBugs();}
+    });
   }
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -50,7 +59,9 @@ export class BugComponent implements OnInit {
         event.currentIndex);
       console.log('event data', event.container.data[event.currentIndex]);
       console.log('event container', event.container.element['nativeElement']['id']);
-      this.updateBug(event.container.data[event.currentIndex]['_id'], event.container.element['nativeElement']['id'])
+      this.updateBug(event.container.data[event.currentIndex]['_id'], event.container.element['nativeElement']['id']);
+      this.socket.emit('bug', JSON.parse(localStorage.getItem('account'))._id);
+
       // console.log('event previousIndex', event.previousIndex);
       // console.log('event currentIndex', event.currentIndex);
 
@@ -133,7 +144,7 @@ export class BugComponent implements OnInit {
   /* Update Bug State */
 
   updateBug(id: any, etat: any) {
-    this.apiService.apiPut(`/bug/${id}`, { "etat": etat }).subscribe(
+    this.apiService.apiPut(`/bug/${id}`, { 'etat': etat }).subscribe(
       (response: any) => {
         this.snackBar.open(JSON.stringify(response.message));
       }
