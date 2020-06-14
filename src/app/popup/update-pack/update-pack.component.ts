@@ -94,10 +94,10 @@ export class UpdatePackComponent implements OnInit {
             addBenchmark: new FormControl(this.pack.addBenchmark, [, Validators.required]),
           });
           this.updateForm.valueChanges.subscribe(value => {
-            console.log(value);
             value.benchmarks = {max_have : value.benchmarks , deletes: value.benchmarks};
             value.socialAccounts = {max_have : value.socialAccounts , deletes: value.socialAccounts};
             value.dataHistoryYears = value.dataHistoryYears + ' YEARS';
+            console.log(value);
           });
         }
       },
@@ -105,7 +105,7 @@ export class UpdatePackComponent implements OnInit {
         console.log(error);
       });
   }
-  cancel(){
+  cancel() {
     this.loadPack();
   }
 }

@@ -51,13 +51,11 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadAccount();
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.marketmenuItems = ROUTESMarket.filter(marketmenuItems => marketmenuItems);
     this.account = JSON.parse(localStorage.getItem('account'));
-    if ( this.account.role === 'super-admin')
-      {
-        this.menuItems.unshift(this.super_admin);
-    }
+
   }
   isMobileMenu() {
     if ($(window).width() > 991) {
@@ -90,6 +88,14 @@ export class SidebarComponent implements OnInit {
   logout(): void {
     this.authService.setLoggedOut();
     this.router.navigate(['/login']);
+  }
+  loadAccount() {
+    this.authService.apiGetAll(`/account/get/${JSON.parse(localStorage.getItem('account'))._id}`).subscribe((response: any) => {
+        localStorage.setItem('account', JSON.stringify(response));
+        if ( response.role === 'super-admin') {
+          this.menuItems.unshift(this.super_admin);
+           }
+    });
   }
 
 }
