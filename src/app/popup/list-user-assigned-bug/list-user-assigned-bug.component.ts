@@ -41,6 +41,12 @@ export class ListUserAssignedBugComponent implements OnInit {
         this.snackBar.open(JSON.stringify(response.message));
       }
     );
+    this.apiService.apiPost('/notification/',
+    {source : JSON.parse(localStorage.getItem('account'))._id,
+     content : 'A bug was assigned to you',
+     destinations : [userId]}).subscribe(response => {
+      console.log('notifiier :', response);
+    });
     this.dialogRef.close();
   }
 

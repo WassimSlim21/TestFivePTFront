@@ -52,6 +52,16 @@ export class UpdatePackComponent implements OnInit {
         this.snackBar.open(JSON.stringify(response.message));
       }
     );
+
+
+    this.apiService.apiPost('/notification/',
+    {source : JSON.parse(localStorage.getItem('account'))._id,
+     content : `${this.pack.pack_name} Pack was updated`,
+     destinations : []}).subscribe(response => {
+      console.log('notifiier :', response);
+    });
+
+
     this.dialogRef.close();
   }
 

@@ -60,6 +60,11 @@ export class BugComponent implements OnInit {
       console.log('event data', event.container.data[event.currentIndex]);
       console.log('event container', event.container.element['nativeElement']['id']);
       this.updateBug(event.container.data[event.currentIndex]['_id'], event.container.element['nativeElement']['id']);
+      this.apiService.apiPost('/notification/',
+      {source : JSON.parse(localStorage.getItem('account'))._id, content : 'A bug state was updated'}).subscribe(response => {
+        console.log('notifiier :', response);
+      });
+
       this.socket.emit('bug', JSON.parse(localStorage.getItem('account'))._id);
 
       // console.log('event previousIndex', event.previousIndex);

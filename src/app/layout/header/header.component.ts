@@ -5,6 +5,9 @@ import { EditProfilepopupComponent } from 'src/app/popup/editprofile/edit-profil
 import { ApiService } from 'src/app/core/service/api.service';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { ROUTES } from '../sidebar/sidebar.component';
+import { environment } from 'src/environments/environment';
+import * as io from 'socket.io-client';
+
 
 @Component({
   selector: 'app-header',
@@ -13,12 +16,15 @@ import { ROUTES } from '../sidebar/sidebar.component';
 })
 export class HeaderComponent implements OnInit {
   private listTitles: any[];
+  socket: any;
+  notifications: any ;
   location: Location;
   // tslint:disable-next-line: variable-name
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
   constructor(location: Location,
+              public apiService: ApiService,
               private router: Router,
               public dialog: MatDialog,
               private authService: ApiService,
@@ -37,6 +43,8 @@ export class HeaderComponent implements OnInit {
         this.mobile_menu_visible = 0;
       }
     });
+    this.loadNotifications();
+    this.setupSocketNotifHandler();
   }
 
   sidebarOpen() {
@@ -136,6 +144,21 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     this.authService.setLoggedOut();
     this.router.navigate(['/login']);
+  }
+
+
+  setupSocketNotifHandler() {
+    this.socket = io(environment.SOCKET_ENDPOINT);
+    this.socket.on('Notification', (data: any) => {
+      this.loadNotifications();
+    });
+  }
+
+  loadNotifications() {
+    this.apiService.apiGetAll('/notification/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {
+      this.notifications = response ;
+   //   console.log('notifications', this.notifications);
+     } );
   }
 
 }
