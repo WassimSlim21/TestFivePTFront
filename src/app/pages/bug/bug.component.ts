@@ -76,7 +76,6 @@ export class BugComponent implements OnInit {
 
   /* Popup Bug Details and Update */
   OpenBugDetailsDialog(id): void {
-    console.log('idk,dkx lxn:', id);
     const dialogRef = this.dialog.open(BugDetailsComponent, {
       disableClose: false,
       height: 'auto',
