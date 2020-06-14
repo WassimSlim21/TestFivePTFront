@@ -79,6 +79,13 @@ addComment() {
     this.myText = '';
     this.getFiles(this.data.fileId);
   });
+
+  this.apiService.apiPost('/notification/',
+  {source : JSON.parse(localStorage.getItem('account'))._id,
+   content : 'your file was commented ',
+   destinations : [this.file.account_id._id]}).subscribe(response => {
+    console.log('notifiier :', response);
+  });
 }
 
 
@@ -95,6 +102,7 @@ comfirmDialog(id_comment: any): void {
     if (this.result === true) {
       this.apiService.apiPut(`/file/comment/${this.file._id}`, {comment_id : id_comment}).subscribe(
         (response: any) => {
+          this.socket.emit('comment', this.data.fileId);
           console.log('delete' + response);
           this.snackBar.open('Comment Deleted!');
           this.getFiles(this.data.fileId);
