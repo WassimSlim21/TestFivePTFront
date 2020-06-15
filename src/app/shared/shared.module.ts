@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MaterialModule } from './material.module';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [],
@@ -12,7 +14,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MaterialModule,
+    ChartsModule
   ],
 })
 export class SharedModule {}

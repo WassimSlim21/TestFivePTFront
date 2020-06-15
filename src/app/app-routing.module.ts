@@ -29,6 +29,7 @@ const routes: Routes = [
   },
   { path: '', loadChildren: () => import('./layout/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule) },
   { path: 'bug', loadChildren: () => import('./pages/bug/bug.module').then(m => m.BugModule) },
+  { path: 'user-stats', loadChildren: () => import('./pages/user-stats/user-stats.module').then(m => m.UserStatsModule) },
 
 
 ];

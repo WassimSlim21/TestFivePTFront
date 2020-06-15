@@ -35,6 +35,7 @@ import { BugDetailsComponent } from './popup/bug-details/bug-details.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SocketioService } from './core/service/socketio.service';
 import { UpdateBugComponent } from './popup/update-bug/update-bug.component';
+import { UserStatsComponent } from './pages/user-stats/user-stats.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
@@ -65,7 +66,6 @@ const JWT_Module_Options: JwtModuleOptions = ({
   AddAccountComponent,
   BugDetailsComponent,
   UpdateBugComponent
-
       ],
   imports: [
     SocketIoModule.forRoot(config),

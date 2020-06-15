@@ -3,20 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
-import { MaterialModule } from 'src/app/shared/material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChartsModule } from 'ng2-charts';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { UserStatsComponent } from '../user-stats/user-stats.component';
 
 
 @NgModule({
-  declarations: [UsersComponent, ],
+  declarations: [UsersComponent, UserStatsComponent ],
   imports: [
-    CommonModule,
     UsersRoutingModule,
-    MaterialModule,
-    FormsModule, ReactiveFormsModule,
-    ChartsModule
+    SharedModule
+  ],
+  exports: [UserStatsComponent]
 
-  ]
 })
 export class UsersModule { }
