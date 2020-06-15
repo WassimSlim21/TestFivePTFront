@@ -28,6 +28,7 @@ export class EspaceAdministarteurComponent implements OnInit {
   accounts: Account[];
   selectedRole: string;
   result: any;
+  myAccount = JSON.parse(localStorage.getItem('account'));
 
   constructor(private apiService: ApiService,
     private snackBar: MatSnackBar,
