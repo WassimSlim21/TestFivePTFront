@@ -37,6 +37,7 @@ import { SocketioService } from './core/service/socketio.service';
 import { UpdateBugComponent } from './popup/update-bug/update-bug.component';
 import { UserStatsComponent } from './pages/user-stats/user-stats.component';
 
+
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
 const JWT_Module_Options: JwtModuleOptions = ({
@@ -66,6 +67,11 @@ const JWT_Module_Options: JwtModuleOptions = ({
   AddAccountComponent,
   BugDetailsComponent,
   UpdateBugComponent
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 839cc3c27d86088fc12376e350bb1152b66a6b6a
       ],
   imports: [
     SocketIoModule.forRoot(config),

@@ -13,15 +13,17 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
   { path: '/users', title: 'Kpeiz Users', icon: 'person', class: '', children: [] },
-  { path: '/companys', title: 'Companies', icon: 'apartment', class: '', children: [] },
+  { path: '/companies', title: 'Companies', icon: 'apartment', class: '', children: [] },
   { path: '/tags', title: 'Tags', icon: 'local_offer', class: '', children: [] },
   { path: '/social-accounts', title: 'Brand Insight', icon: 'people_alt', class: '', children: [] },
   { path: '/benchmarks', title: 'Market Insight', icon: 'ballot', class: '', children: [] },
-  { path: '/packs', title: 'Packs', icon: 'all_inbox', class: '', children: [] }
+  { path: '/packs', title: 'Packs', icon: 'all_inbox', class: '', children: [] },
+  { path: '/config', title: 'configurations', icon: 'settings', class: '', children: [] }
+
 ];
 export const ROUTESMarket: RouteInfo[] = [
   {
-    path: '/markcom', title: 'Marketing et Commerciale', icon: 'web', class: '', children: [
+    path: '/markcom', title: 'Marketing and Commercial', icon: 'web', class: '', children: [
       { path: '/files', title: 'Files', icon: 'attach_file', class: '' },
       { path: '/bug', title: 'Bugs', icon: 'bug_report', class: '' },
       { path: '/calendar', title: 'Calendar', icon: 'calendar_today', class: '' },
@@ -36,7 +38,7 @@ export const ROUTESMarket: RouteInfo[] = [
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  super_admin: any =   { path: '/espace-administarteur', title: 'Espace Administrateur',
+  super_admin: any =   { path: '/espace-administarteur', title: 'Admin space',
    icon: 'admin_panel_settings', class: '', children: [] };
   menuItems: any[];
   marketmenuItems: any[];

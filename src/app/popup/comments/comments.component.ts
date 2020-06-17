@@ -81,7 +81,7 @@ addComment() {
   });
 
   this.apiService.apiPost('/notification/',
-  {source : JSON.parse(localStorage.getItem('account'))._id,
+  {source_id : JSON.parse(localStorage.getItem('account'))._id,
    content : 'your file was commented ',
    destinations : [this.file.account_id._id]}).subscribe(response => {
     console.log('notifiier :', response);
