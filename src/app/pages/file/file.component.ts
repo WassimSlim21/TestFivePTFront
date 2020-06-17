@@ -15,7 +15,7 @@ import { of } from 'rxjs';
   styleUrls: ['./file.component.scss']
 })
 export class FileComponent implements OnInit {
-  @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
+  @ViewChild("fileUpload", { static: false }) fileUpload: ElementRef;
   moment = moment;
   allFiles: any[] = [];
   files: any[] = [];
@@ -28,7 +28,7 @@ export class FileComponent implements OnInit {
   myText: any = '';
 
   constructor(private apiService: ApiService, public dialog: MatDialog, private fb: FormBuilder,
-    public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar) { }
+              public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.id = JSON.parse(localStorage.getItem('account'))._id;
@@ -101,27 +101,38 @@ export class FileComponent implements OnInit {
   }
 
 
-    uploadFile() {
-
-  this.files.forEach(element => {
-   const formData = new FormData();
-    formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
+  uploadFile() {
+    console.log(this.files);
+    // this.files.forEach(element => {
+    const formData = new FormData();
+    // formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
     this.files.forEach(file => {
-      formData.append('files', file, file.name);
-    });
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'multipart/form-data',
-        'Access-Control-Allow-Headers': 'Authorization'
-      })
-    };
+        formData.append('files', file, file.name);
+      });
+      console.log('file formdata', formData.get('files'))
+    //   const httpOptions = {
+    //     headers: new HttpHeaders({
+    //       'Accept': 'application/json',
+    //       'Access-Control-Allow-Origin': '*',
+    //       'Content-Type': 'multipart/form-data',
+    //       'Access-Control-Allow-Headers': 'Authorization'
+    //     })
+    //   };
 
-    this.apiService.apiPostWithOptions('/file/add', formData, httpOptions).subscribe(response => {
+    // const formData: any = new FormData();
+    const files: Array<File> = this.files;
+
+    // for (let i = 0; i < files.length; i++) {
+    //   formData.append("files", files[i]);
+    // }
+    // formData.append('files', files);
+    // console.log('formdata', formData.values);
+    console.log('formdata', formData.get('files'));
+    console.log('files after assigning it, ', files)
+    // });
+    this.apiService.apiPostWithOptions('/file/add', formData.get('files')).subscribe(response => {
       console.log(response);
     });
-  });
   }
 
 
@@ -160,8 +171,8 @@ export class FileComponent implements OnInit {
   /**
    * handle file from browsing
    */
-  fileBrowseHandler(files) {
-    console.log("file azswdqdcs vdjrks,qk /", files);
+  fileBrowseHandler(event) {
+    console.log("filepicked", event.target.files);
     // for (let i = 0; i<files.length; i++) {
     //   const reader = new FileReader();
     //   // reader.onload = (event: any) => {
@@ -169,7 +180,7 @@ export class FileComponent implements OnInit {
     //   // }
     //   reader.readAsDataURL(files[i]);
     // }
-    this.files = Array.from(files);
+    this.files = Array.from((event.target as HTMLInputElement).files);
 
     // this.prepareFilesList(files);
   }
@@ -203,10 +214,6 @@ export class FileComponent implements OnInit {
     console.log('files : ', this.files);
   }
 
-  /**
-   * Convert Files list to normal array list
-   * @param files (Files List)
-   */
   prepareFilesList(files: Array<any>) {
     for (const item of files) {
       item.progress = 0;
@@ -215,11 +222,6 @@ export class FileComponent implements OnInit {
     this.uploadFilesSimulator(0);
   }
 
-  /**
-   * format bytes
-   * @param bytes (File size in bytes)
-   * @param decimals (Decimals point)
-   */
   formatBytes(bytes, decimals) {
     if (bytes === 0) {
       return '0 Bytes';
