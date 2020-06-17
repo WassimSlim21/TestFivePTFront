@@ -93,8 +93,9 @@ export class BenchmarkDetailsComponent implements OnInit {
     openTagDetails(tag): void {
       const dialogRef = this.dialog.open(TagDetailsComponent, {
         disableClose: false,
-        height: '70%',
-        width: '50%',
+        height : 'auto' ,
+        width : 'auto',
+
         data: {
           tag
         }

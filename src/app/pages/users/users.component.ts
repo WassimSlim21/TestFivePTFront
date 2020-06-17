@@ -187,7 +187,7 @@ public barChartHovered({ event, active }: { event: MouseEvent, active: {}[] }): 
 
 
 
-public getUsersWeeklyStats (){
+public getUsersWeeklyStats() {
   this.userService.apiGetAll('/stats/usersWeeklyStats').subscribe(
     (response: any) => {
       this.barChartData = response.barChartData ;

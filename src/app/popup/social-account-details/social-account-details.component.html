@@ -11,7 +11,7 @@
                       <div class="row">
                         <!-- USER IMAGE 'only if it's facebook ' -->
                         <div class="col-md-6">
-                          <img src="{{socialAccount?.image}}"   class="rounded-circle align-center margin-auto" height="80" width="80">
+                          <a href="{{socialAccount.url}}" target="_blank" >   <img src="https://graph.facebook.com/{{socialAccount.remote_id}}/picture?type=square"   class="rounded-circle align-center margin-auto" height="80" width="80"></a>
                          </div>
                             <!-- USER INFORMATIONS -->
                         <div class="col-md-6">
@@ -25,9 +25,9 @@
 
                             </mat-list-item>
                             <mat-divider></mat-divider>
-                            <mat-list-item *ngIf='socialAccount?.nickname'> Nickname : {{socialAccount?.nickname}}</mat-list-item>
+                            <mat-list-item *ngIf='socialAccount?.nickname'> Nickname : {{socialAccount?.nickname | slice:0:50}}</mat-list-item>
                             <mat-divider  *ngIf='socialAccount?.nickname'></mat-divider>
-                            <mat-list-item  *ngIf='socialAccount?.description'> Description : {{socialAccount?.description}} </mat-list-item>
+                            <mat-list-item  *ngIf='socialAccount?.description'> Description : {{socialAccount?.description | slice:0:50}} ... </mat-list-item>
                             <mat-divider   *ngIf='socialAccount?.description'></mat-divider>
                             <mat-list-item  *ngIf='socialAccount?.created_at'> Created At : </mat-list-item>
                             <mat-divider *ngIf='socialAccount?.created_at'></mat-divider>
