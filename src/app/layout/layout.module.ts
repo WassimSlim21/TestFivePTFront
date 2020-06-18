@@ -6,18 +6,21 @@ import { EditProfilepopupComponent } from '../popup/editprofile/edit-profilepopu
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
 import { RouterModule } from '@angular/router';
+import { UserStatsComponent } from '../pages/user-stats/user-stats.component';
+import { SharedModule } from '../shared/shared.module';
+import { UserStatsModule } from '../pages/user-stats/user-stats.module';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent, SidebarComponent, EditProfilepopupComponent ],
+  declarations: [HeaderComponent, SidebarComponent, EditProfilepopupComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
-    RouterModule
-  ],
+    RouterModule,
+    SharedModule  ],
   entryComponents: [ EditProfilepopupComponent ],
   exports: [HeaderComponent, SidebarComponent]
 })

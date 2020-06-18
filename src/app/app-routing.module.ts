@@ -11,6 +11,7 @@ const routes: Routes = [
       { path: 'espace-administarteur', loadChildren: () => import('./pages/espace-administarteur/espace-administarteur.module')
       .then(m => m.EspaceAdministarteurModule) },
       { path: 'users', loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule) },
+      { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'companies', loadChildren: () => import('./pages/company/company.module').then(m => m.CompanyModule) },
       { path: 'social-accounts', loadChildren: () => import('./pages/social-accounts/social-accounts.module')
          .then(m => m.SocialAccountsModule) },
@@ -30,8 +31,7 @@ const routes: Routes = [
   },
   { path: '', loadChildren: () => import('./layout/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule) },
   { path: 'bug', loadChildren: () => import('./pages/bug/bug.module').then(m => m.BugModule) },
-  { path: 'user-stats', loadChildren: () => import('./pages/user-stats/user-stats.module').then(m => m.UserStatsModule) },
-
+  { path: 'user-stats', loadChildren: () => import('./pages/user-stats/user-stats.module').then(m => m.UserStatsModule) }
 
 ];
 

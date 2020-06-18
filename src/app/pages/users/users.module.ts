@@ -12,8 +12,6 @@ import { UserStatsComponent } from '../user-stats/user-stats.component';
   imports: [
     UsersRoutingModule,
     SharedModule
-  ],
-  exports: [UserStatsComponent]
-
+  ]
 })
 export class UsersModule { }

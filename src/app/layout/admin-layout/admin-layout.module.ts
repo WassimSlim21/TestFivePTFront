@@ -8,7 +8,7 @@ import { AdminLayoutComponent } from './admin-layout.component';
 @NgModule({
   declarations: [AdminLayoutComponent],
   imports: [
-    CommonModule,
+    CommonModule
  //   AdminRoutingModule
   ]
 })

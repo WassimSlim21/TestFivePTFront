@@ -10,10 +10,6 @@ import { MatDialog } from '@angular/material';
 import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
 import { MatSort } from '@angular/material/sort';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
-import { PackUserListComponent } from 'src/app/popup/pack-user-list/pack-user-list.component';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
