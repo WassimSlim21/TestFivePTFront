@@ -186,7 +186,7 @@ export class SocialAccountDetailsComponent implements OnInit {
     }
 
     updateSocialAccount() {
-      this.Api.apiPut('/socialAccount', this.tags).subscribe((response: any) => {
+      this.Api.apiPut(`/socialAccount/${this.socialAccount._id}`, this.tags).subscribe((response: any) => {
         this.snackBar.open(response.message);
       });
     }
