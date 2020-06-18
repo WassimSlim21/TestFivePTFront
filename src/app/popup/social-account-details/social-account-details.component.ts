@@ -20,7 +20,7 @@ export class SocialAccountDetailsComponent implements OnInit {
   socialAccount: any;
   users: any;
   tag: any;
-  tags: any;
+  tags: any[];
   benchmarks: any;
   moment = moment;
 
@@ -32,6 +32,7 @@ export class SocialAccountDetailsComponent implements OnInit {
    separatorKeysCodes: number[] = [ENTER, COMMA];
    filteredTags: Observable<any[]>;
    allTags: any[] = [];
+   allTagObjects: any[] = [] ;
 
 
    @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
@@ -124,6 +125,7 @@ export class SocialAccountDetailsComponent implements OnInit {
         if (data) {
         data.forEach(tag => {
            this.allTags.push(tag.name);
+           this.allTagObjects.push(tag);
          });
         this.filteredTags = this.filterForm.controls.tagCtrl.valueChanges.pipe(
       //  startWith(null),
@@ -138,12 +140,12 @@ export class SocialAccountDetailsComponent implements OnInit {
   }
     /* ----------------------- Tag input Autocomplete ------------------ */
     add(event: MatChipInputEvent): void {
+
       const input = event.input;
       const value = event.value;
-
       // Add our fruit
       if ((value || '').trim()) {
-        this.tags.push(value.trim());
+        this.tags.push(this.allTagObjects.find(e => e.name === (value.trim())));
       }
 
       // Reset the input value
@@ -153,7 +155,6 @@ export class SocialAccountDetailsComponent implements OnInit {
 
 
       this.filterForm.controls.tagCtrl.setValue(null);
-      console.log(this.tags);
     }
 
 
@@ -166,7 +167,7 @@ export class SocialAccountDetailsComponent implements OnInit {
     }
 
     selected(event: MatAutocompleteSelectedEvent): void {
-      this.tags.push(event.option.viewValue);
+      this.tags.push(this.allTagObjects.find(e => e.name === (event.option.viewValue)));
       this.tagInput.nativeElement.value = '';
       this.filterForm.controls.tagCtrl.setValue(null);
     }
@@ -184,6 +185,11 @@ export class SocialAccountDetailsComponent implements OnInit {
       });
     }
 
+    updateSocialAccount() {
+      this.Api.apiPut('/socialAccount', this.tags).subscribe((response: any) => {
+        this.snackBar.open(response.message);
+      });
+    }
 
 
 
