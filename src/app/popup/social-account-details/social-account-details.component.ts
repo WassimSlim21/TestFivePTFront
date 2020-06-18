@@ -1,10 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from 'src/app/core/service/api.service';
-import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA, MatDialog,
+  MatChipInputEvent, MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material';
 import { Router } from '@angular/router';
 import { UserDetailsComponent } from '../user-details/user-details.component';
 import * as moment from 'moment';
 import { TagDetailsComponent } from '../tag-details/tag-details.component';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { FormGroup, FormControl } from '@angular/forms';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-social-account-details',
@@ -19,6 +24,24 @@ export class SocialAccountDetailsComponent implements OnInit {
   benchmarks: any;
   moment = moment;
 
+   /* -------------tag auto complete variables ------------*/
+
+   visible = true;
+   selectable = true;
+   removable = true;
+   separatorKeysCodes: number[] = [ENTER, COMMA];
+   filteredTags: Observable<any[]>;
+   allTags: any[] = [];
+
+
+   @ViewChild('tagInput', {static: false}) tagInput: ElementRef<HTMLInputElement>;
+   @ViewChild('auto',  {static: false}) matAutocomplete: MatAutocomplete;
+  filterForm: FormGroup = new FormGroup({
+    tagCtrl: new FormControl()
+  });
+
+
+
   constructor(public dialogRef: MatDialogRef<SocialAccountDetailsComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private Api: ApiService, private router: Router,
@@ -27,6 +50,7 @@ export class SocialAccountDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.loadSocialAccount(this.data.id);
+    this.getAllTags();
   }
 
   // TagDetails
@@ -90,5 +114,78 @@ export class SocialAccountDetailsComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+
+
+
+  getAllTags() {
+    this.Api.apiGetAll('/tag/all').subscribe(
+      (data: any) => {
+        if (data) {
+        data.forEach(tag => {
+           this.allTags.push(tag.name);
+         });
+        this.filteredTags = this.filterForm.controls.tagCtrl.valueChanges.pipe(
+      //  startWith(null),
+        map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
+
+        }
+      },
+    error => {
+      console.log(error);
+    });
+
+  }
+    /* ----------------------- Tag input Autocomplete ------------------ */
+    add(event: MatChipInputEvent): void {
+      const input = event.input;
+      const value = event.value;
+
+      // Add our fruit
+      if ((value || '').trim()) {
+        this.tags.push(value.trim());
+      }
+
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+
+
+      this.filterForm.controls.tagCtrl.setValue(null);
+      console.log(this.tags);
+    }
+
+
+    remove(tag: string): void {
+      const index = this.tags.indexOf(tag);
+
+      if (index >= 0) {
+        this.tags.splice(index, 1);
+      }
+    }
+
+    selected(event: MatAutocompleteSelectedEvent): void {
+      this.tags.push(event.option.viewValue);
+      this.tagInput.nativeElement.value = '';
+      this.filterForm.controls.tagCtrl.setValue(null);
+    }
+
+
+    private _filter(value: string): string[] {
+      const filterValue = value.toLowerCase();
+
+
+      return this.allTags.filter( (element) => {
+        if (element) {
+        return element.toLowerCase().indexOf(filterValue) === 0;
+        }
+        return false ;
+      });
+    }
+
+
+
+
 
 }

@@ -18,6 +18,9 @@ export class LoginComponent implements OnInit {
   constructor( private authService: ApiService, private router: Router,   private snackBar: MatSnackBar)  { }
 
   ngOnInit() {
+    if (localStorage.getItem('token')) {
+      this.router.navigate(['/']);
+    }
   }
 
   login(): void {
