@@ -7,6 +7,8 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 import { ROUTES } from '../sidebar/sidebar.component';
 import { environment } from 'src/environments/environment';
 import * as io from 'socket.io-client';
+import * as moment from 'moment';
+
 
 
 @Component({
@@ -15,6 +17,7 @@ import * as io from 'socket.io-client';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  moment = moment ;
   private listTitles: any[];
   socket: any;
   notifications: any ;
@@ -161,7 +164,18 @@ export class HeaderComponent implements OnInit {
      } );
   }
 
+  notificationsOpened() {
 
+      this.notifications.forEach(notif => {
+        notif.seen = true ;
+        this.apiService.apiPut(`/notification/${notif._id}`, {userId : JSON.parse(localStorage.getItem('account'))._id})
+        .subscribe((response: any) => {
+          this.notifications = response ;
+       //   console.log('notifications', this.notifications);
+         } );
+      });
+
+  }
 
 
 }

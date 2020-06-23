@@ -43,7 +43,7 @@ export class ListUserAssignedBugComponent implements OnInit {
     );
     this.apiService.apiPost('/notification/',
     {source : JSON.parse(localStorage.getItem('account'))._id,
-     content : 'A bug was assigned to you',
+     content : `A bug (${this.bug.name}) was assigned to you by ${JSON.parse(localStorage.getItem('account')).userName}`,
      destinations : [userId]}).subscribe(response => {
       console.log('notifiier :', response);
     });
