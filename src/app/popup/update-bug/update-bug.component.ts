@@ -30,8 +30,10 @@ export class UpdateBugComponent implements OnInit {
               }
 
   ngOnInit(): void {
+
     this.getAllAccounts();
     this.selected = this.data.bugs.account_assigned_id;
+
     console.log('selected', this.selected._id);
 
   }

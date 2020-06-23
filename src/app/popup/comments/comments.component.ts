@@ -68,6 +68,15 @@ export class CommentsComponent implements OnInit {
   });
 }
 
+socketIoNotification(){
+
+  this.apiService.apiPost('/notification/',
+  {source_id : JSON.parse(localStorage.getItem('account'))._id,
+   content : 'your file was commented ',
+   destinations : [this.file.account_id._id]}).subscribe(response => {
+    console.log('notifiier :', response);
+  });
+}
 addComment() {
   this.content = this.myText;
   this.account_id = JSON.parse(localStorage.getItem('account'))._id;
@@ -79,13 +88,7 @@ addComment() {
     this.myText = '';
     this.getFiles(this.data.fileId);
   });
-
-  this.apiService.apiPost('/notification/',
-  {source_id : JSON.parse(localStorage.getItem('account'))._id,
-   content : 'your file was commented ',
-   destinations : [this.file.account_id._id]}).subscribe(response => {
-    console.log('notifiier :', response);
-  });
+  this.socketIoNotification();
 }
 
 
