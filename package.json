@@ -31,7 +31,7 @@
     "@progress/kendo-angular-popup": "^3.0.0",
     "@progress/kendo-theme-default": "latest",
     "@swimlane/ngx-charts": "^13.0.2",
-    "ang-jsoneditor": "^1.6.1",
+    "ang-jsoneditor": "^1.8.1",
     "angular-bootstrap-md": "^9.3.0",
     "angular-calendar": "^0.28.13",
     "angular-chart.js": "^1.1.1",

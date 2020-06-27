@@ -34,7 +34,6 @@ import { BugDetailsComponent } from './popup/bug-details/bug-details.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SocketioService } from './core/service/socketio.service';
 import { UpdateBugComponent } from './popup/update-bug/update-bug.component';
-import { NgJsonEditorModule } from 'ang-jsoneditor';
 
 
 
@@ -69,7 +68,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
   BugDetailsComponent,
   UpdateBugComponent,      ],
   imports: [
-    NgJsonEditorModule,
+
     SocketIoModule.forRoot(config),
     EmojiPickerModule,
     AngularFontAwesomeModule,
