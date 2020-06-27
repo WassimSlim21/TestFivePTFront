@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
     this.router.events.subscribe((event) => {
       this.sidebarClose();
-      var $layer: any = document.getElementsByClassName('close-layer')[0];
+      const $layer: any = document.getElementsByClassName('close-layer')[0];
       if ($layer) {
         $layer.remove();
         this.mobile_menu_visible = 0;
@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit {
   sidebarToggle() {
     // const toggleButton = this.toggleButton;
     // const body = document.getElementsByTagName('body')[0];
-    var $toggle = document.getElementsByClassName('navbar-toggler')[0];
+    const $toggle = document.getElementsByClassName('navbar-toggler')[0];
 
     if (this.sidebarVisible === false) {
         this.sidebarOpen();
@@ -81,19 +81,19 @@ export class HeaderComponent implements OnInit {
     }
     const body = document.getElementsByTagName('body')[0];
 
-    if (this.mobile_menu_visible == 1) {
+    if (this.mobile_menu_visible === 1) {
         // $('html').removeClass('nav-open');
         body.classList.remove('nav-open');
         if ($layer) {
             $layer.remove();
         }
-        setTimeout(function() {
+        setTimeout( () => {
             $toggle.classList.remove('toggled');
         }, 400);
 
         this.mobile_menu_visible = 0;
     } else {
-        setTimeout(function() {
+        setTimeout( () => {
             $toggle.classList.add('toggled');
         }, 430);
 
@@ -103,19 +103,19 @@ export class HeaderComponent implements OnInit {
 
         if (body.querySelectorAll('.main-panel')) {
             document.getElementsByClassName('main-panel')[0].appendChild($layer);
-        }else if (body.classList.contains('off-canvas-sidebar')) {
+        } else if (body.classList.contains('off-canvas-sidebar')) {
             document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
         }
 
-        setTimeout(function() {
+        setTimeout( () => {
             $layer.classList.add('visible');
         }, 100);
 
-        $layer.onclick = function() { //asign a function
+        $layer.onclick = function() { // asign a function
           body.classList.remove('nav-open');
           this.mobile_menu_visible = 0;
           $layer.classList.remove('visible');
-          setTimeout(function() {
+          setTimeout( () => {
               $layer.remove();
               $toggle.classList.remove('toggled');
           }, 400);
@@ -125,7 +125,7 @@ export class HeaderComponent implements OnInit {
         this.mobile_menu_visible = 1;
 
     }
-};
+}
 
 
 
