@@ -13,7 +13,6 @@ import * as smpl from './sample.json';
 export class ConfigComponent implements OnInit {
 
   @ViewChild('editor', { static: true }) editor: JsonEditorComponent;
-  @ViewChild('editorMult', { static: true }) editorMult: JsonEditorComponent;
 
   showData;
 

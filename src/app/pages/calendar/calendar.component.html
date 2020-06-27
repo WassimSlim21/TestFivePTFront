@@ -76,8 +76,7 @@
         </thead>
 
         <tbody>
-          <tr>
-            <div  *ngFor="let event of events">
+          <tr  *ngFor="let event of events">
             <td>
               <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()" />
             </td>
@@ -88,13 +87,13 @@
               <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()" />
             </td>
             <td>
-              <input class="form-control" type="text"  [(ngModel)]="event.start"
-                (ngModelChange)="refresh.next()"
+              <input class="form-control" type="datetime-local"  [(ngModel)]="event.stringStart"
+                (ngModelChange)="dateChanged(event)"
                 dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
             </td>
             <td>
-              <input class="form-control" type="text"  [(ngModel)]="event.end"
-                (ngModelChange)="refresh.next()"
+              <input class="form-control" type="datetime-local"  [(ngModel)]="event.stringEnd"
+                (ngModelChange)="dateChanged(event)"
                 dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
             </td>
             <td>
@@ -102,7 +101,7 @@
                 Delete
               </button>
             </td>
-            </div>
+
           </tr>
         </tbody>
       </table>
@@ -131,6 +130,9 @@
         </button>
       </div>
     </ng-template>
-
+    <input  type="datetime-local" [value]="dateTest | date:'yyyy-MM-dd'" (input)="dateTest=parseDate($event.target.value)"
+    (ngModelChange)="myLogger($event)"
+    dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
   </div>
+
 </div>
