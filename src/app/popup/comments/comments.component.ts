@@ -68,7 +68,7 @@ export class CommentsComponent implements OnInit {
   });
 }
 
-socketIoNotification(){
+socketIoNotification() {
 
   this.apiService.apiPost('/notification/',
   {source_id : JSON.parse(localStorage.getItem('account'))._id,
