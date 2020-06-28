@@ -22,6 +22,7 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
+import * as moment from 'moment';
 
 
 
@@ -72,10 +73,10 @@ export class CalendarComponent implements OnInit {
     {
     //  start: new Date(),
     //  end: new Date(),
-      start: subDays(startOfDay(new Date()), 1),
-      stringStart: subDays(startOfDay(new Date()), 1).toISOString().split('Z')[0],
-      end: addDays(new Date(), 1),
-      stringEnd: addDays(new Date(), 1).toISOString().split('Z')[0],
+      start: moment(subDays((new Date()), 1)).seconds(0).milliseconds(0),
+      stringStart:  moment(subDays((new Date()), 1)).seconds(0).milliseconds(0).toISOString().split('Z')[0],
+      end: moment(addDays(endOfDay(new Date()), 1)).seconds(0).milliseconds(0),
+      stringEnd:  moment(addDays(endOfDay(new Date()), 1)).seconds(0).milliseconds(0).toISOString().split('Z')[0],
       title: 'A 3 day event',
       color: {
         primary: '#ad2121',
@@ -119,7 +120,8 @@ export class CalendarComponent implements OnInit {
   }: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
-
+        iEvent.stringStart =  moment((newStart) ).seconds(0).milliseconds(0).toISOString().split('Z')[0];
+        iEvent.stringEnd =  moment((newEnd)).seconds(0).milliseconds(0).toISOString().split('Z')[0];
         return {
           ...event,
           start: newStart,
@@ -128,9 +130,8 @@ export class CalendarComponent implements OnInit {
       }
       return iEvent;
     });
-    this.dateChanged(event);
-
     this.handleEvent('Dropped or resized', event);
+
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
@@ -143,10 +144,10 @@ export class CalendarComponent implements OnInit {
       ...this.events,
       {
         title: 'New event',
-        start: startOfDay(new Date()),
-        stringStart: startOfDay(new Date()).toISOString().split('Z')[0],
-        end: endOfDay(new Date()),
-        stringEnd: endOfDay(new Date()).toISOString().split('Z')[0],
+        start: moment((new Date())).seconds(0).milliseconds(0),
+        stringStart: moment((new Date())).seconds(0).milliseconds(0).toISOString().split('Z')[0],
+        end: moment((new Date())).seconds(0).milliseconds(0),
+        stringEnd: moment((new Date())).seconds(0).milliseconds(0).toISOString().split('Z')[0],
         color: {
           primary: '#ad2121',
           secondary: '#FAE3E3',
@@ -180,9 +181,9 @@ export class CalendarComponent implements OnInit {
     event.start = new Date(event.stringStart);
     event.end = new Date(event.stringEnd);
 
-    event.stringStart =  event.start.toISOString().split('Z')[0];
-    event.stringEnd = event.end.toISOString().split('Z')[0];
+
     this.refresh.next();
+    console.log('haw levent', event);
 
   }
 
