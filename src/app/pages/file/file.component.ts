@@ -121,19 +121,12 @@ export class FileComponent implements OnInit {
 
     // const formData: any = new FormData();
     const files: Array<File> = this.files;
-
-    // for (let i = 0; i < files.length; i++) {
-    //   formData.append("files", files[i]);
-    // }
-    // formData.append('files', files);
-    // console.log('formdata', formData.values);
-    console.log('formdata', formData.get('files'));
-    console.log('files after assigning it, ', files)
     // });
-    this.apiService.apiPostWithOptions('/file/add', formData.get('files')).subscribe(response => {
+    this.apiService.apiPostWithOptions('/file/add', formData).subscribe(response => {
       console.log(response);
+      this.getAllFiles();
     });
-  }
+    }
 
 
   // uploadFile(file) {

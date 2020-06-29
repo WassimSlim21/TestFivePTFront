@@ -61,7 +61,7 @@
 
 
    <div class="container2"  appDnd (fileDropped)="onFileDropped($event)">
-     <input type="file" class="btn btn-primary" #fileDropRef id="fileDropRef"  (change)="fileBrowseHandler($event)" />
+     <input type="file" class="btn btn-primary" #fileDropRef id="fileDropRef"  (change)="fileBrowseHandler($event)" multiple />
      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 63 64">
        <g fill="#3B454F" fill-rule="nonzero">
          <path

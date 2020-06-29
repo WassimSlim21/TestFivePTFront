@@ -17,12 +17,13 @@ export class HttpConfigInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = localStorage.getItem('token');
+    console.log(request.url);
     if (token) {
 
         request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('token').split(' ')[1]) });
     }
 
-    if (!request.headers.has('Content-Type')) {
+    if (!request.headers.has('Content-Type') && !request.url.includes('file/add')) {
         request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
     }
 
