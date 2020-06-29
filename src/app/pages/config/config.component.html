@@ -1,9 +1,15 @@
 <div class="main-content">
   <div class="container-fluid">
-
-    <h2>Kpeiz layout configuration</h2>
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Kpeiz layout configuration</h4>
+      </div>
+<div class="card-body">
     <hr>
     <json-editor #editor [options]="options" [data]="data" (change)="changeLog($event)" class="editor"></json-editor>
-
+ <button class="btn btn-danger">Save modification</button>
+ <button class="btn btn-primary">Reset</button>
+ </div>
+ </div>
   </div>
 </div>
