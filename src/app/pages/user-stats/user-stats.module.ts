@@ -19,6 +19,7 @@ import { ChartsModule } from 'ng2-charts';
     RouterModule,
     MaterialModule,
     ChartsModule
-  ]
+  ],
+  exports: [UserStatsComponent]
 })
 export class UserStatsModule { }

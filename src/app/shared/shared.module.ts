@@ -4,16 +4,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
 import { ChartsModule } from 'ng2-charts';
-import { UserStatsComponent } from '../pages/user-stats/user-stats.component';
+import { UserStatsModule } from '../pages/user-stats/user-stats.module';
 
 @NgModule({
-  declarations: [UserStatsComponent],
+  declarations: [],
   imports: [
     CommonModule,
-    ChartsModule
+    ChartsModule,
+    UserStatsModule,
   ],
   exports: [
-    UserStatsComponent,
+    UserStatsModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,

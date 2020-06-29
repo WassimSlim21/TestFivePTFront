@@ -48,7 +48,7 @@ export class FileComponent implements OnInit {
     this.openPopup = fn;
   }
   getFilteredFile(value: any) {
-    this.apiService.apiPost('/file/search', value).subscribe(
+    this.apiService.apiPost('file/search', value).subscribe(
       (response: any) => {
         if (response) {
           this.isLoading = false;
@@ -62,7 +62,7 @@ export class FileComponent implements OnInit {
 
 
   getAllFiles() {
-    this.apiService.apiGetAll('/file').subscribe((response: any) => {
+    this.apiService.apiGetAll('file').subscribe((response: any) => {
       this.allFiles = response;
       if (this.allFiles) {
         this.allFiles.forEach(element => {
@@ -80,7 +80,7 @@ export class FileComponent implements OnInit {
   }
 
   getMyFiles() {
-    this.apiService.apiGetAll(`/file/${this.id}`).subscribe((response: any) => {
+    this.apiService.apiGetAll(`file/${this.id}`).subscribe((response: any) => {
       this.allFiles = response;
       if (this.allFiles) {
         this.allFiles.forEach(element => {
@@ -122,7 +122,7 @@ export class FileComponent implements OnInit {
     // const formData: any = new FormData();
     const files: Array<File> = this.files;
     // });
-    this.apiService.apiPostWithOptions('/file/add', formData).subscribe(response => {
+    this.apiService.apiPostWithOptions('file/add', formData).subscribe(response => {
       console.log(response);
       this.getAllFiles();
     });
@@ -230,7 +230,7 @@ export class FileComponent implements OnInit {
 
 
   deleteFileById(file: any) {
-    this.apiService.apiDelete(`/file/${file._id}`).subscribe((response: any) => {
+    this.apiService.apiDelete(`file/${file._id}`).subscribe((response: any) => {
       console.log(response);
 
       const index = this.allFiles.indexOf(file, 0);

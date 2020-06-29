@@ -113,7 +113,7 @@ export class UserStatsComponent implements OnInit {
   getUserPerPackStats() {
     this.pieChartLabels = [];
     this.pieChartData = [];
-    this.userService.apiGetAll('/stats/UserPerPack').subscribe(
+    this.userService.apiGetAll('stats/UserPerPack').subscribe(
       (data: any) => {
         this.isLoadingStats = false;
         this.userPackStat = data.stats;
@@ -130,7 +130,7 @@ export class UserStatsComponent implements OnInit {
   }
 
   public getUsersWeeklyStats() {
-    this.userService.apiGetAll('/stats/usersWeeklyStats').subscribe(
+    this.userService.apiGetAll('stats/usersWeeklyStats').subscribe(
       (response: any) => {
         this.barChartData = response.barChartData;
         this.barChartLabels = response.labels;
@@ -167,7 +167,7 @@ end events users per packs
 
 
   getCompany() {
-    this.userService.apiGetAll('/company?pageNo=' + 1 + '&size=' + 10).subscribe(
+    this.userService.apiGetAll('company?pageNo=' + 1 + '&size=' + 10).subscribe(
       (companys: any) => {
         if (companys) {
           this.companyNumber = companys.total;
@@ -180,7 +180,7 @@ end events users per packs
   }
 
   getUsers() {
-    this.userService.apiGetAll('/user/').subscribe(
+    this.userService.apiGetAll('user/').subscribe(
       (users: any) => {
         if (users) {
           this.packsNumber = users.packsNumber;

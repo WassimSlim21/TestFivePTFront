@@ -35,7 +35,7 @@ export class ApiService {
 
 /* -------Create new account -------- */
   public register(user: object) {
-    return this.http.post('http://127.0.0.1:3000/api/account/register', user, {
+    return this.http.post(this.apiUrl + 'api/account/register', user, {
       headers: new HttpHeaders({
            'Content-Type':  'application/json',
          })
@@ -44,7 +44,7 @@ export class ApiService {
 /* ------update account -------- */
   update(account: object) {
 
-    return this.http.put<any>('http://localhost:3000/api/account/update' , account);
+    return this.http.put<any>(this.apiUrl + 'api/account/update' , account);
   }
 
 
@@ -99,7 +99,7 @@ getCurrentUser() {
 sendCredential(userName: string, password: string): Observable<any> {
     const credentials = {userName, password};
 
-    return this.http.post<any>('http://localhost:3000/api/account/login', credentials);
+    return this.http.post<any>(this.apiUrl + 'account/login', credentials);
 }
 
 apiPost(endpoint, body) {
@@ -116,7 +116,7 @@ apiDelete(endpoint) {
 }
 
 getUserAllData(id: string) {
-  return this.http.get<any>('http://localhost:3000/api/user/' + id );
+  return this.http.get<any>(this.apiUrl + 'user/' + id );
 }
 
 apiPostWithOptions( endpoint, body) {

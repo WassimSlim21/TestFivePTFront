@@ -80,7 +80,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
               <div *ngFor="let item of menuItem.children">
-                <a class="nav-link" [routerLink]="[menuItem.path]+[item.path]">
+                <a class="nav-link" [routerLink]="[menuItem.path].concat([item.path])">
                   <i    matTooltip="{{item.title}}"
                         matTooltipPosition="left"
                   class="material-icons">{{item.icon}}

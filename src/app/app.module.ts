@@ -10,7 +10,6 @@ import { SharedModule } from './shared/shared.module';
 import { LayoutsModule } from './layout/layout.module';
 import { MaterialModule } from './shared/material.module';
 import { HttpConfigInterceptor} from './core/interceptor/httpconfig.interceptor';
-import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { UserDetailsComponent } from 'src/app/popup/user-details/user-details.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ComfirmDialogComponent } from './popup/comfirm-dialog/comfirm-dialog.component';
@@ -24,8 +23,6 @@ import { PackDetailsComponent } from './popup/pack-details/pack-details.componen
 import { UpdatePackComponent } from './popup/update-pack/update-pack.component';
 import { AddPackComponent } from './popup/add-pack/add-pack.component';
 import { CommentsComponent } from './popup/comments/comments.component';
-import { EmojiPickerModule } from 'ng-emoji-picker';
-import { FileSelectDirective } from 'ng2-file-upload';
 import { AddBugComponent } from './popup/add-bug/add-bug.component';
 import { ListUserAssignedBugComponent } from './popup/list-user-assigned-bug/list-user-assigned-bug.component';
 import { UpdateAccountRoleComponent } from './popup/update-account-role/update-account-role.component';
@@ -34,6 +31,7 @@ import { BugDetailsComponent } from './popup/bug-details/bug-details.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SocketioService } from './core/service/socketio.service';
 import { UpdateBugComponent } from './popup/update-bug/update-bug.component';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 
 
 
@@ -49,7 +47,6 @@ const JWT_Module_Options: JwtModuleOptions = ({
   declarations: [
   UserDetailsComponent,
   AppComponent,
-  AdminLayoutComponent,
   ComfirmDialogComponent,
   CompanyUsersComponent,
   TagDetailsComponent,
@@ -60,17 +57,16 @@ const JWT_Module_Options: JwtModuleOptions = ({
   UpdatePackComponent,
   AddPackComponent,
   CommentsComponent,
-  FileSelectDirective,
   AddBugComponent,
   ListUserAssignedBugComponent,
   UpdateAccountRoleComponent,
   AddAccountComponent,
   BugDetailsComponent,
-  UpdateBugComponent,      ],
+  UpdateBugComponent,
+  AdminLayoutComponent      ],
   imports: [
 
     SocketIoModule.forRoot(config),
-    EmojiPickerModule,
     AngularFontAwesomeModule,
     HttpClientModule,
     BrowserModule,

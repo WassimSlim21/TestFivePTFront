@@ -158,7 +158,7 @@ export class HeaderComponent implements OnInit {
   }
 
   loadNotifications() {
-    this.apiService.apiGetAll('/notification/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {
+    this.apiService.apiGetAll('notification/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {
       this.notifications = response ;
    //   console.log('notifications', this.notifications);
      } );
@@ -168,7 +168,7 @@ export class HeaderComponent implements OnInit {
 
       this.notifications.forEach(notif => {
         notif.seen = true ;
-        this.apiService.apiPut(`/notification/${notif._id}`, {userId : JSON.parse(localStorage.getItem('account'))._id})
+        this.apiService.apiPut(`notification/${notif._id}`, {userId : JSON.parse(localStorage.getItem('account'))._id})
         .subscribe((response: any) => {
           this.notifications = response ;
        //   console.log('notifications', this.notifications);
