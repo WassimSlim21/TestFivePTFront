@@ -6,7 +6,7 @@
   <div class="main-panel">
   <app-header>
   </app-header>
-        <router-outlet></router-outlet>
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
 
   </div>
 </div>

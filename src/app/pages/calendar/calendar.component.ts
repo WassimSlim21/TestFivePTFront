@@ -23,6 +23,7 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import * as moment from 'moment';
+import { ApiService } from 'src/app/core/service/api.service';
 
 
 
@@ -71,8 +72,11 @@ export class CalendarComponent implements OnInit {
   // Events
   events: any[] = [
     {
+
     //  start: new Date(),
     //  end: new Date(),
+      _id : '',
+      account_id: JSON.parse(localStorage.getItem('account'))._id,
       start: moment(subDays((new Date()), 1)).seconds(0).milliseconds(0),
       stringStart:  moment(subDays((new Date()), 1)).seconds(0).milliseconds(0).toISOString().split('Z')[0],
       end: moment(addDays(endOfDay(new Date()), 1)).seconds(0).milliseconds(0),
@@ -93,7 +97,7 @@ export class CalendarComponent implements OnInit {
   ];
   activeDayIsOpen = true;
 
-  constructor(private modal: NgbModal) {}
+  constructor(private modal: NgbModal, private apiService: ApiService) {}
   ngOnInit(): void {
   }
 /* On Day Click*/
@@ -140,28 +144,39 @@ export class CalendarComponent implements OnInit {
   }
 
   addEvent(): void {
+    const newEvent: any = {
+      account_id: JSON.parse(localStorage.getItem('account'))._id,
+      title: 'New event',
+      start: moment((new Date())).seconds(0).milliseconds(0),
+      stringStart: moment((new Date())).seconds(0).milliseconds(0).toISOString().split('Z')[0],
+      end: moment((new Date())).seconds(0).milliseconds(0),
+      stringEnd: moment((new Date())).seconds(0).milliseconds(0).toISOString().split('Z')[0],
+      color: {
+        primary: '#ad2121',
+        secondary: '#FAE3E3',
+      },
+      draggable: true,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true,
+      },
+    };
     this.events = [
       ...this.events,
-      {
-        title: 'New event',
-        start: moment((new Date())).seconds(0).milliseconds(0),
-        stringStart: moment((new Date())).seconds(0).milliseconds(0).toISOString().split('Z')[0],
-        end: moment((new Date())).seconds(0).milliseconds(0),
-        stringEnd: moment((new Date())).seconds(0).milliseconds(0).toISOString().split('Z')[0],
-        color: {
-          primary: '#ad2121',
-          secondary: '#FAE3E3',
-        },
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
+      newEvent,
     ];
+    this.apiService.apiPost('/event', newEvent ).subscribe((reponse: any) => {
+      console.log(reponse);
+      newEvent._id = reponse._id ;
+    });
   }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
+  deleteEvent(eventToDelete: any) {
+    console.log(eventToDelete);
+
+    this.apiService.apiDelete(`/event/${eventToDelete._id}`).subscribe(reponse => {
+      console.log(reponse);
+    });
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
 
