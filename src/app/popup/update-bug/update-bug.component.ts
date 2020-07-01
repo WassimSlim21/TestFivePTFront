@@ -20,13 +20,18 @@ export class UpdateBugComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private apiService: ApiService, private router: Router,
               private snackBar: MatSnackBar, public dialog: MatDialog) {
+
                 this.updateBugForm = new FormGroup({
                   name: new FormControl(this.data.bugs.name, Validators.required),
                   description: new FormControl(this.data.bugs.description, [, Validators.required]),
                   type: new FormControl(this.data.bugs.type, [Validators.required]),
-                  account_assigned_id: new FormControl(this.data.bugs.account_assigned_id._id),
+                  account_assigned_id: new FormControl(null /*this.data.bugs.account_assigned_id._id*/),
                   info: new FormControl(this.data.bugs.info)
                 });
+                if (this.data.bugs.account_assigned_id){
+                 this.updateBugForm.setControl('account_assigned_id', new FormControl(this.data.bugs.account_assigned_id._id));
+
+                }
               }
 
   ngOnInit(): void {
