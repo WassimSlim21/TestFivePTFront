@@ -37,7 +37,7 @@ export class CalendarComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
-
+  myAccountId = JSON.parse(localStorage.getItem('account'))._id ;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
 
@@ -52,7 +52,7 @@ export class CalendarComponent implements OnInit {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
+    //    this.handleEvent('Edited', event);
       },
     },
     {
@@ -60,7 +60,7 @@ export class CalendarComponent implements OnInit {
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
+    //    this.handleEvent('Deleted', event);
       },
     },
   ];
@@ -142,7 +142,7 @@ export class CalendarComponent implements OnInit {
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
+   // this.handleEvent('Dropped or resized', event);
 
   }
 
@@ -180,6 +180,12 @@ export class CalendarComponent implements OnInit {
         ...this.events,
         newEvent,
       ];
+      this.apiService.apiPost('notification/',
+      {source_id : JSON.parse(localStorage.getItem('account'))._id,
+       content : `New Event created by ${JSON.parse(localStorage.getItem('account')).userName}`})
+       .subscribe(rep => {
+        console.log('notifiier :', rep);
+      });
     });
   }
 

@@ -97,7 +97,10 @@
                 dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
             </td>
             <td>
-              <button class="btn btn-danger" (click)="deleteEvent(event)">
+              <button class="btn btn-danger" *ngIf="event.account_id._id!=myAccountId"  disabled (click)="deleteEvent(event)">
+                Delete
+              </button>
+              <button class="btn btn-danger"  *ngIf="event.account_id._id==myAccountId" (click)="deleteEvent(event)">
                 Delete
               </button>
             </td>
