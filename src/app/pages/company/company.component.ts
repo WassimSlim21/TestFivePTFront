@@ -51,6 +51,8 @@ export class CompanyComponent implements OnInit {
   }
   ngOnInit() {
 
+
+
     this.getCompanys(1);
 
     this.selectedOption = 'agency';
