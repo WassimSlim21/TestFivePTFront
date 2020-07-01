@@ -71,15 +71,15 @@ export class CalendarComponent implements OnInit {
 
   // Events
   events: any[] = [
+    /*
     {
-
     //  start: new Date(),
     //  end: new Date(),
       _id : '',
       account_id: JSON.parse(localStorage.getItem('account'))._id,
-      start: moment(subDays((new Date()), 1)).seconds(0).milliseconds(0),
+      start: subDays((new Date()), 1),
       stringStart:  moment(subDays((new Date()), 1)).seconds(0).milliseconds(0).toISOString().split('Z')[0],
-      end: moment(addDays(endOfDay(new Date()), 1)).seconds(0).milliseconds(0),
+      end: addDays(endOfDay(new Date()), 1),
       stringEnd:  moment(addDays(endOfDay(new Date()), 1)).seconds(0).milliseconds(0).toISOString().split('Z')[0],
       title: 'A 3 day event',
       color: {
@@ -93,12 +93,13 @@ export class CalendarComponent implements OnInit {
         afterEnd: true,
       },
       draggable: true,
-    }
+    }*/
   ];
   activeDayIsOpen = true;
 
   constructor(private modal: NgbModal, private apiService: ApiService) {}
   ngOnInit(): void {
+    this.loadEvents();
   }
 /* On Day Click*/
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -124,8 +125,15 @@ export class CalendarComponent implements OnInit {
   }: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
+
+
         iEvent.stringStart =  moment((newStart) ).seconds(0).milliseconds(0).toISOString().split('Z')[0];
         iEvent.stringEnd =  moment((newEnd)).seconds(0).milliseconds(0).toISOString().split('Z')[0];
+        this.updateEvent({
+          ...event,
+          start: newStart,
+          end: newEnd,
+        });
         return {
           ...event,
           start: newStart,
@@ -147,10 +155,8 @@ export class CalendarComponent implements OnInit {
     const newEvent: any = {
       account_id: JSON.parse(localStorage.getItem('account'))._id,
       title: 'New event',
-      start: moment((new Date())).seconds(0).milliseconds(0),
       stringStart: moment((new Date())).seconds(0).milliseconds(0).toISOString().split('Z')[0],
-      end: moment((new Date())).seconds(0).milliseconds(0),
-      stringEnd: moment((new Date())).seconds(0).milliseconds(0).toISOString().split('Z')[0],
+      stringEnd: moment(addDays(new Date(), 1)).seconds(0).milliseconds(0).toISOString().split('Z')[0],
       color: {
         primary: '#ad2121',
         secondary: '#FAE3E3',
@@ -161,21 +167,26 @@ export class CalendarComponent implements OnInit {
         afterEnd: true,
       },
     };
-    this.events = [
-      ...this.events,
-      newEvent,
-    ];
+    newEvent.start = new Date(newEvent.stringStart);
+    newEvent.end = new Date(newEvent.stringEnd);
+
+
+    this.refresh.next();
+
     this.apiService.apiPost('event', newEvent ).subscribe((reponse: any) => {
       console.log(reponse);
-      newEvent._id = reponse._id ;
+      newEvent._id = reponse.event._id ;
+      this.events = [
+        ...this.events,
+        newEvent,
+      ];
     });
   }
 
   deleteEvent(eventToDelete: any) {
-    console.log(eventToDelete);
 
     this.apiService.apiDelete(`event/${eventToDelete._id}`).subscribe(reponse => {
-      console.log(reponse);
+      console.log('reponse', reponse);
     });
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
@@ -188,9 +199,7 @@ export class CalendarComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
-  myLogger(event: any) {
-    console.log(event);
-  }
+
 
   dateChanged(event: any) {
     event.start = new Date(event.stringStart);
@@ -198,7 +207,28 @@ export class CalendarComponent implements OnInit {
 
 
     this.refresh.next();
-    console.log('haw levent', event);
+    this.updateEvent(event);
+  }
+
+
+  loadEvents() {
+    this.apiService.apiGetAll('event').subscribe((reponse: any) => {
+      reponse.forEach(evnt => {
+        evnt.stringStart = moment(evnt.start).toISOString().split('Z')[0],
+        evnt.stringEnd = moment(evnt.end).toISOString().split('Z')[0],
+        evnt.start = new Date(evnt.stringStart);
+        evnt.end = new Date(evnt.stringEnd);
+        this.events.push(evnt);
+        this.refresh.next();
+      });
+    });
+  }
+
+
+  updateEvent(newEvent: any) {
+    this.apiService.apiPut(`event/${newEvent._id}`, newEvent).subscribe((reponse: any) => {
+     console.log(reponse);
+    });
 
   }
 

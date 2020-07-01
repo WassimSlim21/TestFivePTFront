@@ -31,7 +31,7 @@ export class PackDetailsComponent implements OnInit {
 
 
   loadPack(id): void {
-    this.Api.apiGetAll('/pack/' + id).subscribe(
+    this.Api.apiGetAll('pack/' + id).subscribe(
       (result: any) => {
         if (result) {
           this.isLoading = false;

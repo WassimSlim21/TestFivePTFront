@@ -63,7 +63,7 @@ export class UserDetailsComponent implements OnInit {
 
 
 loadPacks(): void {
-this.Api.apiGetAll('/pack').subscribe(
+this.Api.apiGetAll('pack').subscribe(
   packs => {
     this.packs = packs ;
   },
@@ -81,7 +81,7 @@ this.Api.apiGetAll('/pack').subscribe(
 updateUserPack(): void {
   this.user.pack = this.selectedPack ;
   console.log(this.user);
-  this.Api.apiPut(`/user/${this.user._id}`, {pack: this.user.pack}).subscribe(
+  this.Api.apiPut(`user/${this.user._id}`, {pack: this.user.pack}).subscribe(
       (response: any) => {
         this.snackBar.open(JSON.stringify(response.message));
       }
@@ -104,7 +104,7 @@ comfirmDialog(): void {
   dialogRef.afterClosed().subscribe(dialogResult => {
     this.result = dialogResult;
     if ( this.result === true) {
-      this.Api.apiDelete(`/user/${this.user._id}`).subscribe(
+      this.Api.apiDelete(`user/${this.user._id}`).subscribe(
         (response: any) => {
           console.log('delete' + response);
           this.snackBar.open(JSON.stringify(response.message));

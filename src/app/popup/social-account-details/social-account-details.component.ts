@@ -77,7 +77,7 @@ export class SocialAccountDetailsComponent implements OnInit {
 
   // Get Social Account By Id
   loadSocialAccount(id): void {
-    this.Api.apiGetAll('/socialAccount/' + id).subscribe(
+    this.Api.apiGetAll('socialAccount/' + id).subscribe(
       (socialAccount: any) => {
         if (socialAccount) {
           this.socialAccount = socialAccount.social_account;
@@ -120,7 +120,7 @@ export class SocialAccountDetailsComponent implements OnInit {
 
 
   getAllTags() {
-    this.Api.apiGetAll('/tag/all').subscribe(
+    this.Api.apiGetAll('tag/all').subscribe(
       (data: any) => {
         if (data) {
         data.forEach(tag => {
@@ -186,7 +186,7 @@ export class SocialAccountDetailsComponent implements OnInit {
     }
 
     updateSocialAccount() {
-      this.Api.apiPut(`/socialAccount/${this.socialAccount._id}`, this.tags).subscribe((response: any) => {
+      this.Api.apiPut(`socialAccount/${this.socialAccount._id}`, this.tags).subscribe((response: any) => {
         this.snackBar.open(response.message);
       });
     }

@@ -35,7 +35,7 @@ export class TagDetailsComponent implements OnInit {
      element.synonyms.splice(index, 1);
     }
 
-    this.Api.apiPut('/tag', { id: element._id , synonyms: element.synonyms.join()}).
+    this.Api.apiPut('tag', { id: element._id , synonyms: element.synonyms.join()}).
     subscribe((reponse: any) => { // sends post request to the apiService
       this.snackBar.open(JSON.stringify(reponse.message)); }
       );
@@ -52,13 +52,13 @@ export class TagDetailsComponent implements OnInit {
     if (input) {
       input.value = '';
     }
-    this.Api.apiPut('/tag', { id: element._id , synonyms: element.synonyms.join()}).
+    this.Api.apiPut('tag', { id: element._id , synonyms: element.synonyms.join()}).
     subscribe((reponse: any) => { // sends post request to the apiService
       this.snackBar.open(JSON.stringify(reponse.message)); }
       );
       }
   loadAccount(tagId): void {
-    this.Api.apiGetAll('/socialAccount/tag/' + tagId).subscribe(
+    this.Api.apiGetAll('socialAccount/tag/' + tagId).subscribe(
       (socialAccount: any) => {
         if (socialAccount) {
           this.isLoading = false;

@@ -49,7 +49,7 @@ export class CommentsComponent implements OnInit {
 
 
   getFiles(id) {
-    this.apiService.apiGetAll(`/file/own/${id}`).subscribe((response: any) => {
+    this.apiService.apiGetAll(`file/own/${id}`).subscribe((response: any) => {
       this.file = response.file;
       this.account = response.file.account_id;
       this.comments = response.file.comments;
@@ -70,7 +70,7 @@ export class CommentsComponent implements OnInit {
 
 socketIoNotification() {
 
-  this.apiService.apiPost('/notification/',
+  this.apiService.apiPost('notification/',
   {source_id : JSON.parse(localStorage.getItem('account'))._id,
    content : `your file ${this.file.name} was commented by ${JSON.parse(localStorage.getItem('account')).userName}`,
    destinations : [this.file.account_id._id]}).subscribe(response => {
@@ -80,7 +80,7 @@ socketIoNotification() {
 addComment() {
   this.content = this.myText;
   this.account_id = JSON.parse(localStorage.getItem('account'))._id;
-  this.apiService.apiPost(`/file/comment/` + this.data.fileId,
+  this.apiService.apiPost(`file/comment/` + this.data.fileId,
   {account_id: this.account_id, content: this.content}).subscribe((response: any) => {
     this.socket.emit('comment', this.data.fileId);
 
@@ -103,7 +103,7 @@ comfirmDialog(id_comment: any): void {
   dialogRef.afterClosed().subscribe(dialogResult => {
     this.result = dialogResult;
     if (this.result === true) {
-      this.apiService.apiPut(`/file/comment/${this.file._id}`, {comment_id : id_comment}).subscribe(
+      this.apiService.apiPut(`file/comment/${this.file._id}`, {comment_id : id_comment}).subscribe(
         (response: any) => {
           this.socket.emit('comment', this.data.fileId);
           console.log('delete' + response);

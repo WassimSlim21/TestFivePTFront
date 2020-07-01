@@ -78,13 +78,13 @@
         <tbody>
           <tr  *ngFor="let event of events">
             <td>
-              <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()" />
+              <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="dateChanged(event)" />
             </td>
             <td>
-              <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()" />
+              <input type="color" [(ngModel)]="event.color.primary" (change)="dateChanged(event)" />
             </td>
             <td>
-              <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()" />
+              <input type="color" [(ngModel)]="event.color.secondary" (change)="dateChanged(event)" />
             </td>
             <td>
               <input class="form-control" type="datetime-local"  [(ngModel)]="event.stringStart"

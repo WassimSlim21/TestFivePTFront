@@ -40,7 +40,7 @@ export class BenchmarkDetailsComponent implements OnInit {
 
     // Get Benchmark By Id
     loadBenchmark(id): void {
-      this.Api.apiGetAll('/benchmark/' + id).subscribe(
+      this.Api.apiGetAll('benchmark/' + id).subscribe(
         (bench: any) => {
           if (bench) {
             this.benchmark = bench.benchmark;

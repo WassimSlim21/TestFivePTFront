@@ -92,7 +92,7 @@ export class TagsComponent implements OnInit {
     });
   }
 getTags( page ) {
-    this.apiService.apiGetAll('/tag?pageNo=' + page + '&size=' + this.pageSize).subscribe(
+    this.apiService.apiGetAll('tag?pageNo=' + page + '&size=' + this.pageSize).subscribe(
       (response: any) => {
         if (response) {
           this.isLoading = false;
@@ -116,7 +116,7 @@ getTags( page ) {
   }
 
   getFilteredTag( body: any ) {
-    this.apiService.apiPost('/tag/search', body).subscribe(
+    this.apiService.apiPost('tag/search', body).subscribe(
       (response: any) => {
         if (response) {
           this.isLoading = false;
@@ -203,7 +203,7 @@ getTags( page ) {
       this.result = dialogResult;
       const index = this.tags.indexOf(tag);
       if ( this.result === true) {
-        this.apiService.apiDelete(`/tag/${tag._id}`).subscribe(
+        this.apiService.apiDelete(`tag/${tag._id}`).subscribe(
           (response: any) => {
             console.log('delete' + response);
             this.snackBar.open(JSON.stringify(response.message));
@@ -217,7 +217,7 @@ getTags( page ) {
 
   updateTag(element: any) {
 
-    this.apiService.apiPut('/tag', { id: element._id ,
+    this.apiService.apiPut('tag', { id: element._id ,
        type: element.type,
        name: element.name,
        synonyms: element.synonyms.join(),
@@ -235,7 +235,7 @@ getTags( page ) {
       tag.synonyms = '';
       tag.created_at = moment().format();
       tag.updated_at = moment().format();
-      this.apiService.apiPost('/tag', tag).subscribe((response: any) => {
+      this.apiService.apiPost('tag', tag).subscribe((response: any) => {
         console.log(response);
         tag._id = response.tag._id ;
         if (response.tag.synonyms) {

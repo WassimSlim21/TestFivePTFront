@@ -21,7 +21,7 @@ export class ListUserAssignedBugComponent implements OnInit {
     this.bug = this.data.bug;
   }
   getAllAccounts() {
-    this.apiService.apiGetAll('/account/get').subscribe(
+    this.apiService.apiGetAll('account/get').subscribe(
       (response: any) => {
         if (response) {
           this.accounts = response;
@@ -36,12 +36,12 @@ export class ListUserAssignedBugComponent implements OnInit {
   /* Update Bug User Assigned */
 
   UpdateBugAssignedUser(userId: any) {
-    this.apiService.apiPut(`/bug/userAssigned/${this.bug._id}`, { "account_assigned_id": userId }).subscribe(
+    this.apiService.apiPut(`bug/userAssigned/${this.bug._id}`, { "account_assigned_id": userId }).subscribe(
       (response: any) => {
         this.snackBar.open(JSON.stringify(response.message));
       }
     );
-    this.apiService.apiPost('/notification/',
+    this.apiService.apiPost('notification/',
     {source : JSON.parse(localStorage.getItem('account'))._id,
      content : `A bug (${this.bug.name}) was assigned to you by ${JSON.parse(localStorage.getItem('account')).userName}`,
      destinations : [userId]}).subscribe(response => {

@@ -38,7 +38,7 @@ export class UpdateBugComponent implements OnInit {
 
   }
   getAllAccounts() {
-    this.apiService.apiGetAll('/account/get').subscribe(
+    this.apiService.apiGetAll('account/get').subscribe(
       (response: any) => {
         if (response) {
           this.accounts = response;
@@ -52,7 +52,7 @@ export class UpdateBugComponent implements OnInit {
   }
 
   updateBug() {
-    this.apiService.apiPut(`/bug/updateBug/${this.data.bugs._id}`, this.updateBugForm.value).subscribe(
+    this.apiService.apiPut(`bug/updateBug/${this.data.bugs._id}`, this.updateBugForm.value).subscribe(
       (response: any) => {
         this.snackBar.open(JSON.stringify(response.message));
       }
