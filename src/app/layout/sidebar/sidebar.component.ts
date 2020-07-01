@@ -23,10 +23,10 @@ export const ROUTES: RouteInfo[] = [
 ];
 export const ROUTESMarket: RouteInfo[] = [
   {
-    path: '/markcom', title: 'Marketing and Commercial', icon: 'web', class: '', children: [
-      { path: '/files', title: 'Files', icon: 'attach_file', class: '' },
-      { path: '/bug', title: 'Bugs', icon: 'bug_report', class: '' },
-      { path: '/calendar', title: 'Calendar', icon: 'calendar_today', class: '' },
+    path: '/markcom/', title: 'Marketing and Commercial', icon: 'web', class: '', children: [
+      { path: 'files', title: 'Files', icon: 'attach_file', class: '' },
+      { path: 'bug', title: 'Bugs', icon: 'bug_report', class: '' },
+      { path: 'calendar', title: 'Calendar', icon: 'calendar_today', class: '' },
 
     ]
   },

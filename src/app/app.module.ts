@@ -63,7 +63,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   AddAccountComponent,
   BugDetailsComponent,
   UpdateBugComponent,
-  AdminLayoutComponent      ],
+  AdminLayoutComponent
+  ],
   imports: [
 
     SocketIoModule.forRoot(config),
