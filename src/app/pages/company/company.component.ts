@@ -78,7 +78,7 @@ export class CompanyComponent implements OnInit {
 
   getFilteredCompany(body: any) {
 
-    this.companyService.apiPost('/company/search', body).subscribe(
+    this.companyService.apiPost('company/search', body).subscribe(
       (companys: any) => {
         console.log('filtered companys : ' + companys);
         if (companys) {
@@ -97,7 +97,7 @@ export class CompanyComponent implements OnInit {
 
   getCompanys(page) {
 
-    this.companyService.apiGetAll('/company?pageNo=' + page + '&size=' + this.pageSize).subscribe(
+    this.companyService.apiGetAll('company?pageNo=' + page + '&size=' + this.pageSize).subscribe(
       (companys: any) => {
         if (companys) {
           this.isLoading = false;

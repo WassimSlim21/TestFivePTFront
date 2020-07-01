@@ -38,7 +38,7 @@ export class PacksComponent implements OnInit {
     this.getPacks();
   }
   getPacks() {
-    this.apiService.apiGetAll('/pack').subscribe(
+    this.apiService.apiGetAll('pack').subscribe(
       (response: any) => {
         if (response) {
           this.isLoading = false;
@@ -111,7 +111,7 @@ export class PacksComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.result = dialogResult;
       if ( this.result === true) {
-        this.apiService.apiDelete(`/pack/${idPack}`).subscribe(
+        this.apiService.apiDelete(`pack/${idPack}`).subscribe(
           (response: any) => {
             console.log('delete' + response);
             this.snackBar.open(JSON.stringify(response.message));

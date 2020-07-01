@@ -26,7 +26,7 @@ export class UpdateAccountRoleComponent implements OnInit {
   ngOnInit(): void {
   }
   updateRole() {
-    this.apiService.apiPut(`/account/update/${this.data.account._id}`, { role : this.selected}).subscribe(
+    this.apiService.apiPut(`account/update/${this.data.account._id}`, { role : this.selected}).subscribe(
       (response: any) => {
         this.snackBar.open(JSON.stringify(response.message));
       }

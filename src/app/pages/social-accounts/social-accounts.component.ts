@@ -73,7 +73,7 @@ export class SocialAccountsComponent implements OnInit {
     });
   }
   getFilteredSocialAccounts(value: any) {
-    this.socialAccountService.apiPost('/socialAccount/search', value).subscribe(
+    this.socialAccountService.apiPost('socialAccount/search', value).subscribe(
       (data: any) => {
         if (data) {
           this.isLoading = false;
@@ -92,7 +92,7 @@ export class SocialAccountsComponent implements OnInit {
 
 
    getAllTags() {
-    this.socialAccountService.apiGetAll('/tag/all').subscribe(
+    this.socialAccountService.apiGetAll('tag/all').subscribe(
       (data: any) => {
         if (data) {
         data.forEach(tag => {
@@ -112,7 +112,7 @@ export class SocialAccountsComponent implements OnInit {
 
   getSocialAccounts(page) {
 
-    this.socialAccountService.apiGetAll('/socialAccount?pageNo=' + page + '&size=' + this.pageSize).subscribe(
+    this.socialAccountService.apiGetAll('socialAccount?pageNo=' + page + '&size=' + this.pageSize).subscribe(
       (data: any) => {
         if (data) {
           this.isLoading = false;

@@ -18,7 +18,7 @@ export class CompanyUsersComponent implements OnInit {
 
     }
   ngOnInit() {
-    this.Api.apiGetAll('/company/' + this.data.id).subscribe(
+    this.Api.apiGetAll('company/' + this.data.id).subscribe(
       (users: any) => {
         console.log('users : ' + users);
         if (users) {

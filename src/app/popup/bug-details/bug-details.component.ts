@@ -43,7 +43,7 @@ export class BugDetailsComponent implements OnInit {
     this.dialogRef.close();
   }
   loadBug(id): void {
-    this.Api.apiGetAll('/bug/' + id).subscribe(
+    this.Api.apiGetAll('bug/' + id).subscribe(
       (result: any) => {
         if (result) {
           this.isLoading = false;

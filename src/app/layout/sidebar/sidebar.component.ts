@@ -92,7 +92,7 @@ export class SidebarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
   loadAccount() {
-    this.authService.apiGetAll(`/account/get/${JSON.parse(localStorage.getItem('account'))._id}`).subscribe((response: any) => {
+    this.authService.apiGetAll(`account/get/${JSON.parse(localStorage.getItem('account'))._id}`).subscribe((response: any) => {
         localStorage.setItem('account', JSON.stringify(response));
         if ( response.role === 'super-admin') {
           this.menuItems.unshift(this.super_admin);

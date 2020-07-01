@@ -112,7 +112,7 @@ export class FileComponent implements OnInit {
     this.apiService.apiPostWithOptions('/file/add', formData).subscribe(response => {
       console.log(response);
       this.getAllFiles();
-      this.apiService.apiPost('/notification/',
+      this.apiService.apiPost('notification/',
       {source_id : JSON.parse(localStorage.getItem('account'))._id,
        content : `New file uploaded by ${JSON.parse(localStorage.getItem('account')).userName}`})
        .subscribe(rep => {

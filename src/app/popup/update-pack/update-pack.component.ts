@@ -47,14 +47,14 @@ export class UpdatePackComponent implements OnInit {
   }
 
   updatePack() {
-    this.apiService.apiPut(`/pack/update/${this.data.packId}`, this.updateForm.value).subscribe(
+    this.apiService.apiPut(`pack/update/${this.data.packId}`, this.updateForm.value).subscribe(
       (response: any) => {
         this.snackBar.open(JSON.stringify(response.message));
       }
     );
 
 
-    this.apiService.apiPost('/notification/',
+    this.apiService.apiPost('notification/',
     {source_id : JSON.parse(localStorage.getItem('account'))._id,
      content : `${this.pack.pack_name} Pack was updated`,
      destinations : []}).subscribe(response => {
@@ -66,7 +66,7 @@ export class UpdatePackComponent implements OnInit {
   }
 
   loadPack(): void {
-    this.apiService.apiGetAll('/pack/' + this.data.packId).subscribe(
+    this.apiService.apiGetAll('pack/' + this.data.packId).subscribe(
       (response: any) => {
         if (response) {
           this.pack = response.pack;
