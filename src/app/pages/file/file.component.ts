@@ -103,28 +103,21 @@ export class FileComponent implements OnInit {
 
   uploadFile() {
     console.log(this.files);
-    // this.files.forEach(element => {
     const formData = new FormData();
-    // formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
+    formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
     this.files.forEach(file => {
         formData.append('files', file, file.name);
       });
-      console.log('file formdata', formData.get('files'))
-    //   const httpOptions = {
-    //     headers: new HttpHeaders({
-    //       'Accept': 'application/json',
-    //       'Access-Control-Allow-Origin': '*',
-    //       'Content-Type': 'multipart/form-data',
-    //       'Access-Control-Allow-Headers': 'Authorization'
-    //     })
-    //   };
 
-    // const formData: any = new FormData();
-    const files: Array<File> = this.files;
-    // });
     this.apiService.apiPostWithOptions('/file/add', formData).subscribe(response => {
       console.log(response);
       this.getAllFiles();
+      this.apiService.apiPost('/notification/',
+      {source_id : JSON.parse(localStorage.getItem('account'))._id,
+       content : `New file uploaded by ${JSON.parse(localStorage.getItem('account')).userName}`})
+       .subscribe(rep => {
+        console.log('notifiier :', rep);
+      });
     });
     }
 
