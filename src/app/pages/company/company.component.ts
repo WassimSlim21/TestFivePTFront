@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input, HostListener } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from 'src/app/core/service/api.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
 import { MatDialog, MatSliderChange } from '@angular/material';
@@ -42,12 +42,15 @@ export class CompanyComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10];
   moment = moment;
   packs: any;
+
   @Input() userId: any;
+  @HostListener('window:scroll') onScroll(e: Event): void {
+    console.log(this.getYPosition(e));
+ }
   constructor(private companyService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) {
   }
-
   ngOnInit() {
-    window.scroll(0,0);
+
     this.getCompanys(1);
 
     this.selectedOption = 'agency';
@@ -67,7 +70,9 @@ export class CompanyComponent implements OnInit {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
-
+  getYPosition(e: Event): number {
+    return (e.target as Element).scrollTop;
+  }
   onPaginateChange(event?: PageEvent) {
     this.pageSize = event.pageSize;
     if (event.pageIndex < 1) {
