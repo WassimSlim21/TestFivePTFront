@@ -19,6 +19,7 @@ export class FileComponent implements OnInit {
   moment = moment;
   allFiles: any[] = [];
   files: any[] = [];
+  isLoadingStats = true;
   filterForm: FormGroup;
   @Output() listChange = new EventEmitter<string[]>();
   filesChoice: string;
@@ -47,10 +48,13 @@ export class FileComponent implements OnInit {
     console.log('setPopupAction');
     this.openPopup = fn;
   }
+
+  /** Filter Files */
   getFilteredFile(value: any) {
     this.apiService.apiPost('file/search', value).subscribe(
       (response: any) => {
         if (response) {
+          this.isLoadingStats = false;
           this.isLoading = false;
           this.allFiles = response;
         }
@@ -64,7 +68,9 @@ export class FileComponent implements OnInit {
   getAllFiles() {
     this.apiService.apiGetAll('file').subscribe((response: any) => {
       this.allFiles = response;
+
       if (this.allFiles) {
+        this.isLoadingStats = false;
         this.allFiles.forEach(element => {
           if (element.account_id) {
             if (element.account_id._id === (JSON.parse(localStorage.getItem('account'))._id)) {
@@ -74,7 +80,6 @@ export class FileComponent implements OnInit {
             }
           }
         });
-        console.log('the existing files are ', this.allFiles);
       }
     });
   }
@@ -102,14 +107,13 @@ export class FileComponent implements OnInit {
 
 
   uploadFile() {
-    console.log(this.files);
     const formData = new FormData();
     formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
     this.files.forEach(file => {
         formData.append('files', file, file.name);
       });
-
-    this.apiService.apiPostWithOptions('/file/add', formData).subscribe(response => {
+  console.log('aaaa', formData.getAll('files'));
+    this.apiService.apiPostWithOptions('file/add', formData).subscribe(response => {
       console.log(response);
       this.getAllFiles();
       this.apiService.apiPost('notification/',
@@ -121,67 +125,21 @@ export class FileComponent implements OnInit {
     });
     }
 
-
-  // uploadFile(file) {
-  //   const formData = new FormData();
-  //   formData.append('file', file.data);
-  //   formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
-  //   file.inProgress = true;
-  //   this.apiService.upload('/file/add', formData).pipe(map(event => {
-  //       switch (event.type) {
-  //         case HttpEventType.UploadProgress:
-  //           file.progress = Math.round(event.loaded * 100 / event.total);
-  //           break;
-  //         case HttpEventType.Response:
-  //           return event;
-  //       }
-  //     }),
-  //     catchError((error: HttpErrorResponse) => {
-  //       file.inProgress = false;
-  //       return of(`${file.data.name} upload failed.`);
-  //     })).subscribe((event: any) => {
-  //       if (typeof (event) === 'object') {
-  //         console.log(event.body);
-  //       }
-  //     });
-  // }
-
-  /**
-   * on file drop handler
-   */
+    /** On Fle Dropped */
   onFileDropped($event) {
-    console.log("event", $event);
     this.prepareFilesList($event);
   }
 
-  /**
-   * handle file from browsing
-   */
   fileBrowseHandler(event) {
-    console.log("filepicked", event.target.files);
-    // for (let i = 0; i<files.length; i++) {
-    //   const reader = new FileReader();
-    //   // reader.onload = (event: any) => {
-
-    //   // }
-    //   reader.readAsDataURL(files[i]);
-    // }
     this.files = Array.from((event.target as HTMLInputElement).files);
+    this.prepareFilesList(this.files);
 
-    // this.prepareFilesList(files);
   }
 
-  /**
-   * Delete file from files list
-   * @param index (File index)
-   */
   deleteFile(index: number) {
     this.files.splice(index, 1);
   }
 
-  /**
-   * Simulate the upload process
-   */
   uploadFilesSimulator(index: number) {
     setTimeout(() => {
       if (index === this.files.length) {
@@ -197,7 +155,6 @@ export class FileComponent implements OnInit {
         }, 200);
       }
     }, 1000);
-    console.log('files : ', this.files);
   }
 
   prepareFilesList(files: Array<any>) {
@@ -218,7 +175,6 @@ export class FileComponent implements OnInit {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
-
 
 
 

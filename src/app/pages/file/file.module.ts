@@ -8,10 +8,11 @@ import { MaterialModule } from 'src/app/shared/material.module';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DndDirective } from './dnd.directive';
 
 
 @NgModule({
-  declarations: [FileComponent, ProgressComponent],
+  declarations: [FileComponent, DndDirective, ProgressComponent],
   imports: [
     CommonModule,
     FileRoutingModule,

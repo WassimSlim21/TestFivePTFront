@@ -25,7 +25,7 @@ export class UpdateBugComponent implements OnInit {
                   name: new FormControl(this.data.bugs.name, Validators.required),
                   description: new FormControl(this.data.bugs.description, [, Validators.required]),
                   type: new FormControl(this.data.bugs.type, [Validators.required]),
-                  account_assigned_id: new FormControl(null /*this.data.bugs.account_assigned_id._id*/),
+                  account_assigned_id: new FormControl(null),
                   info: new FormControl(this.data.bugs.info)
                 });
                 if (this.data.bugs.account_assigned_id){
@@ -38,7 +38,6 @@ export class UpdateBugComponent implements OnInit {
 
     this.getAllAccounts();
     this.selected = this.data.bugs.account_assigned_id;
-
     console.log('selected', this.selected._id);
 
   }

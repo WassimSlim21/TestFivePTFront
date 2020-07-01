@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angu
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from 'src/app/core/service/api.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
 import { MatDialog, MatSliderChange } from '@angular/material';
