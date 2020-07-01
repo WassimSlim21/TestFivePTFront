@@ -6,6 +6,9 @@
          <h4 class="card-title">Kpeiz Files</h4>
        </div>
  <div class="card-body">
+  <div class="cen d-flex justify-content-center">
+    <div *ngIf="isLoadingStats" class ="loader"></div>
+  </div>
    <h4 class="font-weight-bold text-primary pt-2 pl-2">Filters</h4>
    <div class="d-md-inline-flex pl-4" [formGroup]="filterForm">
     <div class="row">

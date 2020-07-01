@@ -19,6 +19,7 @@ export class FileComponent implements OnInit {
   moment = moment;
   allFiles: any[] = [];
   files: any[] = [];
+  isLoadingStats = true;
   filterForm: FormGroup;
   @Output() listChange = new EventEmitter<string[]>();
   filesChoice: string;
@@ -53,6 +54,7 @@ export class FileComponent implements OnInit {
     this.apiService.apiPost('file/search', value).subscribe(
       (response: any) => {
         if (response) {
+          this.isLoadingStats = false;
           this.isLoading = false;
           this.allFiles = response;
         }
@@ -66,7 +68,9 @@ export class FileComponent implements OnInit {
   getAllFiles() {
     this.apiService.apiGetAll('file').subscribe((response: any) => {
       this.allFiles = response;
+
       if (this.allFiles) {
+        this.isLoadingStats = false;
         this.allFiles.forEach(element => {
           if (element.account_id) {
             if (element.account_id._id === (JSON.parse(localStorage.getItem('account'))._id)) {
