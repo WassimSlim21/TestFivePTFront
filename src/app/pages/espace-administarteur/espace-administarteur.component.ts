@@ -57,7 +57,7 @@ export class EspaceAdministarteurComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.result = dialogResult;
       if (this.result === true) {
-        this.apiService.apiDelete(`/account/${element._id}`).subscribe(
+        this.apiService.apiDelete(`account/${element._id}`).subscribe(
           (response: any) => {
             console.log('delete' + response);
             this.snackBar.open(JSON.stringify(response.message));
@@ -81,7 +81,7 @@ export class EspaceAdministarteurComponent implements OnInit {
 
   }
   getAllAccounts() {
-    this.apiService.apiGetAll('/account/get').subscribe(
+    this.apiService.apiGetAll('account/get').subscribe(
       (response: any) => {
         if (response) {
           this.accounts = response;

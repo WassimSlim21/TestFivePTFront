@@ -60,7 +60,7 @@ export class BugComponent implements OnInit {
       console.log('event data', event.container.data[event.currentIndex]);
       console.log('event container', event.container.element['nativeElement']['id']);
       this.updateBug(event.container.data[event.currentIndex]['_id'], event.container.element['nativeElement']['id']);
-      this.apiService.apiPost('/notification/',
+      this.apiService.apiPost('notification/',
       {source_id : JSON.parse(localStorage.getItem('account'))._id,
       content : `A bug(${event.container.data[event.currentIndex]['name']}) state was updated to ${event.container.element['nativeElement']['id']} by ${JSON.parse(localStorage.getItem('account')).userName}`})
       .subscribe(response => {
@@ -119,7 +119,7 @@ export class BugComponent implements OnInit {
     this.bugs = [];
     this.done = [];
     this.needInfo = [];
-    this.apiService.apiGetAll('/bug').subscribe(
+    this.apiService.apiGetAll('bug').subscribe(
       (response: any) => {
         if (response) {
           this.bugs = response;
@@ -151,7 +151,7 @@ export class BugComponent implements OnInit {
   /* Update Bug State */
 
   updateBug(id: any, etat: any) {
-    this.apiService.apiPut(`/bug/${id}`, { 'etat': etat }).subscribe(
+    this.apiService.apiPut(`bug/${id}`, { 'etat': etat }).subscribe(
       (response: any) => {
         this.snackBar.open(JSON.stringify(response.message));
       }
@@ -169,7 +169,7 @@ export class BugComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.result = dialogResult;
       if (this.result === true) {
-        this.apiService.apiDelete(`/bug/${bug._id}`).subscribe(
+        this.apiService.apiDelete(`bug/${bug._id}`).subscribe(
           (response: any) => {
             console.log('delete' + response);
             this.snackBar.open(JSON.stringify(response.message));

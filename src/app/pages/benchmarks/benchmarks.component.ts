@@ -60,7 +60,7 @@ export class BenchmarksComponent implements OnInit {
     });
   }
   getFilteredBenchmarks(value: any) {
-    this.apiService.apiPost('/benchmark/search', value).subscribe(
+    this.apiService.apiPost('benchmark/search', value).subscribe(
       (response: any) => {
         if (response) {
           this.isLoading = false;
@@ -98,7 +98,7 @@ export class BenchmarksComponent implements OnInit {
     });
   }
   getBenchmarks(page) {
-    this.apiService.apiGetAll('/benchmark?pageNo=' + page + '&size=' + this.pageSize).subscribe(
+    this.apiService.apiGetAll('benchmark?pageNo=' + page + '&size=' + this.pageSize).subscribe(
       (rep: any) => {
         if (rep) {
           this.isLoading = false;
@@ -124,7 +124,7 @@ export class BenchmarksComponent implements OnInit {
       this.result = dialogResult;
       const index = this.benchmarks.indexOf(benchmark);
       if (this.result === true) {
-        this.apiService.apiDelete(`/benchmark/${benchmark._id}`).subscribe(
+        this.apiService.apiDelete(`benchmark/${benchmark._id}`).subscribe(
           (response: any) => {
             console.log('delete' + response);
             this.snackBar.open(JSON.stringify(response.message));

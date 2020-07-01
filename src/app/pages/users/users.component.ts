@@ -101,7 +101,7 @@ export class UsersComponent implements OnInit {
 }
 
   loadPacks(): void {
-    this.userService.apiGetAll('/pack').subscribe(
+    this.userService.apiGetAll('pack').subscribe(
       packs => {
         this.packs = packs;
       },
@@ -126,7 +126,7 @@ export class UsersComponent implements OnInit {
   }
 
   getFilteredUsers(body) {
-    this.userService.apiPost('/user/search', body).subscribe(
+    this.userService.apiPost('user/search', body).subscribe(
       (users: any) => {
         if (users) {
           this.isLoading = false;
@@ -143,7 +143,7 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers(page) {
-    this.userService.apiGetAll('/user?pageNo=' + page + '&size=' + this.pageSize).subscribe(
+    this.userService.apiGetAll('user?pageNo=' + page + '&size=' + this.pageSize).subscribe(
       (users: any) => {
         if (users) {
           this.isLoading = false;
@@ -159,7 +159,7 @@ export class UsersComponent implements OnInit {
   }
 
   getCompany() {
-    this.userService.apiGetAll('/company?pageNo=' + 1 + '&size=' + 10).subscribe(
+    this.userService.apiGetAll('company?pageNo=' + 1 + '&size=' + 10).subscribe(
       (companys: any) => {
         if (companys) {
           this.isLoading = false;

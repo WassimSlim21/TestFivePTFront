@@ -165,7 +165,7 @@ export class CalendarComponent implements OnInit {
       ...this.events,
       newEvent,
     ];
-    this.apiService.apiPost('/event', newEvent ).subscribe((reponse: any) => {
+    this.apiService.apiPost('event', newEvent ).subscribe((reponse: any) => {
       console.log(reponse);
       newEvent._id = reponse._id ;
     });
@@ -174,7 +174,7 @@ export class CalendarComponent implements OnInit {
   deleteEvent(eventToDelete: any) {
     console.log(eventToDelete);
 
-    this.apiService.apiDelete(`/event/${eventToDelete._id}`).subscribe(reponse => {
+    this.apiService.apiDelete(`event/${eventToDelete._id}`).subscribe(reponse => {
       console.log(reponse);
     });
     this.events = this.events.filter((event) => event !== eventToDelete);
