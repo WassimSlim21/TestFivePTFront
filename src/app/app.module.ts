@@ -32,6 +32,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SocketioService } from './core/service/socketio.service';
 import { UpdateBugComponent } from './popup/update-bug/update-bug.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { ProgressComponent } from './pages/progress/progress.component';
 
 
 
@@ -63,7 +64,8 @@ const JWT_Module_Options: JwtModuleOptions = ({
   AddAccountComponent,
   BugDetailsComponent,
   UpdateBugComponent,
-  AdminLayoutComponent
+  AdminLayoutComponent,
+  ProgressComponent
   ],
   imports: [
 
