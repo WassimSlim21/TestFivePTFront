@@ -110,48 +110,12 @@ export class FileComponent implements OnInit {
         formData.append('files', file, file.name);
       });
       console.log('file formdata', formData.get('files'))
-    //   const httpOptions = {
-    //     headers: new HttpHeaders({
-    //       'Accept': 'application/json',
-    //       'Access-Control-Allow-Origin': '*',
-    //       'Content-Type': 'multipart/form-data',
-    //       'Access-Control-Allow-Headers': 'Authorization'
-    //     })
-    //   };
-
-    // const formData: any = new FormData();
     const files: Array<File> = this.files;
-    // });
     this.apiService.apiPostWithOptions('file/add', formData).subscribe(response => {
       console.log(response);
       this.getAllFiles();
     });
     }
-
-
-  // uploadFile(file) {
-  //   const formData = new FormData();
-  //   formData.append('file', file.data);
-  //   formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
-  //   file.inProgress = true;
-  //   this.apiService.upload('/file/add', formData).pipe(map(event => {
-  //       switch (event.type) {
-  //         case HttpEventType.UploadProgress:
-  //           file.progress = Math.round(event.loaded * 100 / event.total);
-  //           break;
-  //         case HttpEventType.Response:
-  //           return event;
-  //       }
-  //     }),
-  //     catchError((error: HttpErrorResponse) => {
-  //       file.inProgress = false;
-  //       return of(`${file.data.name} upload failed.`);
-  //     })).subscribe((event: any) => {
-  //       if (typeof (event) === 'object') {
-  //         console.log(event.body);
-  //       }
-  //     });
-  // }
 
   /**
    * on file drop handler
