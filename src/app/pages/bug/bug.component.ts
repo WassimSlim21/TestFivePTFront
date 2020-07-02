@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Router } from '@angular/router';
@@ -12,6 +13,9 @@ import { ListUserAssignedBugComponent } from 'src/app/popup/list-user-assigned-b
 import { BugDetailsComponent } from 'src/app/popup/bug-details/bug-details.component';
 import * as io from 'socket.io-client';
 import { environment } from 'src/environments/environment';
+=======
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+>>>>>>> 07d92c6f2dd3a18b51788c210d2b150c03c18f18
 
 @Component({
   selector: 'app-bug',
@@ -19,6 +23,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./bug.component.scss']
 })
 export class BugComponent implements OnInit {
+<<<<<<< HEAD
   socket: any;
 
   bugs: Bug[];
@@ -49,6 +54,36 @@ export class BugComponent implements OnInit {
       this.getAllBugs();}
     });
   }
+=======
+
+  todo = [
+    'Get to work',
+    'Pick up groceries',
+    'Go home',
+    'Fall asleep'
+  ];
+
+  done = [
+    'Get up',
+    'Brush teeth',
+    'Take a shower',
+    'Check e-mail',
+    'Walk dog'
+  ];
+
+  review = [
+    'Take bath',
+    'Wash car',
+  ];
+
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+
+>>>>>>> 07d92c6f2dd3a18b51788c210d2b150c03c18f18
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -57,6 +92,7 @@ export class BugComponent implements OnInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+<<<<<<< HEAD
       console.log('event data', event.container.data[event.currentIndex]);
       console.log('event container', event.container.element['nativeElement']['id']);
       this.updateBug(event.container.data[event.currentIndex]['_id'], event.container.element['nativeElement']['id']);
@@ -198,4 +234,9 @@ export class BugComponent implements OnInit {
     });
   }
 
+=======
+    }
+  }
+
+>>>>>>> 07d92c6f2dd3a18b51788c210d2b150c03c18f18
 }

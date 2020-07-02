@@ -106,7 +106,12 @@ export class FileComponent implements OnInit {
   }
 
 
+<<<<<<< HEAD
   uploadFile() {
+=======
+    uploadFile() {
+  this.files.forEach(element => {
+>>>>>>> 07d92c6f2dd3a18b51788c210d2b150c03c18f18
     const formData = new FormData();
     formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
     this.files.forEach(file => {
@@ -130,10 +135,18 @@ export class FileComponent implements OnInit {
     this.prepareFilesList($event);
   }
 
+<<<<<<< HEAD
   fileBrowseHandler(event) {
     this.files = Array.from((event.target as HTMLInputElement).files);
     this.prepareFilesList(this.files);
 
+=======
+  /**
+   * handle file from browsing
+   */
+  fileBrowseHandler(files) {
+    this.prepareFilesList(files);
+>>>>>>> 07d92c6f2dd3a18b51788c210d2b150c03c18f18
   }
 
   deleteFile(index: number) {
