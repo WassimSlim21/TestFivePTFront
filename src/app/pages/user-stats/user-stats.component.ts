@@ -41,7 +41,7 @@ export class UserStatsComponent implements OnInit {
     }
   };
   public userPackStat: any[];
-  public pieChartLabels: Label[] = [['', ''], ['', '', ''], ' '];
+  public pieChartLabels: Label[] = [['', ''], ['', '', ''], [''], ['', '', ''], ['', '', ''], ['', '', '']];
   public pieChartData: number[] = [];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
@@ -100,7 +100,7 @@ export class UserStatsComponent implements OnInit {
   }
 
   constructor(private userService: ApiService,
-    private router: Router, public dialog: MatDialog) { }
+              private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getUsersWeeklyStats();
@@ -111,12 +111,14 @@ export class UserStatsComponent implements OnInit {
 
 
   getUserPerPackStats() {
-    this.pieChartLabels = [];
-    this.pieChartData = [];
+
     this.userService.apiGetAll('stats/UserPerPack').subscribe(
       (data: any) => {
+        this.pieChartLabels = [];
+        this.pieChartData = [];
         this.isLoadingStats = false;
         this.userPackStat = data.stats;
+        console.log('stats', data)
         this.packsTot = data.total;
         data.stats.forEach(stat => {
           this.pieChartData.push(stat.count);
