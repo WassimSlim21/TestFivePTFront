@@ -9,24 +9,19 @@
               <div class="cen d-flex justify-content-center">
                 <div *ngIf="isLoadingStats" class ="loader"></div>
               </div>
-              <div>
-                <div>
                   <div class="chart">
                     <canvas baseChart
                       [data]="pieChartData"
                       [labels]="pieChartLabels"
                       [chartType]="pieChartType"
-                      [legend]="pieChartLegend"
                       [options]="pieChartOptions"
                       [plugins]="pieChartPlugins"
                       [colors]="pieChartColors"
-                      class="font-weight-bold"
+                      [legend]="pieChartLegend"
                       (chartClick)="chartClicked($event)"
                       (mouseover)="chartHovered($event)"
                       >
                     </canvas>
-                  </div>
-                </div>
               </div>
             </div>
             <div class="card-footer">
