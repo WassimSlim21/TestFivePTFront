@@ -1,7 +1,8 @@
 import { OnInit } from '@angular/core';
 import { Component, ViewChild } from '@angular/core';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
-import * as smpl from './sample.json';
+import { ApiService } from 'src/app/core/service/api.service';
+import { MatSnackBar } from '@angular/material';
 
 
 
@@ -17,25 +18,12 @@ export class ConfigComponent implements OnInit {
   showData;
 
   options = new JsonEditorOptions();
-  data: any = {
-    products: [{
-      name: 'car',
-      product: [{
-        name: 'honda',
-        model: [
-          { id: 'civic', name: 'civic' },
-          { id: 'accord', name: 'accord' },
-          { id: 'crv', name: 'crv' },
-          { id: 'pilot', name: 'pilot' },
-          { id: 'odyssey', name: 'odyssey' }
-        ]
-      }]
-    }]
-  };
+  files: any ;
+  selected: any ;
+  data: any ;
 
 
-  constructor() {
-    this.data = smpl ;
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
     this.options.mode = 'code';
     this.options.modes = ['code', 'text', 'tree', 'view'];
     this.options.statusBar = false;
@@ -54,11 +42,27 @@ export class ConfigComponent implements OnInit {
     this.showData = this.editor.get();
   }
   ngOnInit(): void {
+    this.loadFiles();
   }
 
+  loadFiles() {
+    this.apiService.apiGetAll('layout/names').subscribe( (response: any) => {
+      this.files = response ;
+    });
+  }
 
+  loadFile() {
+    this.apiService.apiGetAll(`layout/${this.selected}`).subscribe( (response: any) => {
+      this.data = response ;
+    });
+  }
 
+  updateFile() {
 
+    this.apiService.apiPost(`layout/${this.selected}`, this.editor.get()).subscribe( (response: any) => {
+     this.snackBar.open('Layout updated');
+    });
+  }
 
 
 }

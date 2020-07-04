@@ -5,10 +5,19 @@
         <h4 class="card-title">Kpeiz layout configuration</h4>
       </div>
 <div class="card-body">
+  <mat-form-field>
+  <mat-label>Select an option</mat-label>
+  <mat-select disableRipple (selectionChange)='loadFile()' [(value)]="selected">
+    <mat-option *ngFor="let file of files" value={{file}} >{{file}}</mat-option>
+
+  </mat-select>
+</mat-form-field>
     <hr>
     <json-editor #editor [options]="options" [data]="data" (change)="changeLog($event)" class="editor"></json-editor>
- <button class="btn btn-danger">Save modification</button>
- <button class="btn btn-primary">Reset</button>
+    <div *ngIf="selected">
+ <button class="btn btn-danger" (click)='updateFile()'>Save modification</button>
+ <button class="btn btn-primary" (click)='loadFile()'>Reset</button>
+</div>
  </div>
  </div>
   </div>

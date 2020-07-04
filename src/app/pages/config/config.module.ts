@@ -3,6 +3,7 @@ import { ConfigRoutingModule } from './config-routing.module';
 import { ConfigComponent } from './config.component';
 import { NgModule } from '@angular/core';
 import { NgJsonEditorModule } from 'ang-jsoneditor';
+import { MaterialModule } from 'src/app/shared/material.module';
 
 
 
@@ -12,6 +13,7 @@ import { NgJsonEditorModule } from 'ang-jsoneditor';
     NgJsonEditorModule,
     CommonModule,
     ConfigRoutingModule,
+    MaterialModule
 
   ]
 })
