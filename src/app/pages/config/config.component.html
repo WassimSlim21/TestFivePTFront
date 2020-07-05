@@ -13,7 +13,9 @@
   </mat-select>
 </mat-form-field>
     <hr>
-    <json-editor #editor [options]="options" [data]="data" (change)="changeLog($event)" class="editor"></json-editor>
+    <div>
+    <json-editor  style="height: 700px;"  #editor [options]="options" [data]="data" (change)="changeLog($event)" class="editor "></json-editor>
+  </div>
     <div *ngIf="selected">
  <button class="btn btn-danger" (click)='updateFile()'>Save modification</button>
  <button class="btn btn-primary" (click)='loadFile()'>Reset</button>

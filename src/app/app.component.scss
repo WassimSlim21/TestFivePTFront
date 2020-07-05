@@ -2,3 +2,6 @@
 .mat-dialog-container {
   padding: '1px';
 }
+::ng-deep div.jsoneditor{
+  height: 600px !important;
+}
