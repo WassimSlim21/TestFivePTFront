@@ -11,9 +11,9 @@
 
 	<mat-list-item *ngFor="let user of users">
 		<img matListAvatar src="https://graph.facebook.com/{{user.provider_userId}}/picture?type=square"  alt="avatar">
-		<h3 matLine> <a (click)="openDialog(user._id)" class=" cursor-pointer text-primary font-weight-bold ">{{user.name}}</a> </h3>
+		<h3 matLine> <a (click)="openDialog(user?._id)" class=" cursor-pointer text-primary font-weight-bold ">{{user?.name}}</a> </h3>
 		<p matLine>
-			<span>   {{user.pack.pack_name }}   </span>
+			<span>   {{user?.pack?.pack_name }}   </span>
     </p>
 	</mat-list-item>
 </mat-list>
