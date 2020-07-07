@@ -20,13 +20,13 @@
 
                             <mat-list-item>Email: {{user?.email}}</mat-list-item>
                             <mat-divider></mat-divider>
-                            <mat-list-item> Phone: {{user?.data.phone}}</mat-list-item>
+                            <mat-list-item> Phone: {{user?.data?.phone}}</mat-list-item>
                             <mat-divider></mat-divider>
-                            <mat-list-item> Company ( {{user?.data.company_type}}): {{user?.data.company}}</mat-list-item>
+                            <mat-list-item> Company ( {{user?.data?.company_type}}): {{user?.data?.company}}</mat-list-item>
                             <mat-divider></mat-divider>
-                            <mat-list-item> Job: {{user?.data.job}}</mat-list-item>
+                            <mat-list-item> Job: {{user?.data?.job}}</mat-list-item>
                             <mat-divider></mat-divider>
-                            <mat-list-item> Website:<a href="{{user?.data.website}}"> {{user?.data.website}} </a></mat-list-item>
+                            <mat-list-item> Website:<a href="{{user?.data?.website}}"> {{user?.data?.website}} </a></mat-list-item>
                             <mat-divider></mat-divider>
                             <mat-list-item>Score: {{user?.score}}</mat-list-item>
                           </mat-list>
@@ -74,13 +74,13 @@
                               <mat-tab label="Teams">
                                 <mat-list>
 
-                                  <mat-list-item>GET: {{user?.actions.team.GET || 0}}</mat-list-item>
+                                  <mat-list-item>GET: {{user?.actions?.team.GET || 0}}</mat-list-item>
                                   <mat-divider></mat-divider>
-                                  <mat-list-item> POST: {{user?.actions.team.POST || 0}}</mat-list-item>
+                                  <mat-list-item> POST: {{user?.actions?.team.POST || 0}}</mat-list-item>
                                   <mat-divider></mat-divider>
-                                  <mat-list-item> PUT: {{user?.actions.team.PUT || 0}}</mat-list-item>
+                                  <mat-list-item> PUT: {{user?.actions?.team.PUT || 0}}</mat-list-item>
                                   <mat-divider></mat-divider>
-                                  <mat-list-item> DELETE: {{user?.actions.team.DELETE || 0}}</mat-list-item>
+                                  <mat-list-item> DELETE: {{user?.actions?.team.DELETE || 0}}</mat-list-item>
                                   <mat-divider></mat-divider>
 
                                 </mat-list>
@@ -107,13 +107,13 @@
 
                               <mat-tab label="Benchmarks">
                                 <mat-list>
-                                  <mat-list-item>GET: {{user?.actions.benchmarks.GET || 0}}</mat-list-item>
+                                  <mat-list-item>GET: {{user?.actions?.benchmarks?.GET || 0}}</mat-list-item>
                                   <mat-divider></mat-divider>
-                                  <mat-list-item> POST: {{user?.actions.benchmarks.POST || 0}}</mat-list-item>
+                                  <mat-list-item> POST: {{user?.actions?.benchmarks?.POST || 0}}</mat-list-item>
                                   <mat-divider></mat-divider>
-                                  <mat-list-item> PUT: {{user?.actions.benchmarks.PUT || 0}}</mat-list-item>
+                                  <mat-list-item> PUT: {{user?.actions?.benchmarks?.PUT || 0}}</mat-list-item>
                                   <mat-divider></mat-divider>
-                                  <mat-list-item> DELETE: {{user?.actions.benchmarks.DELETE || 0}}</mat-list-item>
+                                  <mat-list-item> DELETE: {{user?.actions?.benchmarks?.DELETE || 0}}</mat-list-item>
                                   <mat-divider></mat-divider>
                                 </mat-list>
                               </mat-tab>
@@ -168,7 +168,7 @@
                                     <mat-list *ngFor="let page of user?.social_accounts">
 
                                        <mat-list-item >
-                                        <p *ngIf="page.provider == 'facebook'"> <i class="fa fab fa-facebook pull-left"></i>  {{page.title}} </p>
+                                        <p *ngIf="page.provider == 'facebook'"> <i class="fa fab fa-facebook pull-left"></i>  {{page?.title}} </p>
                                         </mat-list-item>
                                       <mat-divider></mat-divider>
                                     </mat-list>
@@ -177,7 +177,7 @@
                                   <mat-tab label="Instagram">
                                     <mat-list  *ngFor="let page of user?.social_accounts">
                                       <mat-list-item>
-                                        <p *ngIf="page.provider != 'facebook'"> <i class="fa fab fa-instagram pull-left"></i>  {{page.title}} </p>
+                                        <p *ngIf="page.provider != 'facebook'"> <i class="fa fab fa-instagram pull-left"></i>  {{page?.title}} </p>
                                         </mat-list-item>
                                       <mat-divider></mat-divider>
                                     </mat-list>
@@ -203,9 +203,9 @@
                                     <mat-tab label="Brand Insights" >
                                       <mat-chip-list>
                                         <span   *ngFor="let dashboard of user?.dashboards" >
-                                        <mat-chip selected color="{{dashboard.color}}" *ngIf="dashboard.type == 'SocialAccount'"
-                                        [ngClass]="{'deleted':dashboard.deleted_at}">
-                                        {{dashboard.name}} ({{dashboard.nd_type}})
+                                        <mat-chip selected color="{{dashboard?.color}}" *ngIf="dashboard.type == 'SocialAccount'"
+                                        [ngClass]="{'deleted':dashboard?.deleted_at}">
+                                        {{dashboard?.name}} ({{dashboard?.nd_type}})
                                       </mat-chip>
                                         </span>
                                       </mat-chip-list>
@@ -214,8 +214,8 @@
                                     <mat-tab label="Market insights" >
                                       <mat-chip-list >
                                         <span   *ngFor="let dashboard of user?.dashboards">
-                                          <mat-chip  selected color="{{dashboard.color}}" *ngIf="dashboard.type == 'Benchmark'" [ngClass]="{'deleted':dashboard.deleted_at}">
-                                             {{dashboard.name}} ({{dashboard.nd_type}})
+                                          <mat-chip  selected color="{{dashboard?.color}}" *ngIf="dashboard.type == 'Benchmark'" [ngClass]="{'deleted':dashboard?.deleted_at}">
+                                             {{dashboard?.name}} ({{dashboard?.nd_type}})
                                           </mat-chip>
                                         </span>
                                       </mat-chip-list>

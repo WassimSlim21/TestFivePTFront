@@ -14,6 +14,9 @@
                 <div class="col-md-6">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="Pack name" formControlName="pack_name">
+                    <div *ngIf="addPackForm.value.pack_name.length < 4" class="text-danger">
+                      Name must be at least 4 characters long.
+                 </div>
                   </mat-form-field>
                 </div>
 

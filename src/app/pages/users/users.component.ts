@@ -62,6 +62,9 @@ export class UsersComponent implements OnInit {
 
 
  ngOnInit() {
+  window.scroll(0,0);
+  document.body.scrollTop = 0;
+  document.querySelector('body').scrollTo(0,0)
   this.loadPacks();
   this.getCompany();
   this.getUsers(1);

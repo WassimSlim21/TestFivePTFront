@@ -1,8 +1,8 @@
+<app-user-stats></app-user-stats>
 <div class="main-content">
   <div class="container">
    <!-- Statistique Users -->
   <!-- Ng 2 chart pie chart User per pack -->
-<app-user-stats></app-user-stats>
    <!-- /Statistique Users -->
    <!-- User Tables Users -->
     <div class="card">
@@ -132,7 +132,7 @@
             company
           </th>
           <td mat-cell *matCellDef="let element">
-            {{element.data.company}}
+            {{element?.data?.company}}
           </td>
         </ng-container>
         <ng-container matColumnDef="score">
@@ -140,7 +140,7 @@
             score
           </th>
           <td mat-cell *matCellDef="let element">
-            {{element.score}}
+            {{element?.score}}
           </td>
         </ng-container>
 
@@ -149,7 +149,7 @@
             email
           </th>
           <td mat-cell *matCellDef="let element">
-            {{element.email}}
+            {{element?.email}}
           </td>
         </ng-container>
 
@@ -158,7 +158,7 @@
             phone
           </th>
           <td mat-cell *matCellDef="let element">
-            {{element.data.phone}}
+            {{element?.data?.phone}}
           </td>
         </ng-container>
 

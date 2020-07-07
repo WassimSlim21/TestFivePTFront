@@ -16,7 +16,7 @@ export class AddPackComponent implements OnInit {
 
   constructor(private apiService: ApiService, private snackBar: MatSnackBar, public dialogRef: MatDialogRef<AddPackComponent>) {
     this.addPackForm = new FormGroup({
-      pack_name: new FormControl('', Validators.required),
+      pack_name: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(4)]),
       socialAccounts: new FormControl(0, [, Validators.required]),
       users: new FormControl(0, [Validators.required]),
       benchmarks: new FormControl(0, [, Validators.required]),
@@ -40,6 +40,7 @@ export class AddPackComponent implements OnInit {
 }
 
   ngOnInit() {
+    console.log(this.addPackForm);
     this.addPackForm.valueChanges.subscribe(value => {
       value.benchmarks = {max_have : value.benchmarks , deletes: value.benchmarks};
       value.socialAccounts = {max_have : value.socialAccounts , deletes: value.socialAccounts};

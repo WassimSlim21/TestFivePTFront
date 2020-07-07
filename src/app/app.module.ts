@@ -33,6 +33,7 @@ import { SocketioService } from './core/service/socketio.service';
 import { UpdateBugComponent } from './popup/update-bug/update-bug.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { ProgressComponent } from './pages/progress/progress.component';
+import { ScrollTopService } from './core/service/scroll-top.service';
 
 
 
@@ -91,7 +92,7 @@ const JWT_Module_Options: JwtModuleOptions = ({
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
-    SocketioService
+    SocketioService, ScrollTopService
 ],
   bootstrap: [AppComponent]
   ,
