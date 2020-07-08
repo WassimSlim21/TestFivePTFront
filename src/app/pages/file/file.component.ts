@@ -35,7 +35,8 @@ export class FileComponent implements OnInit {
     this.id = JSON.parse(localStorage.getItem('account'))._id;
     this.getAllFiles();
     this.filterForm = this.fb.group({
-      name: new FormControl(),
+      name: new FormControl(''),
+      created_at: new FormControl()
     });
     this.filterForm.valueChanges.subscribe(value => {
       this.listChange.emit(value);
