@@ -231,6 +231,7 @@ getTags( page ) {
 
   addTag() {
       let tag: any = new Tag();
+      tag._id = this.generateId();
       tag.type = '0';
       tag.synonyms = '';
       tag.created_at = moment().format();
@@ -249,5 +250,9 @@ getTags( page ) {
 
       });
   }
+  generateId() {
+    return Math.random().toString(36).substr(2, 9);
+  }
+
 
 }

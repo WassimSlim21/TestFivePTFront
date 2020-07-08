@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatChipInputEvent } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatChipInputEvent, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/core/service/api.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { SocialAccountDetailsComponent } from '../social-account-details/social-account-details.component';
 
 @Component({
   selector: 'app-tag-details',
@@ -18,7 +19,7 @@ export class TagDetailsComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(public dialogRef: MatDialogRef<TagDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-              private Api: ApiService, private router: Router,   private snackBar: MatSnackBar
+              private Api: ApiService, private router: Router,   private snackBar: MatSnackBar,public dialog: MatDialog
     ) { }
 
   ngOnInit() {
@@ -63,11 +64,29 @@ export class TagDetailsComponent implements OnInit {
         if (socialAccount) {
           this.isLoading = false;
           this.socialAccount = socialAccount;
-          console.log('socialAccount', this.socialAccount);
+          console.log('socialAccount aaaaaa', this.socialAccount);
         }
       },
     error => {
       console.log(error);
     });
+}
+
+openDialog(id): void {
+  const dialogRef = this.dialog.open(SocialAccountDetailsComponent, {
+    disableClose: false,
+    panelClass: 'app-full-bleed-dialog',
+    height: '90%',
+    width: '50%',
+
+    data: {
+      id
+    }
+
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
 }
 }

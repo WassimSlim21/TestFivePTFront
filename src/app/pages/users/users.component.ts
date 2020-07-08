@@ -45,6 +45,7 @@ export class UsersComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10];
   moment = moment;
   packs: any;
+
   @Input() userId: any;
 
 
@@ -149,10 +150,14 @@ export class UsersComponent implements OnInit {
     this.userService.apiGetAll('user?pageNo=' + page + '&size=' + this.pageSize).subscribe(
       (users: any) => {
         if (users) {
+
           this.isLoading = false;
+          this.length = users.total;
           this.pageIndex = users.pageIndex;
           this.users = users.message;
           this.dataSource = new MatTableDataSource<User>(this.users);
+          console.log(this.users);
+
         }
       },
       (error) => {

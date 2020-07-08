@@ -50,7 +50,7 @@
         </div>
         <div class="col- t" *ngFor="let sc of socialAccount">
           <div class="ct pt-1">
-            <a href="{{sc.url}}" target="_blank">
+            <a (click)="openDialog(sc._id)"   target="_blank">
           <img  src="https://graph.facebook.com/{{sc?.remote_id}}/picture?type=square" class="rounded-circle image ml-2"
            matTooltip="{{'Title : ' + sc.title}}"
          >

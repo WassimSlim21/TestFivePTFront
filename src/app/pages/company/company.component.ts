@@ -108,7 +108,6 @@ export class CompanyComponent implements OnInit {
       (companys: any) => {
         if (companys) {
           this.isLoading = false;
-
           this.length = companys.total;
           this.pageIndex = companys.pageIndex;
           this.companys = companys.company;
