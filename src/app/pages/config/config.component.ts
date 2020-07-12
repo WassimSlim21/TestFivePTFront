@@ -23,13 +23,19 @@ export class ConfigComponent implements OnInit {
   data: any ;
 
 
+  text: String = '';
+  optionsNonJsonEditor: any = {maxLines: 1000, printMargin: false};
+
+
   constructor(private apiService: ApiService, private snackBar: MatSnackBar) {
     this.options.mode = 'code';
     this.options.modes = ['code', 'text', 'tree', 'view'];
     this.options.statusBar = false;
     this.options.onChange = () => {
-      console.log(`onChange 1`, this.editor.get());
+     // console.log(`onChange 1`, this.editor.get());
     //  this.data = this.editor.get();
+    console.log(this.editor.get());
+
     };
 
   }
@@ -39,7 +45,9 @@ export class ConfigComponent implements OnInit {
   }
 
   changeLog(event = null) {
-    this.showData = this.editor.get();
+   // this.showData = this.editor.get();
+   // console.log(this.showData);
+
   }
   ngOnInit(): void {
     this.loadFiles();
@@ -53,16 +61,37 @@ export class ConfigComponent implements OnInit {
 
   loadFile() {
     this.apiService.apiGetAll(`layout/${this.selected}`).subscribe( (response: any) => {
-      this.data = response ;
+      this.text = response.data;
+      this.data = JSON.parse(response.data) ;
+
     });
   }
 
   updateFile() {
+    let newFile ;
+    if (this.isAjsonFile(this.selected)) {
+     newFile = this.editor.get();
+    } else {
+      newFile = this.text;
 
-    this.apiService.apiPost(`layout/${this.selected}`, this.editor.get()).subscribe( (response: any) => {
+    }
+    this.apiService.apiPost(`layout/${this.selected}`, {newFile}).subscribe( (response: any) => {
      this.snackBar.open('Layout updated');
     });
   }
 
 
+
+  onChange(code) {
+
+
+  }
+
+  isAjsonFile(fileName) {
+    if (fileName) {
+     return (fileName.indexOf('.json') !== -1);
+    } else {
+    return false ;
+    }
+  }
 }

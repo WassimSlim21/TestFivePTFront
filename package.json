@@ -64,6 +64,7 @@
     "multer": "^1.4.2",
     "ng-bootstrap": "^1.6.3",
     "ng-emoji-picker": "^6.0.1",
+    "ng2-ace-editor": "^0.3.9",
     "ng2-charts": "^2.3.0",
     "ng2-file-upload": "^1.4.0",
     "ngprogress": "^1.1.3",
