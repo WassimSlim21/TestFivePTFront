@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/core/service/api.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { SocialAccountDetailsComponent } from '../social-account-details/social-account-details.component';
-
 @Component({
   selector: 'app-tag-details',
   templateUrl: './tag-details.component.html',
