@@ -78,31 +78,41 @@
         <tbody>
           <tr  *ngFor="let event of events">
             <td>
-              <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="dateChanged(event)" />
+              <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="dateChanged(event,$event)"
+              [disabled]="event.account_id._id!=myAccountId" />
             </td>
             <td>
-              <input type="color" [(ngModel)]="event.color.primary" (change)="dateChanged(event)" />
+              <input type="color" [(ngModel)]="event.color.primary" (change)="dateChanged(event,$event)"  [disabled]="event.account_id._id!=myAccountId" />
             </td>
             <td>
-              <input type="color" [(ngModel)]="event.color.secondary" (change)="dateChanged(event)" />
+              <input type="color" [(ngModel)]="event.color.secondary" (change)="dateChanged(event,$event)"
+              [disabled]="event.account_id._id!=myAccountId" />
             </td>
             <td>
               <input class="form-control" type="datetime-local"  [(ngModel)]="event.stringStart"
-                (ngModelChange)="dateChanged(event)"
-                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
+                (ngModelChange)="dateChanged(event,$event)"
+                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"
+                [disabled]="event.account_id._id!=myAccountId"/>
             </td>
             <td>
               <input class="form-control" type="datetime-local"  [(ngModel)]="event.stringEnd"
-                (ngModelChange)="dateChanged(event)"
-                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set" />
+                (ngModelChange)="dateChanged(event,$event)"
+                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"
+                [disabled]="event.account_id._id!=myAccountId" />
             </td>
             <td>
-              <button class="btn btn-danger" *ngIf="event.account_id._id!=myAccountId"  disabled (click)="deleteEvent(event)">
+              <button class="btn btn-danger" *ngIf="event.account_id._id!=myAccountId"  disabled (click)="deleteEvent(event,$)">
                 Delete
               </button>
               <button class="btn btn-danger"  *ngIf="event.account_id._id==myAccountId" (click)="deleteEvent(event)">
                 Delete
               </button>
+            </td>
+
+            <td>
+              <button class="btn btn-info"><i class="fa fa-bell" (click)="remind(event)"></i> Remind </button>
+
+
             </td>
 
           </tr>
