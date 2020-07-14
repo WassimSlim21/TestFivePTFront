@@ -176,9 +176,11 @@ export class CalendarComponent implements OnInit {
     this.apiService.apiPost('event', newEvent ).subscribe((reponse: any) => {
       console.log(reponse);
       newEvent._id = reponse.event._id ;
+      newEvent.account_id = JSON.parse(localStorage.getItem('account')) ;
       this.events = [
-        ...this.events,
         newEvent,
+        ...this.events,
+
       ];
       this.apiService.apiPost('notification/',
       {source_id : JSON.parse(localStorage.getItem('account'))._id,
