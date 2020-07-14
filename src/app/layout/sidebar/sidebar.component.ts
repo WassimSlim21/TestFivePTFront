@@ -41,6 +41,7 @@ export class SidebarComponent implements OnInit {
   super_admin: any =   { path: '/espace-administarteur', title: 'Admin space',
    icon: 'admin_panel_settings', class: '', children: [] };
   menuItems: any[];
+  user : any;
   marketmenuItems: any[];
   account: any;
   isExpanded = false;
@@ -53,6 +54,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('account'));
     this.loadAccount();
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.marketmenuItems = ROUTESMarket.filter(marketmenuItems => marketmenuItems);
