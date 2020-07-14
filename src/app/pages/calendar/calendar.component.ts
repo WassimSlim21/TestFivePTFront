@@ -209,13 +209,19 @@ export class CalendarComponent implements OnInit {
 
 
 
-  dateChanged(event: any) {
-    event.start = new Date(event.stringStart);
-    event.end = new Date(event.stringEnd);
+  dateChanged(event: any, e  ) {
 
-
-    this.refresh.next();
-    this.updateEvent(event);
+    if  (event.start > event.end) {
+      event.end = event.start ;
+      event.stringEnd = moment(event.end).toISOString().split('Z')[0];
+      (document.activeElement as HTMLElement).blur();
+      return false ;
+     } else {
+     event.start = new Date(event.stringStart);
+     event.end = new Date(event.stringEnd);
+     this.refresh.next();
+     this.updateEvent(event);
+  }
   }
 
 
@@ -228,6 +234,11 @@ export class CalendarComponent implements OnInit {
         evnt.end = new Date(evnt.stringEnd);
         this.events.push(evnt);
         this.refresh.next();
+        if (evnt.account_id._id !== JSON.parse(localStorage.getItem('account'))._id ) {
+          evnt.resizable.beforeStart = false;
+          evnt.resizable.afterEnd = false;
+          evnt.draggable = false ;
+          }
       });
     });
   }
@@ -238,6 +249,17 @@ export class CalendarComponent implements OnInit {
      console.log(reponse);
     });
 
+  }
+
+
+  remind(event: any) {
+    this.apiService.apiPost('notification/',
+    {source_id : JSON.parse(localStorage.getItem('account'))._id,
+     content : `Event (${event.title}) is coming ${moment(event.start).fromNow()}`})
+     .subscribe(rep => {
+       console.log(rep);
+
+    });
   }
 
 }
