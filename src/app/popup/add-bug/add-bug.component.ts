@@ -44,8 +44,23 @@ addBug() {
   console.log(this.addBugForm.value);
   this.apiService.apiPost('bug/add', this.addBugForm.value).subscribe(response => {
     console.log(response);
+
+
   });
   this.dialogRef.close();
+
+/*
+  this.apiService.apiPost('notification/',
+  {source_id : JSON.parse(localStorage.getItem('account'))._id,
+  content : `A bug(${event.container.data[event.currentIndex]['name']}) state was updated to ${event.container.element['nativeElement']['id']} by ${JSON.parse(localStorage.getItem('account')).userName}`})
+  .subscribe(response => {
+    console.log('notifiier :', response);
+    this.socket.emit('bug', JSON.parse(localStorage.getItem('account'))._id);
+
+  });
+
+  */
+
 }
 
   ngOnInit() {

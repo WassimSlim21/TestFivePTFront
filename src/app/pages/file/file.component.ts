@@ -58,6 +58,17 @@ export class FileComponent implements OnInit {
           this.isLoadingStats = false;
           this.isLoading = false;
           this.allFiles = response;
+
+          this.allFiles.forEach(element => {
+            if (element.account_id) {
+              if (element.account_id._id === (JSON.parse(localStorage.getItem('account'))._id)) {
+                element.deletable = true;
+              } else {
+                element.deletable = false;
+              }
+            }
+          });
+
         }
       },
       error => {

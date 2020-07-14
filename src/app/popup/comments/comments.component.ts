@@ -75,6 +75,7 @@ socketIoNotification() {
    content : `your file ${this.file.name} was commented by ${JSON.parse(localStorage.getItem('account')).userName}`,
    destinations : [this.file.account_id._id]}).subscribe(response => {
     console.log('notifiier :', response);
+    // for each comment zid el id fil destunation
   });
 }
 addComment() {

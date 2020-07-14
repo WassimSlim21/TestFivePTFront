@@ -2,7 +2,7 @@
 <div class="container">
 <mat-card tdMediaToggle="gt-xs" Class="['push-sm']">
   <mat-card-header class="bg-info">
-    <mat-card-title class="text-light">Commets</mat-card-title>
+    <mat-card-title class="text-light"> {{file?.name }} Comments</mat-card-title>
 </mat-card-header>
   <mat-list>
     <ng-template let-item let-i="index" let-last="last" ngFor let-comment [ngForOf]="comments">
