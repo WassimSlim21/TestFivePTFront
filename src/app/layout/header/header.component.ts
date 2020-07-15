@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   moment = moment ;
   private listTitles: any[];
   socket: any;
-  notifications: any ;
+  notifications: any[] = [];
   location: Location;
   // tslint:disable-next-line: variable-name
   mobile_menu_visible: any = 0;
