@@ -61,56 +61,63 @@
         Add new
       </button>
       <div class="clearfix"></div>
-
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle value="Previous" (mwlClick)="state = 'Previous'">Previous Events</mat-button-toggle>
+        <mat-button-toggle value="Ongoing" (mwlClick)="state = 'Ongoing'">ongoing Events</mat-button-toggle>
+        <mat-button-toggle value="Upcoming" (mwlClick)="state = 'Upcoming'">Upcoming Events</mat-button-toggle>
+      </mat-button-toggle-group>
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr>
             <th>Title</th>
+            <th>Created By</th>
             <th>Primary color</th>
             <th>Secondary color</th>
             <th>Starts at</th>
             <th>Ends at</th>
             <th>Remove</th>
+            <th>Remind</th>
           </tr>
         </thead>
 
-        <tbody>
-          <tr  *ngFor="let event of events">
+        <tbody *ngFor="let event of events">
+          <tr *ngIf="event.state == state">
             <td>
               <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="dateChanged(event,$event)"
-              [disabled]="event.account_id._id!=myAccountId" />
+              [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" />
             </td>
             <td>
-              <input type="color" [(ngModel)]="event.color.primary" (change)="dateChanged(event,$event)"  [disabled]="event.account_id._id!=myAccountId" />
+              {{event.account_id.userName}}
+            </td>
+            <td>
+              <input type="color" [(ngModel)]="event.color.primary" (change)="dateChanged(event,$event)"  [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" />
             </td>
             <td>
               <input type="color" [(ngModel)]="event.color.secondary" (change)="dateChanged(event,$event)"
-              [disabled]="event.account_id._id!=myAccountId" />
+              [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" />
             </td>
             <td>
               <input class="form-control" type="datetime-local"  [(ngModel)]="event.stringStart"
                 (ngModelChange)="dateChanged(event,$event)"
                 dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"
-                [disabled]="event.account_id._id!=myAccountId"/>
+                [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'"/>
             </td>
             <td>
               <input class="form-control" type="datetime-local"  [(ngModel)]="event.stringEnd"
                 (ngModelChange)="dateChanged(event,$event)"
                 dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"
-                [disabled]="event.account_id._id!=myAccountId" />
+                [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" />
             </td>
             <td>
-              <button class="btn btn-danger" *ngIf="event.account_id._id!=myAccountId"  disabled (click)="deleteEvent(event,$)">
-                Delete
-              </button>
-              <button class="btn btn-danger"  *ngIf="event.account_id._id==myAccountId" (click)="deleteEvent(event)">
+
+              <button class="btn btn-danger"  [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" (click)="deleteEvent(event)">
                 Delete
               </button>
             </td>
 
             <td>
-              <button class="btn btn-info"><i class="fa fa-bell" (click)="remind(event)"></i> Remind </button>
+              <button class="btn btn-info"  [disabled]='event.reminded == true' (click)="remind(event)"><i class="fa fa-bell" ></i> Remind </button>
 
 
             </td>

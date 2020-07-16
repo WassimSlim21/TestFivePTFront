@@ -44,6 +44,10 @@ getAllAccounts() {
 }
 
 addBug() {
+
+  if (this.addBugForm.invalid) {
+    this.snackBar.open('please verify the form');
+  } else {
   console.log(this.addBugForm.value);
   this.apiService.apiPost('bug/add', this.addBugForm.value).subscribe(response => {
     console.log(response);
@@ -59,7 +63,7 @@ addBug() {
 
   });
 
-
+  }
 
 }
 

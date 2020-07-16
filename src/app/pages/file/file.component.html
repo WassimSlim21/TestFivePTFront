@@ -136,6 +136,7 @@
           </div>
           <div class="row">
             <div class="col-md-4 mt-4" *ngFor="let file of allFiles">
+
               <mat-card class="example-card">
                 <mat-card-header>
                   <div mat-card-avatar class="example-header-image">
@@ -155,6 +156,8 @@
                     </a> </button>
                   <button (click)="openDialog(file?._id)" mat-button>
                     <mat-icon> comment</mat-icon>
+                    <span class="notification">{{ file?.comments?.length}}</span>
+
                   </button>
                   <button mat-button *ngIf="file.deletable" (click)="deleteFileById(file)">
                     <mat-icon> delete</mat-icon>
