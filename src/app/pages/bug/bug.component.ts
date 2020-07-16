@@ -174,6 +174,17 @@ export class BugComponent implements OnInit {
             console.log('delete' + response);
             this.snackBar.open(JSON.stringify(response.message));
             this.getAllBugs();
+
+            this.apiService.apiPost('notification/',
+            {source_id : JSON.parse(localStorage.getItem('account'))._id,
+            content : `A bug (${bug.name}) was deleted by ${JSON.parse(localStorage.getItem('account')).userName}`})
+            .subscribe( resp => {
+              console.log('notifiier :', resp);
+              this.socket.emit('bug', JSON.parse(localStorage.getItem('account'))._id);
+
+            });
+
+
           }
         );
         this.dialogRef.close();

@@ -28,7 +28,7 @@ export class UpdateBugComponent implements OnInit {
                   account_assigned_id: new FormControl(null),
                   info: new FormControl(this.data.bugs.info)
                 });
-                if (this.data.bugs.account_assigned_id){
+                if (this.data.bugs.account_assigned_id) {
                  this.updateBugForm.setControl('account_assigned_id', new FormControl(this.data.bugs.account_assigned_id._id));
 
                 }
