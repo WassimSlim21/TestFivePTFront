@@ -19,6 +19,7 @@ export class FileComponent implements OnInit {
   moment = moment;
   allFiles: any[] = [];
   files: any[] = [];
+  extensions: any[] = [];
   isLoadingStats = true;
   filterForm: FormGroup;
   @Output() listChange = new EventEmitter<string[]>();
@@ -36,6 +37,7 @@ export class FileComponent implements OnInit {
     this.getAllFiles();
     this.filterForm = this.fb.group({
       name: new FormControl(''),
+      type: new FormControl(''),
       created_at: new FormControl()
     });
     this.filterForm.valueChanges.subscribe(value => {
@@ -80,10 +82,18 @@ export class FileComponent implements OnInit {
   getAllFiles() {
     this.apiService.apiGetAll('file').subscribe((response: any) => {
       this.allFiles = response;
+      console.log('files,', this.files);
 
       if (this.allFiles) {
+        console.log('files,', this.allFiles);
         this.isLoadingStats = false;
         this.allFiles.forEach(element => {
+          var extension = element.type;
+
+          if(this.extensions.indexOf(extension) === -1 )
+            {
+              this.extensions.push( extension);
+            }
           if (element.account_id) {
             if (element.account_id._id === (JSON.parse(localStorage.getItem('account'))._id)) {
               element.deletable = true;
@@ -92,7 +102,9 @@ export class FileComponent implements OnInit {
             }
           }
         });
+        console.log('aaaaa', this.extensions);
       }
+
     });
   }
 
@@ -135,6 +147,7 @@ export class FileComponent implements OnInit {
         console.log('notifiier :', rep);
       });
     });
+    this.files = [];
     }
 
     /** On Fle Dropped */
