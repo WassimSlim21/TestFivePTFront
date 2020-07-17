@@ -94,6 +94,10 @@ export class UserStatsComponent implements OnInit {
 
 
   public barChartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log('event', event);
+    console.log('active', active);
+
+
   }
 
   public barChartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
