@@ -156,8 +156,9 @@ export class FileComponent implements OnInit {
   }
 
   fileBrowseHandler(event) {
-    this.files = Array.from((event.target as HTMLInputElement).files);
-    this.prepareFilesList(this.files);
+   this.files = event.target.files;
+   this.prepareFilesList(this.files);
+
 
   }
 
