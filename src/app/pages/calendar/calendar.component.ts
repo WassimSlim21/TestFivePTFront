@@ -40,7 +40,7 @@ export class CalendarComponent implements OnInit {
   myAccountId = JSON.parse(localStorage.getItem('account'))._id ;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
-
+  state = 'Upcoming';
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -153,6 +153,7 @@ export class CalendarComponent implements OnInit {
 
   addEvent(): void {
     const newEvent: any = {
+      state: 'Upcoming',
       account_id: JSON.parse(localStorage.getItem('account'))._id,
       title: 'New event',
       stringStart: moment((new Date())).seconds(0).milliseconds(0).toISOString().split('Z')[0],
@@ -170,7 +171,7 @@ export class CalendarComponent implements OnInit {
     newEvent.start = new Date(newEvent.stringStart);
     newEvent.end = new Date(newEvent.stringEnd);
 
-
+    this.state = 'Upcoming';
     this.refresh.next();
 
     this.apiService.apiPost('event', newEvent ).subscribe((reponse: any) => {
@@ -239,6 +240,21 @@ export class CalendarComponent implements OnInit {
           evnt.resizable.afterEnd = false;
           evnt.draggable = false ;
           }
+        if (evnt.end < Date.now()) {
+            evnt.state = 'Previous';
+            evnt.resizable.beforeStart = false;
+            evnt.resizable.afterEnd = false;
+            evnt.draggable = false ;
+          } else
+        if (evnt.start > Date.now()) {
+          evnt.state = 'Upcoming' ;
+        } else
+        {
+          evnt.state = 'Ongoing' ;
+
+        }
+
+
       });
     });
   }
@@ -255,9 +271,10 @@ export class CalendarComponent implements OnInit {
   remind(event: any) {
     this.apiService.apiPost('notification/',
     {source_id : JSON.parse(localStorage.getItem('account'))._id,
-     content : `Event (${event.title}) is coming ${moment(event.start).fromNow()}`})
+     content : `Event (${event.title})  ${moment(event.start).fromNow()}`})
      .subscribe(rep => {
        console.log(rep);
+       event.reminded = true ;
 
     });
   }

@@ -8,10 +8,12 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FormsModule } from '@angular/forms';
+import { MaterialModule } from 'src/app/shared/material.module';
 
 @NgModule({
   declarations: [CalendarComponent],
   imports: [
+    MaterialModule,
     CommonModule,
     CalendarRoutingModule,
     FormsModule,

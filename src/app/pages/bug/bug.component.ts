@@ -30,6 +30,9 @@ export class BugComponent implements OnInit {
   readyForTest: Bug[] = [];
   done: Bug[] = [];
   needInfo: Bug[] = [];
+  archived: Bug[] = [];
+  showArchived = false ;
+
   panelOpenState = false;
 
   constructor(
@@ -119,23 +122,27 @@ export class BugComponent implements OnInit {
     this.bugs = [];
     this.done = [];
     this.needInfo = [];
+    this.archived = [];
     this.apiService.apiGetAll('bug').subscribe(
       (response: any) => {
         if (response) {
           this.bugs = response;
           this.bugs.forEach(element => {
+            if (element.archived === true) {
+              this.archived.push(element);
+            } else
             if (element.etat === 'newBug') {
               this.newBug.push(element);
-            }
+            } else
             if (element.etat === 'inProgress') {
               this.inProgress.push(element);
-            }
+            } else
             if (element.etat === 'readyForTest') {
               this.readyForTest.push(element);
-            }
+            } else
             if (element.etat === 'done') {
               this.done.push(element);
-            }
+            } else
             if (element.etat === 'needInfo') {
               this.needInfo.push(element);
             }
@@ -174,6 +181,17 @@ export class BugComponent implements OnInit {
             console.log('delete' + response);
             this.snackBar.open(JSON.stringify(response.message));
             this.getAllBugs();
+
+            this.apiService.apiPost('notification/',
+            {source_id : JSON.parse(localStorage.getItem('account'))._id,
+            content : `A bug (${bug.name}) was deleted by ${JSON.parse(localStorage.getItem('account')).userName}`})
+            .subscribe( resp => {
+              console.log('notifiier :', resp);
+              this.socket.emit('bug', JSON.parse(localStorage.getItem('account'))._id);
+
+            });
+
+
           }
         );
         this.dialogRef.close();
@@ -196,6 +214,29 @@ export class BugComponent implements OnInit {
       this.getAllBugs();
 
     });
+  }
+
+
+  archive( bug: any, state: any) {
+    this.apiService.apiPut(`bug/updateBug/${bug._id}`, {archived : state}).subscribe(
+      (response: any) => {
+        if (state === true ) {
+        this.snackBar.open(JSON.stringify('bug archived'));
+        const index = this.done.map((e) =>  e._id).indexOf(bug._id);
+        if (index > -1) {
+           this.done.splice(index, 1);
+           this.archived.push(bug);
+         }
+       } else {
+        this.snackBar.open(JSON.stringify('bug unarchived'));
+        const index = this.archived.map((e) =>  e._id).indexOf(bug._id);
+        if (index > -1) {
+           this.archived.splice(index, 1);
+           this.done.push(bug);
+         }
+       }
+      }
+    );
   }
 
 }

@@ -9,7 +9,7 @@
 
 <mat-list class="container p-0" *ngFor="let account of accounts">
 
-	<mat-list-item class="cursor" (click)="UpdateBugAssignedUser(this.account._id)" >
+	<mat-list-item class="cursor" (click)="UpdateBugAssignedUser(this.account)" >
 		<img mat-list-avatar src="../../../assets/img/person.png" alt="avatar">
 		<p matLine>
 			<span>   {{account.userName}}   </span>

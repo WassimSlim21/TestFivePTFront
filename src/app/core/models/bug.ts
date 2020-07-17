@@ -11,6 +11,7 @@ export class Bug {
     public account_assigned_id?: any,
     public created_at?: any,
     public updated_at?: any,
-    public deleted_at?: any
+    public deleted_at?: any,
+    public   archived?: any
   ) {}
 }

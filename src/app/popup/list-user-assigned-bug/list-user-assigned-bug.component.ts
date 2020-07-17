@@ -35,18 +35,34 @@ export class ListUserAssignedBugComponent implements OnInit {
 
   /* Update Bug User Assigned */
 
-  UpdateBugAssignedUser(userId: any) {
-    this.apiService.apiPut(`bug/userAssigned/${this.bug._id}`, { "account_assigned_id": userId }).subscribe(
+  UpdateBugAssignedUser(account: any) {
+    console.log('aaaaaaaaaaaaaa' , account);
+    this.apiService.apiPut(`bug/userAssigned/${this.bug._id}`, { account_assigned_id: account._id }).subscribe(
       (response: any) => {
         this.snackBar.open(JSON.stringify(response.message));
       }
     );
+    if (account._id !== JSON.parse(localStorage.getItem('account'))._id) {
+      this.apiService.apiPost('notification/',
+      {source : JSON.parse(localStorage.getItem('account'))._id,
+      content : `A bug (${this.bug.name}) was assigned to you by ${JSON.parse(localStorage.getItem('account')).userName}`,
+      destinations : [account._id]}).subscribe(response => {
+        console.log('notifiier :', response);
+      });
+    }
+    const toBeNotified = [];
+    this.accounts.forEach(acc => {
+      if (acc._id !== account._id && acc._id !== JSON.parse(localStorage.getItem('account'))._id ) {
+          toBeNotified.push(acc._id);
+      }
+    });
     this.apiService.apiPost('notification/',
     {source : JSON.parse(localStorage.getItem('account'))._id,
-     content : `A bug (${this.bug.name}) was assigned to you by ${JSON.parse(localStorage.getItem('account')).userName}`,
-     destinations : [userId]}).subscribe(response => {
+     content : `A bug (${this.bug.name}) was assigned to ${account.userName}`,
+     destinations : toBeNotified }).subscribe(response => {
       console.log('notifiier :', response);
     });
+
     this.dialogRef.close();
   }
 

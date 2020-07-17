@@ -40,6 +40,7 @@ export class AddPackComponent implements OnInit {
 }
 
   ngOnInit() {
+
     console.log(this.addPackForm);
     this.addPackForm.valueChanges.subscribe(value => {
       value.benchmarks = {max_have : value.benchmarks , deletes: value.benchmarks};
@@ -48,14 +49,18 @@ export class AddPackComponent implements OnInit {
    //   console.log(value);
 
     });
+
   }
   addPack() {
+    if (this.addPackForm.invalid){
+      this.snackBar.open('please verify the form');
+    } else {
     console.log(this.addPackForm.value);
     this.apiService.apiPost('pack/add', this.addPackForm.value).subscribe(response => {
       console.log(response);
     });
     this.dialogRef.close();
-
+    }
   }
   onReset() {
     this.dialogRef.close();

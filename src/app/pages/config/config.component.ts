@@ -19,7 +19,7 @@ export class ConfigComponent implements OnInit {
 
   options = new JsonEditorOptions();
   files: any ;
-  selected: any ;
+  selected: any = null;
   data: any ;
 
 
