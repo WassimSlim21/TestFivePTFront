@@ -18,6 +18,7 @@ import * as moment from 'moment';
 })
 export class HeaderComponent implements OnInit {
   moment = moment ;
+  loadedSeen = false ;
   private listTitles: any[];
   socket: any;
   notifications: any ;
@@ -160,6 +161,15 @@ export class HeaderComponent implements OnInit {
   loadNotifications() {
     this.apiService.apiGetAll('notification/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {
       this.notifications = response ;
+      this.loadedSeen = false ;
+      //   console.log('notifications', this.notifications);
+     } );
+  }
+  loadSeenNotifications() {
+    this.apiService.apiGetAll('notification/seen/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {
+      this.notifications = response ;
+      this.loadedSeen = true ;
+
    //   console.log('notifications', this.notifications);
      } );
   }

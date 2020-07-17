@@ -33,6 +33,9 @@
                           <br> <small> {{moment(notification?.created_at).fromNow()}} </small> <br>
                         </div>
                         </a>
+                        <hr>
+                        <a *ngIf="!loadedSeen" href="javascript:void(0)" class="dropdown-item mw-50" (click)="loadSeenNotifications()">Load Seen Notifications</a>
+                        <a *ngIf="loadedSeen" href="javascript:void(0)" class="dropdown-item mw-50" (click)="loadNotifications()">Unload Seen Notifications</a>
 
 
                     </div>

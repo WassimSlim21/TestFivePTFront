@@ -75,8 +75,29 @@ socketIoNotification() {
    content : `your file ${this.file.name} was commented by ${JSON.parse(localStorage.getItem('account')).userName}`,
    destinations : [this.file.account_id._id]}).subscribe(response => {
     console.log('notifiier :', response);
-    // for each comment zid el id fil destunation
   });
+  const destinations = [];
+      // for each comment zid el id fil destination
+  this.comments.forEach(element => {
+    if (element.account_id) {
+      if (element.account_id._id !== (JSON.parse(localStorage.getItem('account'))._id)) {
+      if (element.account_id._id !== this.file.account_id._id) {
+        if (destinations.indexOf(element.account_id._id) === -1) {
+          destinations.push(element.account_id._id);
+        }
+      }
+    }
+  }
+  });
+  if (destinations.length > 0) {
+  this.apiService.apiPost('notification/',
+  {source_id : JSON.parse(localStorage.getItem('account'))._id,
+   content : `File ${this.file.name} was commented by ${JSON.parse(localStorage.getItem('account')).userName}`,
+   destinations}).subscribe(response => {
+    console.log('notifiier :', response);
+  });
+  }
+
 }
 addComment() {
   this.content = this.myText;
@@ -84,7 +105,6 @@ addComment() {
   this.apiService.apiPost(`file/comment/` + this.data.fileId,
   {account_id: this.account_id, content: this.content}).subscribe((response: any) => {
     this.socket.emit('comment', this.data.fileId);
-
     console.log(response);
     this.myText = '';
     this.getFiles(this.data.fileId);
