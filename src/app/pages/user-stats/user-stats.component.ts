@@ -94,6 +94,7 @@ export class UserStatsComponent implements OnInit {
 
 
   public barChartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(active);
   }
 
   public barChartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -136,6 +137,9 @@ export class UserStatsComponent implements OnInit {
       (response: any) => {
         this.barChartData = response.barChartData;
         this.barChartLabels = response.labels;
+        console.log( '  this.barChartData' , this.barChartData);
+        console.log( '  this.barChartLabels' , this.barChartLabels);
+
       }
     );
   }

@@ -24,17 +24,9 @@
       [autoUpdateContent]="true"
       [durationBeforeCallback]="1000"
       (textChanged)="onChange($event)"
+      [hidden]="isAjsonFile(selected)  || selected == null"
       style="min-height: 200px; width:100%; overflow: auto;"></div>
-
-
-
-
-
-
-
-
-
-    <json-editor style="height: 700px;"  #editor [options]="options" [data]="data" (change)="changeLog($event)" class="editor "></json-editor>
+    <json-editor style="height: 700px;"  #editor [options]="options" [data]="data" (change)="changeLog($event)" class="editor " [hidden]="!isAjsonFile(selected) || selected == null"></json-editor>
   </div>
     <div *ngIf="selected">
  <button class="btn btn-danger" (click)='updateFile()'>Save modification</button>
