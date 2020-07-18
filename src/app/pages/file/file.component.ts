@@ -107,7 +107,6 @@ export class FileComponent implements OnInit {
         });
         console.log('aaaaa', this.extensions);
       }
-
     });
   }
 

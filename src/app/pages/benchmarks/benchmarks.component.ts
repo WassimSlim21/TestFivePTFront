@@ -25,7 +25,7 @@ export class BenchmarksComponent implements OnInit {
 
   isLoading = true;
   filterForm: FormGroup;
-  displayedColumns: string[] = ['name', 'type', 'owner', 'dashboards', 'tags', 'star'];
+  displayedColumns: string[] = ['name', 'type', 'owner', 'tags', 'star'];
   dataSource: MatTableDataSource<Benchmark>;
   benchmarkTypes: any[] = [
     { value: 'custom-benchmark	', name: 'custom-benchmark' },
