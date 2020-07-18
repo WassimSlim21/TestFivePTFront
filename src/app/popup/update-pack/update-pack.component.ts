@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/core/service/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { Pack } from 'src/app/core/models/pack';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,9 +17,10 @@ export class UpdatePackComponent implements OnInit {
   updateForm: FormGroup;
   pack: any;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-  public dialogRef: MatDialogRef<UpdatePackComponent>,
-    public dialog: MatDialog, private apiService: ApiService,
-    private snackBar: MatSnackBar) {
+              private   router: Router,
+              public dialogRef: MatDialogRef<UpdatePackComponent>,
+              public dialog: MatDialog, private apiService: ApiService,
+              private snackBar: MatSnackBar) {
     this.updateForm = new FormGroup({
       pack_name: new FormControl('', Validators.required),
       socialAccounts: new FormControl(0, [, Validators.required]),
@@ -56,6 +58,8 @@ export class UpdatePackComponent implements OnInit {
 
     this.apiService.apiPost('notification/',
     {source_id : JSON.parse(localStorage.getItem('account'))._id,
+    route : this.router.url,
+
      content : `${this.pack.pack_name} Pack was updated`,
      destinations : []}).subscribe(response => {
       console.log('notifiier :', response);

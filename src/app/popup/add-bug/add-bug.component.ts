@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Account } from 'src/app/core/models/account';
 import * as io from 'socket.io-client';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-bug',
@@ -17,7 +18,9 @@ export class AddBugComponent implements OnInit {
   socket: any;
   accounts: Account[];
   compte: Account = new Account();
-  constructor(private apiService: ApiService, private snackBar: MatSnackBar, public dialogRef: MatDialogRef<AddBugComponent>) {
+  constructor(private apiService: ApiService, private snackBar: MatSnackBar,
+              public dialogRef: MatDialogRef<AddBugComponent>,
+              public router: Router) {
     this.addBugForm = new FormGroup({
       name: new FormControl('', Validators.required),
       account_id: new FormControl((JSON.parse(localStorage.getItem('account'))._id)),
@@ -56,6 +59,7 @@ addBug() {
 
   this.apiService.apiPost('notification/',
   {source_id : JSON.parse(localStorage.getItem('account'))._id,
+  route : this.router.url,
   content : `A bug (${this.addBugForm.value.name}) was created by ${JSON.parse(localStorage.getItem('account')).userName}`})
   .subscribe(response => {
     console.log('notifiier :', response);

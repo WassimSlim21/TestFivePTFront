@@ -24,6 +24,7 @@ import {
 } from 'angular-calendar';
 import * as moment from 'moment';
 import { ApiService } from 'src/app/core/service/api.service';
+import { Router } from '@angular/router';
 
 
 
@@ -97,8 +98,10 @@ export class CalendarComponent implements OnInit {
   ];
   activeDayIsOpen = true;
 
-  constructor(private modal: NgbModal, private apiService: ApiService) {}
+  constructor(private modal: NgbModal, private apiService: ApiService, public router: Router
+    ) {}
   ngOnInit(): void {
+    console.log(this.router.url);
     this.loadEvents();
   }
 /* On Day Click*/
@@ -185,6 +188,7 @@ export class CalendarComponent implements OnInit {
       ];
       this.apiService.apiPost('notification/',
       {source_id : JSON.parse(localStorage.getItem('account'))._id,
+       route : this.router.url,
        content : `New Event created by ${JSON.parse(localStorage.getItem('account')).userName}`})
        .subscribe(rep => {
         console.log('notifiier :', rep);
@@ -271,6 +275,7 @@ export class CalendarComponent implements OnInit {
   remind(event: any) {
     this.apiService.apiPost('notification/',
     {source_id : JSON.parse(localStorage.getItem('account'))._id,
+     route : this.router.url,
      content : `Event (${event.title})  ${moment(event.start).fromNow()}`})
      .subscribe(rep => {
        console.log(rep);

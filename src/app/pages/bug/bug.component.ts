@@ -46,7 +46,6 @@ export class BugComponent implements OnInit {
   ngOnInit() {
     this.getAllBugs();
     this.socket = io(environment.SOCKET_ENDPOINT);
-
     this.socket.on('bug', (account_id: any) => {
       if (JSON.parse(localStorage.getItem('account'))._id !== account_id){
       this.getAllBugs();}
@@ -65,6 +64,7 @@ export class BugComponent implements OnInit {
       this.updateBug(event.container.data[event.currentIndex]['_id'], event.container.element['nativeElement']['id']);
       this.apiService.apiPost('notification/',
       {source_id : JSON.parse(localStorage.getItem('account'))._id,
+      route : this.router.url,
       content : `A bug(${event.container.data[event.currentIndex]['name']}) state was updated to ${event.container.element['nativeElement']['id']} by ${JSON.parse(localStorage.getItem('account')).userName}`})
       .subscribe(response => {
         console.log('notifiier :', response);

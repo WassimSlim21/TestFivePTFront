@@ -3,6 +3,7 @@ import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Account } from 'src/app/core/models/account';
 import { Bug } from 'src/app/core/models/bug';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-user-assigned-bug',
@@ -14,6 +15,8 @@ export class ListUserAssignedBugComponent implements OnInit {
   bug: Bug;
   constructor(private apiService: ApiService, private snackBar: MatSnackBar,
               public dialogRef: MatDialogRef<ListUserAssignedBugComponent>,
+              public router: Router,
+
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
@@ -45,6 +48,7 @@ export class ListUserAssignedBugComponent implements OnInit {
     if (account._id !== JSON.parse(localStorage.getItem('account'))._id) {
       this.apiService.apiPost('notification/',
       {source : JSON.parse(localStorage.getItem('account'))._id,
+      route : this.router.url,
       content : `A bug (${this.bug.name}) was assigned to you by ${JSON.parse(localStorage.getItem('account')).userName}`,
       destinations : [account._id]}).subscribe(response => {
         console.log('notifiier :', response);
@@ -58,6 +62,7 @@ export class ListUserAssignedBugComponent implements OnInit {
     });
     this.apiService.apiPost('notification/',
     {source : JSON.parse(localStorage.getItem('account'))._id,
+     route : this.router.url,
      content : `A bug (${this.bug.name}) was assigned to ${account.userName}`,
      destinations : toBeNotified }).subscribe(response => {
       console.log('notifiier :', response);

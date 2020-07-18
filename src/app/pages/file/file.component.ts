@@ -7,6 +7,7 @@ import { CommentsComponent } from 'src/app/popup/comments/comments.component';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -30,7 +31,9 @@ export class FileComponent implements OnInit {
   myText: any = '';
 
   constructor(private apiService: ApiService, public dialog: MatDialog, private fb: FormBuilder,
-              public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar) { }
+              public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar,
+              public router: Router
+              ) { }
 
   ngOnInit() {
     this.id = JSON.parse(localStorage.getItem('account'))._id;
@@ -88,9 +91,9 @@ export class FileComponent implements OnInit {
         console.log('files,', this.allFiles);
         this.isLoadingStats = false;
         this.allFiles.forEach(element => {
-          var extension = element.type;
+          const extension = element.type;
 
-          if(this.extensions.indexOf(extension) === -1 )
+          if( this.extensions.indexOf(extension) === -1 )
             {
               this.extensions.push( extension);
             }
@@ -142,6 +145,7 @@ export class FileComponent implements OnInit {
       this.getAllFiles();
       this.apiService.apiPost('notification/',
       {source_id : JSON.parse(localStorage.getItem('account'))._id,
+       route : this.router.url,
        content : `New file uploaded by ${JSON.parse(localStorage.getItem('account')).userName}`})
        .subscribe(rep => {
         console.log('notifiier :', rep);
@@ -156,10 +160,8 @@ export class FileComponent implements OnInit {
   }
 
   fileBrowseHandler(event) {
-   this.files = event.target.files;
-   this.prepareFilesList(this.files);
-
-
+  // this.files = Object.values( event.target.files);
+   this.prepareFilesList(Object.values (event.target.files));
   }
 
   deleteFile(index: number) {

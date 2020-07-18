@@ -30,6 +30,7 @@ export class CommentsComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any,
               private snackBar: MatSnackBar,
               public dialog: MatDialog,
+              public router : Router ,
               public dialogRef: MatDialogRef<ComfirmDialogComponent>,
   ) { }
 
@@ -72,6 +73,7 @@ socketIoNotification() {
 
   this.apiService.apiPost('notification/',
   {source_id : JSON.parse(localStorage.getItem('account'))._id,
+   route : this.router.url,
    content : `your file ${this.file.name} was commented by ${JSON.parse(localStorage.getItem('account')).userName}`,
    destinations : [this.file.account_id._id]}).subscribe(response => {
     console.log('notifiier :', response);
@@ -92,6 +94,7 @@ socketIoNotification() {
   if (destinations.length > 0) {
   this.apiService.apiPost('notification/',
   {source_id : JSON.parse(localStorage.getItem('account'))._id,
+   route : this.router.url,
    content : `File ${this.file.name} was commented by ${JSON.parse(localStorage.getItem('account')).userName}`,
    destinations}).subscribe(response => {
     console.log('notifiier :', response);
