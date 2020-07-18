@@ -3,6 +3,9 @@ import { MatDialog } from '@angular/material';
 import { ApiService } from 'src/app/core/service/api.service';
 import { EditProfilepopupComponent } from 'src/app/popup/editprofile/edit-profilepopup.component';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import * as io from 'socket.io-client';
+import * as moment from 'moment';
 declare const $: any;
 declare interface RouteInfo {
   path: string;
@@ -10,6 +13,7 @@ declare interface RouteInfo {
   icon: string;
   class: string;
   children: any;
+
 }
 export const ROUTES: RouteInfo[] = [
   { path: '/users', title: 'Kpeiz Users', icon: 'person', class: '', children: [] },
@@ -41,14 +45,20 @@ export class SidebarComponent implements OnInit {
   super_admin: any =   { path: '/espace-administarteur', title: 'Admin space',
    icon: 'admin_panel_settings', class: '', children: [] };
   menuItems: any[];
-  user : any;
+  socket: any;
+  user: any;
+  moment = moment ;
   marketmenuItems: any[];
   account: any;
+  notifications: any[] = [] ;
+  location: Location;
   isExpanded = false;
   element: HTMLElement;
   constructor(public dialog: MatDialog,
-    private authService: ApiService,
-    private router: Router
+              private authService: ApiService,
+              private router: Router,
+              public apiService: ApiService,
+
   ) {
 
   }
@@ -59,7 +69,8 @@ export class SidebarComponent implements OnInit {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.marketmenuItems = ROUTESMarket.filter(marketmenuItems => marketmenuItems);
     this.account = JSON.parse(localStorage.getItem('account'));
-
+    this.loadNotifications();
+    this.setupSocketNotifHandler();
   }
   isMobileMenu() {
     if ($(window).width() > 991) {
@@ -100,6 +111,37 @@ export class SidebarComponent implements OnInit {
           this.menuItems.unshift(this.super_admin);
            }
     });
+  }
+
+  setupSocketNotifHandler() {
+    this.socket = io(environment.SOCKET_ENDPOINT);
+    this.socket.on('Notification', (data: any) => {
+      this.loadNotifications();
+    });
+  }
+
+  loadNotifications() {
+    this.apiService.apiGetAll('notification/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {
+      this.notifications = response ;
+      console.log('response', response);
+
+   //   console.log('notifications', this.notifications);
+     } );
+  }
+
+  notificationsOpened() {
+    if (this.notifications) {
+      this.notifications.forEach(notif => {
+        notif.seen = true ;
+        this.apiService.apiPut(`notification/${notif._id}`, {userId : JSON.parse(localStorage.getItem('account'))._id})
+        .subscribe((response: any) => {
+          this.notifications = response ;
+       //   console.log('notifications', this.notifications);
+         } );
+      });
+    }
+
+
   }
 
 }

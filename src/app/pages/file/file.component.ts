@@ -26,9 +26,9 @@ export class FileComponent implements OnInit {
   @Output() listChange = new EventEmitter<string[]>();
   filesChoice: string;
   id: any;
-  isLoading = true;
   openPopup: Function;
   myText: any = '';
+  accounts: any[];
 
   constructor(private apiService: ApiService, public dialog: MatDialog, private fb: FormBuilder,
               public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar,
@@ -36,17 +36,32 @@ export class FileComponent implements OnInit {
               ) { }
 
   ngOnInit() {
+    this.getAllAccounts();
     this.id = JSON.parse(localStorage.getItem('account'))._id;
     this.getAllFiles();
     this.filterForm = this.fb.group({
       name: new FormControl(''),
       type: new FormControl(''),
+      account_id: new FormControl(''),
       created_at: new FormControl()
     });
     this.filterForm.valueChanges.subscribe(value => {
       this.listChange.emit(value);
       console.log('filter', value);
       this.getFilteredFile(value);
+    });
+  }
+
+  getAllAccounts() {
+    this.apiService.apiGetAll('account/get').subscribe(
+      (response: any) => {
+        if (response) {
+          this.accounts = response;
+          console.log(this.accounts);
+        }
+      },
+    error => {
+      console.log(error);
     });
   }
 
@@ -61,7 +76,6 @@ export class FileComponent implements OnInit {
       (response: any) => {
         if (response) {
           this.isLoadingStats = false;
-          this.isLoading = false;
           this.allFiles = response;
 
           this.allFiles.forEach(element => {
@@ -84,34 +98,42 @@ export class FileComponent implements OnInit {
 
   getAllFiles() {
     this.apiService.apiGetAll('file').subscribe((response: any) => {
-      this.allFiles = response;
-      console.log('files,', this.files);
-
-      if (this.allFiles) {
-        console.log('files,', this.allFiles);
+      if (response) {
         this.isLoadingStats = false;
-        this.allFiles.forEach(element => {
-          const extension = element.type;
+        this.allFiles = response;
+        console.log('files,', this.files);
 
-          if( this.extensions.indexOf(extension) === -1 )
-            {
-              this.extensions.push( extension);
+        if (this.allFiles) {
+          console.log('files,', this.allFiles);
+          this.allFiles.forEach(element => {
+            var extension = element.type;
+
+            if (this.extensions.indexOf(extension) === -1) {
+              this.extensions.push(extension);
             }
-          if (element.account_id) {
-            if (element.account_id._id === (JSON.parse(localStorage.getItem('account'))._id)) {
-              element.deletable = true;
-            } else {
-              element.deletable = false;
+            if (element.account_id) {
+              if (element.account_id._id === (JSON.parse(localStorage.getItem('account'))._id)) {
+                element.deletable = true;
+              } else {
+                element.deletable = false;
+              }
             }
-          }
-        });
-        console.log('aaaaa', this.extensions);
+          });
+          console.log('aaaaa', this.extensions);
+        }
+
       }
+    },
+    error => {
+      console.log(error);
+      this.isLoadingStats = true;
     });
   }
 
   getMyFiles() {
     this.apiService.apiGetAll(`file/${this.id}`).subscribe((response: any) => {
+      if (response) {
+      this.isLoadingStats = true;
       this.allFiles = response;
       if (this.allFiles) {
         this.allFiles.forEach(element => {
@@ -119,14 +141,20 @@ export class FileComponent implements OnInit {
         });
         console.log('the existing files are ', this.allFiles);
       }
+    }
+    },
+    error => {
+      console.log(error);
     });
   }
 
   ChoiceselectionChange(event) {
     console.log(event.value);
     if (event.value === '0') {
+      this.isLoadingStats = true;
       this.getAllFiles();
     } else {
+      this.isLoadingStats = false;
       this.getMyFiles();
     }
   }
@@ -136,9 +164,9 @@ export class FileComponent implements OnInit {
     const formData = new FormData();
     formData.append('account_id', (JSON.parse(localStorage.getItem('account'))._id));
     this.files.forEach(file => {
-        formData.append('files', file, file.name);
-      });
-  console.log('aaaa', formData.getAll('files'));
+      formData.append('files', file, file.name);
+    });
+    console.log('aaaa', formData.getAll('files'));
     this.apiService.apiPostWithOptions('file/add', formData).subscribe(response => {
       console.log(response);
       this.getAllFiles();
@@ -151,9 +179,9 @@ export class FileComponent implements OnInit {
       });
     });
     this.files = [];
-    }
+  }
 
-    /** On Fle Dropped */
+  /** On Fle Dropped */
   onFileDropped($event) {
     this.prepareFilesList($event);
   }

@@ -33,6 +33,8 @@ import { SocketioService } from './core/service/socketio.service';
 import { UpdateBugComponent } from './popup/update-bug/update-bug.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { ProgressComponent } from './pages/progress/progress.component';
+import { EventDetailsComponent } from './popup/event-details/event-details.component';
+import { UsersStatsPopupComponent } from './popup/users-stats-popup/users-stats-popup.component';
 
 
 
@@ -64,7 +66,9 @@ const JWT_Module_Options: JwtModuleOptions = ({
   BugDetailsComponent,
   UpdateBugComponent,
   AdminLayoutComponent,
-  ProgressComponent  ],
+  ProgressComponent,
+  EventDetailsComponent,
+  UsersStatsPopupComponent  ],
   imports: [
 
     SocketIoModule.forRoot(config),
@@ -110,7 +114,9 @@ const JWT_Module_Options: JwtModuleOptions = ({
     UpdateAccountRoleComponent,
     AddAccountComponent,
     BugDetailsComponent,
-    UpdateBugComponent
+    UpdateBugComponent,
+    EventDetailsComponent,
+    UsersStatsPopupComponent
       ],
 })
 export class AppModule { }
