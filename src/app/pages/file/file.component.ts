@@ -31,14 +31,9 @@ export class FileComponent implements OnInit {
   accounts: any[];
 
   constructor(private apiService: ApiService, public dialog: MatDialog, private fb: FormBuilder,
-<<<<<<< HEAD
-    public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar) {
-  }
-=======
               public dialogRef: MatDialogRef<FileComponent>, private snackBar: MatSnackBar,
               public router: Router
               ) { }
->>>>>>> d1376402e6ffab1da67931bdacccd11963589dff
 
   ngOnInit() {
     this.getAllAccounts();
@@ -105,7 +100,6 @@ export class FileComponent implements OnInit {
     this.apiService.apiGetAll('file').subscribe((response: any) => {
       if (response) {
         this.isLoadingStats = false;
-<<<<<<< HEAD
         this.allFiles = response;
         console.log('files,', this.files);
 
@@ -116,14 +110,6 @@ export class FileComponent implements OnInit {
 
             if (this.extensions.indexOf(extension) === -1) {
               this.extensions.push(extension);
-=======
-        this.allFiles.forEach(element => {
-          const extension = element.type;
-
-          if( this.extensions.indexOf(extension) === -1 )
-            {
-              this.extensions.push( extension);
->>>>>>> d1376402e6ffab1da67931bdacccd11963589dff
             }
             if (element.account_id) {
               if (element.account_id._id === (JSON.parse(localStorage.getItem('account'))._id)) {
@@ -185,22 +171,12 @@ export class FileComponent implements OnInit {
       console.log(response);
       this.getAllFiles();
       this.apiService.apiPost('notification/',
-<<<<<<< HEAD
-        {
-          source_id: JSON.parse(localStorage.getItem('account'))._id,
-          content: `New file uploaded by ${JSON.parse(localStorage.getItem('account')).userName}`
-        })
-        .subscribe(rep => {
-          console.log('notifiier :', rep);
-        });
-=======
       {source_id : JSON.parse(localStorage.getItem('account'))._id,
        route : this.router.url,
        content : `New file uploaded by ${JSON.parse(localStorage.getItem('account')).userName}`})
        .subscribe(rep => {
         console.log('notifiier :', rep);
       });
->>>>>>> d1376402e6ffab1da67931bdacccd11963589dff
     });
     this.files = [];
   }

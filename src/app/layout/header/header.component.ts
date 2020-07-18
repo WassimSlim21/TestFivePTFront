@@ -15,6 +15,7 @@ declare interface Notification {
   seen: any;
   source_id: any;
   _id: any;
+  route;
 }
 @Component({
   selector: 'app-header',
