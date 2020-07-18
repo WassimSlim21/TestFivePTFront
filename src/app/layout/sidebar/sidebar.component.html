@@ -43,12 +43,15 @@
                     <span class="d-lg-none d-md-block">Notification</span>
                 </p>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" *ngFor="let notification of notifications" >
-                <a class="dropdown-item mw-50" href="javascript:void(0)">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
+                <a *ngFor="let notification of notifications" class="dropdown-item mw-50" routerLink='{{notification.route}}'>
                   <div>{{notification?.content}}
                   <br> <small> {{moment(notification?.created_at).fromNow()}} </small> <br>
                 </div>
                 </a>
+                <hr>
+                <a *ngIf="!loadedSeen" href="javascript:void(0)" class="dropdown-item mw-50" (click)="loadSeenNotifications()">Load Seen Notifications</a>
+                <a *ngIf="loadedSeen" href="javascript:void(0)" class="dropdown-item mw-50" (click)="loadNotifications()">Unload Seen Notifications</a>
 
 
             </div>

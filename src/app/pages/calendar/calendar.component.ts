@@ -77,12 +77,7 @@ export class CalendarComponent implements OnInit {
   ];
   activeDayIsOpen = true;
 
-<<<<<<< HEAD
-  constructor(private modal: NgbModal, private apiService: ApiService, public router: Router
-    ) {}
-=======
   constructor(private modal: NgbModal, private apiService: ApiService,public dialog: MatDialog, public router: Router) {}
->>>>>>> abb661c45437b65a710f82d653d12c130a43ed81
   ngOnInit(): void {
     console.log(this.router.url);
     this.loadEvents();
