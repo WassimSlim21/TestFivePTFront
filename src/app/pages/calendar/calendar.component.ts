@@ -24,12 +24,9 @@ import {
 } from 'angular-calendar';
 import * as moment from 'moment';
 import { ApiService } from 'src/app/core/service/api.service';
-<<<<<<< HEAD
 import { Router } from '@angular/router';
-=======
 import { MatDialog } from '@angular/material';
 import { EventDetailsComponent } from 'src/app/popup/event-details/event-details.component';
->>>>>>> 82f17ae3785495aeca60aec02e221026ae37508e
 
 
 
@@ -80,12 +77,8 @@ export class CalendarComponent implements OnInit {
   ];
   activeDayIsOpen = true;
 
-<<<<<<< HEAD
   constructor(private modal: NgbModal, private apiService: ApiService, public router: Router
     ) {}
-=======
-  constructor(private modal: NgbModal, private apiService: ApiService,public dialog: MatDialog) {}
->>>>>>> 82f17ae3785495aeca60aec02e221026ae37508e
   ngOnInit(): void {
     console.log(this.router.url);
     this.loadEvents();

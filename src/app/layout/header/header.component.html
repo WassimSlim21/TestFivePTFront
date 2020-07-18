@@ -28,16 +28,8 @@
                             <span class="d-lg-none d-md-block">Notification</span>
                         </p>
                     </a>
-<<<<<<< HEAD
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a *ngFor="let notification of notifications" class="dropdown-item mw-50" href="javascript:void(0)" routerLink='{{notification.route}}'> <div>{{notification?.content}}
-=======
-                    <div >
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
-                        <a *ngFor="let notification of notifications" class="dropdown-item mw-50">
-                        <div>
-                          {{notification?.content}}
->>>>>>> 82f17ae3785495aeca60aec02e221026ae37508e
                           <br> <small> {{moment(notification?.created_at).fromNow()}} </small> <br>
                         </div>
                         </a>
