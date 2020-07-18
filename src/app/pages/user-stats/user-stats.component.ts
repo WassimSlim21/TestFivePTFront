@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/core/service/api.service';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { PackUserListComponent } from 'src/app/popup/pack-user-list/pack-user-list.component';
+import { UsersStatsPopupComponent } from 'src/app/popup/users-stats-popup/users-stats-popup.component';
 
 @Component({
   selector: 'app-user-stats',
@@ -19,6 +20,8 @@ export class UserStatsComponent implements OnInit {
   companyNumber: any;
   length: number;
   packsNumber: any;
+  users: any;
+
 
   /*
 
@@ -80,6 +83,7 @@ export class UserStatsComponent implements OnInit {
     { data: [], label: '' }
 
   ];
+  public datausers: any;
   public barChartLabels: Label[];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
@@ -92,9 +96,32 @@ export class UserStatsComponent implements OnInit {
     },
   ];
 
+  openDialog(users): void {
+    const dialogRef = this.dialog.open(UsersStatsPopupComponent, {
+      disableClose: false,
+      panelClass: 'app-full-bleed-dialog',
+      height : '90%' ,
+      maxHeight: '90%',
+      width : 'auto',
+      data: {
+        users
+      }
 
-  public barChartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  public barChartClicked({ event, active }: { event: MouseEvent, active: any }): void {
+    console.log(active[0]._model.label);
     console.log(active);
+
+    console.log(event);
+    let pos = this.datausers.Allusers.map((e) => e.day).indexOf(active[0]._model.label);
+    this.users = this.datausers.Allusers[pos];
+    this.openDialog(this.users);
   }
 
   public barChartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -119,7 +146,7 @@ export class UserStatsComponent implements OnInit {
         this.pieChartData = [];
         this.isLoadingStats = false;
         this.userPackStat = data.stats;
-        console.log('stats', data)
+        console.log('stats', data);
         this.packsTot = data.total;
         data.stats.forEach(stat => {
           this.pieChartData.push(stat.count);
@@ -137,9 +164,7 @@ export class UserStatsComponent implements OnInit {
       (response: any) => {
         this.barChartData = response.barChartData;
         this.barChartLabels = response.labels;
-        console.log( '  this.barChartData' , this.barChartData);
-        console.log( '  this.barChartLabels' , this.barChartLabels);
-
+        this.datausers = response;
       }
     );
   }
@@ -153,8 +178,9 @@ export class UserStatsComponent implements OnInit {
   openDialogStat(pack): void {
     const dialogRef = this.dialog.open(PackUserListComponent, {
       disableClose: false,
-      height: '40%',
-      width: '50%',
+      height: 'auto',
+      maxHeight: '90%',
+      width: 'auto',
       data: {
         stat: pack
       }

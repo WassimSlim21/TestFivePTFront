@@ -71,6 +71,7 @@
         <thead>
           <tr>
             <th>Title</th>
+            <th>Description</th>
             <th>Created By</th>
             <th>Primary color</th>
             <th>Secondary color</th>
@@ -85,6 +86,10 @@
           <tr *ngIf="event.state == state">
             <td>
               <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="dateChanged(event,$event)"
+              [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" />
+            </td>
+            <td>
+              <input type="text" class="form-control" [(ngModel)]="event.description" (keyup)="dateChanged(event,$event)"
               [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" />
             </td>
             <td>

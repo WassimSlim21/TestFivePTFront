@@ -28,9 +28,11 @@
                             <span class="d-lg-none d-md-block">Notification</span>
                         </p>
                     </a>
-                    <div *ngFor="let notification of notifications" >
+                    <div >
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
-                        <a class="dropdown-item mw-50" href="javascript:void(0)"> <div>{{notification?.content}}
+                        <a *ngFor="let notification of notifications" class="dropdown-item mw-50">
+                        <div>
+                          {{notification?.content}}
                           <br> <small> {{moment(notification?.created_at).fromNow()}} </small> <br>
                         </div>
                         </a>

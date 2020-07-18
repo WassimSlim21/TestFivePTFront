@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   loadedSeen = false ;
   private listTitles: any[];
   socket: any;
-  notifications: Notification[] = [];
+  notifications: Notification[];
   location: Location;
   // tslint:disable-next-line: variable-name
   mobile_menu_visible: any = 0;
@@ -161,16 +161,27 @@ export class HeaderComponent implements OnInit {
   setupSocketNotifHandler() {
     this.socket = io(environment.SOCKET_ENDPOINT);
     this.socket.on('Notification', (data: any) => {
+      this.notifications = [];
       this.loadNotifications();
     });
   }
 
   loadNotifications() {
-    this.apiService.apiGetAll('notification/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {
+    this.notifications = [];
+    this.apiService.apiGetAll('notification/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe(
+      (response: any) => {
+      if (response) {
       this.notifications = response ;
       this.loadedSeen = false ;
-      //   console.log('notifications', this.notifications);
-     } );
+        console.log('notifications', this.notifications);
+        console.log('response', response);
+
+      }
+     },
+     error => {
+       console.log(error);
+     }
+      );
   }
   loadSeenNotifications() {
     this.apiService.apiGetAll('notification/seen/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {

@@ -24,6 +24,8 @@ import {
 } from 'angular-calendar';
 import * as moment from 'moment';
 import { ApiService } from 'src/app/core/service/api.service';
+import { MatDialog } from '@angular/material';
+import { EventDetailsComponent } from 'src/app/popup/event-details/event-details.component';
 
 
 
@@ -71,33 +73,10 @@ export class CalendarComponent implements OnInit {
 
   // Events
   events: any[] = [
-    /*
-    {
-    //  start: new Date(),
-    //  end: new Date(),
-      _id : '',
-      account_id: JSON.parse(localStorage.getItem('account'))._id,
-      start: subDays((new Date()), 1),
-      stringStart:  moment(subDays((new Date()), 1)).seconds(0).milliseconds(0).toISOString().split('Z')[0],
-      end: addDays(endOfDay(new Date()), 1),
-      stringEnd:  moment(addDays(endOfDay(new Date()), 1)).seconds(0).milliseconds(0).toISOString().split('Z')[0],
-      title: 'A 3 day event',
-      color: {
-        primary: '#ad2121',
-        secondary: '#FAE3E3',
-      },
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    }*/
   ];
   activeDayIsOpen = true;
 
-  constructor(private modal: NgbModal, private apiService: ApiService) {}
+  constructor(private modal: NgbModal, private apiService: ApiService,public dialog: MatDialog) {}
   ngOnInit(): void {
     this.loadEvents();
   }
@@ -145,10 +124,27 @@ export class CalendarComponent implements OnInit {
    // this.handleEvent('Dropped or resized', event);
 
   }
+  openDialog(event): void {
+    const dialogRef = this.dialog.open(EventDetailsComponent, {
+      disableClose: false,
+      panelClass: 'app-full-bleed-dialog',
+      height : 'auto' ,
+      width : 'auto',
+      data: {
+        event
+      }
 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    // this.modalData = { event, action };
+    // this.modal.open(this.modalContent, { size: 'lg' });
+    console.log(event);
+    this.openDialog(event);
   }
 
   addEvent(): void {
@@ -156,6 +152,7 @@ export class CalendarComponent implements OnInit {
       state: 'Upcoming',
       account_id: JSON.parse(localStorage.getItem('account'))._id,
       title: 'New event',
+      description : 'add description',
       stringStart: moment((new Date())).seconds(0).milliseconds(0).toISOString().split('Z')[0],
       stringEnd: moment(addDays(new Date(), 1)).seconds(0).milliseconds(0).toISOString().split('Z')[0],
       color: {
