@@ -18,17 +18,17 @@
 
                           <mat-list>
 
-                            <mat-list-item>Email: {{user?.email}}</mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item> Phone: {{user?.data?.phone}}</mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item> Company ( {{user?.data?.company_type}}): {{user?.data?.company}}</mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item> Job: {{user?.data?.job}}</mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item> Website:<a href="{{user?.data?.website}}"> {{user?.data?.website}} </a></mat-list-item>
-                            <mat-divider></mat-divider>
-                            <mat-list-item>Score: {{user?.score}}</mat-list-item>
+                            <mat-list-item *ngIf="user?.email">Email: {{user?.email}}</mat-list-item>
+                            <mat-divider *ngIf="user?.email"></mat-divider>
+                            <mat-list-item *ngIf="user?.data?.phone"> Phone: {{user?.data?.phone}}</mat-list-item>
+                            <mat-divider *ngIf="user?.data?.phone"></mat-divider>
+                            <mat-list-item *ngIf="user?.data?.company_type"> Company ( {{user?.data?.company_type}}): {{user?.data?.company}}</mat-list-item>
+                            <mat-divider *ngIf="user?.data?.company_type"></mat-divider>
+                            <mat-list-item *ngIf="user?.data?.job"> Job: {{user?.data?.job}}</mat-list-item>
+                            <mat-divider *ngIf="user?.data?.job"></mat-divider>
+                            <mat-list-item *ngIf="user?.data?.website"> Website:<a href="{{user?.data?.website}}"> {{user?.data?.website}} </a></mat-list-item>
+                            <mat-divider *ngIf="user?.data?.score"></mat-divider>
+                            <mat-list-item *ngIf="user?.data?.score">Score: {{user?.score}}</mat-list-item>
                           </mat-list>
                         </div>
                     </div>

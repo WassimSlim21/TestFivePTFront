@@ -1,4 +1,6 @@
+
 <div class="main-content">
+
   <div class="container">
     <div class="card">
       <div class="card-header card-header-primary">
@@ -41,7 +43,7 @@
            Company Name
           </th>
           <td mat-cell *matCellDef="let element">
-            <a  (click)="openDialog(element._id)" class=" cursor-pointer text-primary font-weight-bold ">
+            <a  (click)="openDialog(element._id, element.name)" class=" cursor-pointer text-primary font-weight-bold ">
               {{element.name}}</a>
           </td>
         </ng-container>
@@ -95,3 +97,4 @@
     </div>
   </div>
   </div>
+
