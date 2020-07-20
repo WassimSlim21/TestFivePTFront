@@ -44,14 +44,10 @@ export class CompanyComponent implements OnInit {
   packs: any;
 
   @Input() userId: any;
-  @HostListener('window:scroll') onScroll(e: Event): void {
-    console.log(this.getYPosition(e));
- }
   constructor(private companyService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) {
   }
   ngOnInit() {
 
-document.getElementsByTagName('body')
     this.getCompanys(1);
     console.log("heheheheheh")
     document.body.scrollTo(0, 0);
