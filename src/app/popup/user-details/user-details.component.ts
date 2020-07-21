@@ -111,8 +111,8 @@ comfirmDialog(): void {
         }
     );
       const url = `https://api.kpeiz.digital/delete/user/${this.user._id}`;
-      const fenetre = window.open(url, '_blank');
-      setTimeout( () => { fenetre.close(); }, 100 );
+    //  const fenetre = window.open(url, '_blank');
+     // setTimeout( () => { fenetre.close(); }, 100 );
 
       this.dialogRef.close();
   }
