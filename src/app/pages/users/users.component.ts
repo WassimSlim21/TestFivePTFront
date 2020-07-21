@@ -156,7 +156,7 @@ export class UsersComponent implements OnInit {
           this.pageIndex = users.pageIndex;
           this.users = users.message;
           this.dataSource = new MatTableDataSource<User>(this.users);
-          console.log(this.users);
+          console.log("ahawma" , this.users);
 
         }
       },

@@ -168,7 +168,8 @@
               <div class="col- t" *ngFor="let user of users">
                 <div class="ct pt-1">
                   <a (click)="openDialogUser(user._id)" target="_blank">
-                    <img src="https://graph.facebook.com/{{user?.provider_userId}}/picture?height=50&width=50"
+                    <img *ngIf="!user.provider_userId" src="assets/img/person.png" alt="avatar">
+                    <img *ngIf="user.provider_userId" src="https://graph.facebook.com/{{user?.provider_userId}}/picture?height=50&width=50"
                       class="rounded-circle align-center margin-auto" matTooltip="{{'name : ' + user.name}}">
                   </a>
                 </div>

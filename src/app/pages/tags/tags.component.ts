@@ -83,7 +83,9 @@ export class TagsComponent implements OnInit {
 
       data: {
         tag: this.tag
-      }
+      },
+      panelClass: 'custom-modalbox'
+
 
     });
 

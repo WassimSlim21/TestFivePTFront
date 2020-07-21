@@ -11,7 +11,9 @@
                       <div class="row">
                         <!-- USER IMAGE 'only if it's facebook ' -->
                         <div class="col-md-6">
-                          <img src="https://graph.facebook.com/{{user?.provider_userId}}/picture?height=150&width=150"  class="rounded-circle align-center margin-auto">
+                          <img *ngIf="user.provider_userId" src="https://graph.facebook.com/{{user?.provider_userId}}/picture?height=150&width=150"  class="rounded-circle align-center margin-auto">
+                          <img *ngIf="!user.provider_userId" src="assets/img/person.png"  class="rounded-circle align-center margin-auto">
+
                          </div>
                             <!-- USER INFORMATIONS -->
                         <div class="col-md-6">

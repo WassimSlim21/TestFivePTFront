@@ -101,3 +101,10 @@ table {
 .mat-dialog-container {
   padding: 0px !important;
 }
+
+
+.custom-modalbox {
+  mat-dialog-content {
+      padding: 0;
+  }
+}

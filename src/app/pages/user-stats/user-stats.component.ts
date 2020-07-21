@@ -109,11 +109,6 @@ export class UserStatsComponent implements OnInit {
 
   openDialog(users): void {
     const dialogRef = this.dialog.open(UsersStatsPopupComponent, {
-      disableClose: false,
-      panelClass: 'app-full-bleed-dialog',
-      height : '90%' ,
-      maxHeight: '90%',
-      width : 'auto',
       data: {
         users
       }
@@ -177,9 +172,6 @@ export class UserStatsComponent implements OnInit {
   /* Open Dialog pack details */
   openDialogStat(pack): void {
     const dialogRef = this.dialog.open(PackUserListComponent, {
-      disableClose: false,
-      height: 'auto',
-      width: 'auto',
       data: {
         stat: pack
       }

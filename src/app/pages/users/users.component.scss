@@ -23,14 +23,20 @@ tr:last-child td:last-child { border-bottom-right-radius: 4px; }
   padding: 10px 10px 10px 0;
 }
 
-
+table{
+  width: 100%;
+ }
 .mat-table {
   overflow: auto;
   max-height: 500px;
-  width: 100%;
+  min-width: auto !important;
+  width: 100% !important;
 
 }
-
+.mat-table {
+  min-width: auto !important;
+  width: 100% !important;
+}
 .mobile-label {
   display: none;
 }
