@@ -44,7 +44,7 @@ export class ApiService {
 /* ------update account -------- */
   update(account: object) {
 
-    return this.http.put<any>(this.apiUrl + 'account/update' , account);
+    return this.http.put(this.apiUrl + 'account/update' , account);
   }
 
 
