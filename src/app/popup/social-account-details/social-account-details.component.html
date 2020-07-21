@@ -50,8 +50,7 @@
                               </mat-panel-title>
 
                             </mat-expansion-panel-header>
-                            <mat-tab-group color="accent">
-                              <mat-tab>
+
                                 <mat-list *ngFor="let user of users">
 
                                    <mat-list-item >
@@ -63,8 +62,7 @@
                                   </mat-list-item>
                                   <mat-divider></mat-divider>
                                 </mat-list>
-                              </mat-tab>
-                            </mat-tab-group>
+
                           </mat-expansion-panel>
 
                           <!-- Tags -->
@@ -75,8 +73,6 @@
                               </mat-panel-title>
 
                             </mat-expansion-panel-header>
-                            <mat-tab-group color="accent">
-                              <mat-tab>
                                 <mat-list *ngFor="let tag of tags">
                                    <mat-list-item >
                                     <div mat-line> <a (click)="openDialogTagDetails(tag)"> {{tag.name}}</a> </div>
@@ -92,8 +88,6 @@
                                   </mat-list-item>
                                   <mat-divider></mat-divider>
                                 </mat-list>
-                              </mat-tab>
-                            </mat-tab-group>
                           </mat-expansion-panel>
 
 
@@ -104,8 +98,7 @@
                                   Benchmarks
                                 </mat-panel-title>
                               </mat-expansion-panel-header>
-                              <mat-tab-group color="accent">
-                                <mat-tab>
+
                                   <mat-list *ngFor="let benchmark of benchmarks">
                                      <mat-list-item >
                                       <div mat-line> {{benchmark?.name}}</div>
@@ -122,8 +115,6 @@
                                     </mat-list-item>
                                     <mat-divider></mat-divider>
                                   </mat-list>
-                                </mat-tab>
-                              </mat-tab-group>
                             </mat-expansion-panel>
                         </mat-accordion>
 
