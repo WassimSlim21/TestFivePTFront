@@ -55,6 +55,7 @@ export class AddAccountComponent implements OnInit {
       this.snackBar.open('recomfirm your password');
 
     } else {
+    alert('abaath ay ');
     console.log(JSON.stringify(this.registerForm.value));
     this.apiService.register(this.registerForm.value).subscribe((reponse: any) => { // sends post request to the apiService
      this.snackBar.open(JSON.stringify(reponse.msg));

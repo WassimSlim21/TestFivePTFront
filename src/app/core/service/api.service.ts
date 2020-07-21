@@ -25,7 +25,7 @@ export class ApiService {
 
 
   private apiUrl: string = environment.apiUrl;
-
+  private KpeizUrl: string = 'https://api.kpeiz.digital/' ;
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) { }
 
 
@@ -35,7 +35,7 @@ export class ApiService {
 
 /* -------Create new account -------- */
   public register(user: object) {
-    return this.http.post(this.apiUrl + 'api/account/register', user, {
+    return this.http.post(this.apiUrl + 'account/register', user, {
       headers: new HttpHeaders({
            'Content-Type':  'application/json',
          })
@@ -44,7 +44,7 @@ export class ApiService {
 /* ------update account -------- */
   update(account: object) {
 
-    return this.http.put<any>(this.apiUrl + 'api/account/update' , account);
+    return this.http.put<any>(this.apiUrl + 'account/update' , account);
   }
 
 
@@ -119,6 +119,9 @@ getUserAllData(id: string) {
   return this.http.get<any>(this.apiUrl + 'user/' + id );
 }
 
+getKpeizRoute(endpoint: string) {
+  return this.http.get(this.KpeizUrl + endpoint);
+}
 apiPostWithOptions( endpoint, body) {
   return this.http.post(this.apiUrl + endpoint, body);
 }

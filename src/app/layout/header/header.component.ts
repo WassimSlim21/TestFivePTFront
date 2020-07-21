@@ -174,7 +174,7 @@ export class HeaderComponent implements OnInit {
       if (response) {
       this.notifications = response ;
       this.loadedSeen = false ;
-        console.log('notifications', this.notifications);
+   //     console.log('notifications', this.notifications);
 
       }
      },
