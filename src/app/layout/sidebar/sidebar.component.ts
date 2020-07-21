@@ -117,6 +117,7 @@ export class SidebarComponent implements OnInit {
   setupSocketNotifHandler() {
     this.socket = io(environment.SOCKET_ENDPOINT);
     this.socket.on('Notification', (data: any) => {
+      this.notifications = [];
       this.loadNotifications();
     });
   }
@@ -128,9 +129,6 @@ export class SidebarComponent implements OnInit {
       if (response) {
       this.notifications = response ;
       this.loadedSeen = false ;
-        console.log('notifications', this.notifications);
-        console.log('response', response);
-
       }
      },
      error => {
@@ -142,23 +140,22 @@ export class SidebarComponent implements OnInit {
     this.apiService.apiGetAll('notification/seen/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {
       this.notifications = response ;
       this.loadedSeen = true ;
-
-   //   console.log('notifications', this.notifications);
      } );
   }
+
   notificationsOpened() {
-    if (this.notifications) {
+    if (this.notifications.length > 0) {
       this.notifications.forEach(notif => {
-        notif.seen = true ;
-        this.apiService.apiPut(`notification/${notif._id}`, {userId : JSON.parse(localStorage.getItem('account'))._id})
-        .subscribe((response: any) => {
-          this.notifications = response ;
-       //   console.log('notifications', this.notifications);
-         } );
+        notif.seen = true;
+        this.apiService.apiPut(`notification/${notif._id}`, { userId: JSON.parse(localStorage.getItem('account'))._id })
+          .subscribe((response: any) => {
+          //  this.notifications = response;
+         //      console.log('notifications', this.notifications);
+          });
       });
     }
 
 
-  }
+}
 
 }

@@ -11,8 +11,8 @@
                       <div class="row">
                         <!-- USER IMAGE 'only if it's facebook ' -->
                         <div class="col-md-6">
-                          <img *ngIf="user.provider_userId" src="https://graph.facebook.com/{{user?.provider_userId}}/picture?height=150&width=150"  class="rounded-circle align-center margin-auto">
-                          <img *ngIf="!user.provider_userId" src="assets/img/person.png"  class="rounded-circle align-center margin-auto">
+                          <img *ngIf="user?.provider_userId" src="https://graph.facebook.com/{{user?.provider_userId}}/picture?height=150&width=150"  class="rounded-circle align-center margin-auto">
+                          <img *ngIf="!user?.provider_userId" src="assets/img/person.png"  class="rounded-circle align-center margin-auto" height="150" width="150">
 
                          </div>
                             <!-- USER INFORMATIONS -->
@@ -197,33 +197,21 @@
                                 <mat-expansion-panel >
                                   <mat-expansion-panel-header>
                                     <mat-panel-title>
-                                        Dashboards
+                                        Benchmarks
                                     </mat-panel-title>
                                   </mat-expansion-panel-header>
                                   <mat-tab-group color="accent">
 
-                                    <mat-tab label="Brand Insights" >
+                                    <mat-tab label="Market Insights" >
                                       <mat-chip-list>
-                                        <span   *ngFor="let dashboard of user?.dashboards" >
-                                        <mat-chip selected color="{{dashboard?.color}}" *ngIf="dashboard.type == 'SocialAccount'"
-                                        [ngClass]="{'deleted':dashboard?.deleted_at}">
-                                        {{dashboard?.name}} ({{dashboard?.nd_type}})
+                                        <span   *ngFor="let benchmark of user?.benchmarks" >
+                                        <mat-chip selected
+                                        [ngClass]="{'deleted':benchmark?.deleted_at}">
+                                        {{benchmark?.name}} ({{benchmark?.country}})
                                       </mat-chip>
                                         </span>
                                       </mat-chip-list>
                                     </mat-tab>
-
-                                    <mat-tab label="Market insights" >
-                                      <mat-chip-list >
-                                        <span   *ngFor="let dashboard of user?.dashboards">
-                                          <mat-chip  selected color="{{dashboard?.color}}" *ngIf="dashboard.type == 'Benchmark'" [ngClass]="{'deleted':dashboard?.deleted_at}">
-                                             {{dashboard?.name}} ({{dashboard?.nd_type}})
-                                          </mat-chip>
-                                        </span>
-                                      </mat-chip-list>
-                                    </mat-tab>
-
-
 
                                   </mat-tab-group>
 

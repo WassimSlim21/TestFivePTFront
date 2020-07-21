@@ -35,7 +35,6 @@ export class UsersComponent implements OnInit {
 
   users: User[];
   stats: any;
-  companys: any;
   selectedOption: string;
   pageEvent: PageEvent;
   datasource: null;
@@ -45,29 +44,16 @@ export class UsersComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10];
   moment = moment;
   packs: any;
-
   @Input() userId: any;
-
-
-
-
   constructor(private userService: ApiService,
               private router: Router, public dialog: MatDialog,
               private fb: FormBuilder) {
   }
-
   /*
   get Users per Packs Stats
-
   */
-
-
  ngOnInit() {
-  window.scroll(0,0);
-  document.body.scrollTop = 0;
-  document.querySelector('body').scrollTo(0,0)
   this.loadPacks();
-  this.getCompany();
   this.getUsers(1);
   this.selectedOption = 'agency';
   this.filterForm = this.fb.group({
@@ -100,11 +86,10 @@ export class UsersComponent implements OnInit {
     }
     this.onListChange.emit(value);
     this.getFilteredUsers(value);
-
   });
 }
 
-  loadPacks(): void {
+loadPacks(): void {
     this.userService.apiGetAll('pack').subscribe(
       packs => {
         this.packs = packs;
@@ -129,6 +114,26 @@ export class UsersComponent implements OnInit {
     this.getUsers(event.pageIndex);
   }
 
+    // Get User pagination
+    getUsers(page) {
+      this.userService.apiGetAll('user?pageNo=' + page + '&size=' + this.pageSize).subscribe(
+        (users: any) => {
+          if (users) {
+            this.isLoading = false;
+            this.length = users.total;
+            this.pageIndex = users.pageIndex;
+            this.users = users.message;
+            this.dataSource = new MatTableDataSource<User>(this.users);
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+
+
+  // User filter
   getFilteredUsers(body) {
     this.userService.apiPost('user/search', body).subscribe(
       (users: any) => {
@@ -138,39 +143,6 @@ export class UsersComponent implements OnInit {
           this.dataSource = new MatTableDataSource<User>(this.users);
 
 
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  getUsers(page) {
-    this.userService.apiGetAll('user?pageNo=' + page + '&size=' + this.pageSize).subscribe(
-      (users: any) => {
-        if (users) {
-
-          this.isLoading = false;
-          this.length = users.total;
-          this.pageIndex = users.pageIndex;
-          this.users = users.message;
-          this.dataSource = new MatTableDataSource<User>(this.users);
-          console.log("ahawma" , this.users);
-
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  getCompany() {
-    this.userService.apiGetAll('company?pageNo=' + 1 + '&size=' + 10).subscribe(
-      (companys: any) => {
-        if (companys) {
-          this.isLoading = false;
         }
       },
       (error) => {
@@ -192,6 +164,8 @@ export class UsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
     });
   }
+
+
 
 
 

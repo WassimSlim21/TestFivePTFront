@@ -174,8 +174,6 @@ export class HeaderComponent implements OnInit {
       if (response) {
       this.notifications = response ;
       this.loadedSeen = false ;
-   //     console.log('notifications', this.notifications);
-
       }
      },
      error => {
@@ -187,8 +185,6 @@ export class HeaderComponent implements OnInit {
     this.apiService.apiGetAll('notification/seen/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {
       this.notifications = response ;
       this.loadedSeen = true ;
-
-   //   console.log('notifications', this.notifications);
      } );
   }
 

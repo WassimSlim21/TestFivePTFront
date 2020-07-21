@@ -72,18 +72,23 @@ export class BenchmarksComponent implements OnInit {
         console.log(error);
       });
   }
+
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
+
   onPaginateChange(event?: PageEvent) {
     this.pageSize = event.pageSize;
     if (event.pageIndex < 1) {
       event.pageIndex = event.pageIndex + 1;
     }
+    console.log("page Index", event.pageIndex);
+
     this.getBenchmarks(event.pageIndex);
   }
+
   openDialog(id): void {
     const dialogRef = this.dialog.open(BenchmarkDetailsComponent, {
       disableClose: false,
@@ -97,22 +102,23 @@ export class BenchmarksComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
   getBenchmarks(page) {
     this.apiService.apiGetAll('benchmark?pageNo=' + page + '&size=' + this.pageSize).subscribe(
-      (rep: any) => {
-        if (rep) {
+      (benchmarks: any) => {
+        if (benchmarks) {
           this.isLoading = false;
-          this.length = rep.total;
-          this.pageIndex = rep.pageIndex;
-          this.benchmarks = rep.benchmarks;
+          this.length = benchmarks.total + 2;
+          this.pageIndex = benchmarks.pageIndex;
+          this.benchmarks = benchmarks.benchmarks;
           this.dataSource = new MatTableDataSource<Benchmark>(this.benchmarks);
-          console.log('benchmarks', this.benchmarks);
         }
       },
       error => {
         console.log(error);
       });
   }
+
   comfirmDialog(benchmark: any): void {
     const message = `Are you sure you want to do this?`;
     const dialogData = new ConfirmDialogModel('Confirm Action', message);
