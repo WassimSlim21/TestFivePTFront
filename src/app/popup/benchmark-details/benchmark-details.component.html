@@ -56,8 +56,7 @@
                               </mat-panel-title>
 
                             </mat-expansion-panel-header>
-                            <mat-tab-group color="accent">
-                              <mat-tab>
+
                                 <mat-list *ngFor="let account of socialAccounts">
 
                                    <mat-list-item>
@@ -70,8 +69,7 @@
                                   </mat-list-item>
                                   <mat-divider></mat-divider>
                                 </mat-list>
-                              </mat-tab>
-                            </mat-tab-group>
+
                           </mat-expansion-panel>
 
                           <!-- Tags -->
@@ -84,7 +82,7 @@
                             </mat-expansion-panel-header>
                             <mat-tab-group color="accent">
                               <div >
-                              <mat-tab label="{{account.nickname}}"  *ngFor="let account of socialAccounts">
+                              <mat-tab label="{{account.title}}"  *ngFor="let account of socialAccounts">
                                 <mat-list *ngFor="let tag of account?.tags">
                                   <mat-list-item>
                                     <div mat-line>
@@ -112,25 +110,20 @@
                           <mat-expansion-panel >
                             <mat-expansion-panel-header>
                               <mat-panel-title>
-                                Owners
+                                Owner
                               </mat-panel-title>
 
                             </mat-expansion-panel-header>
-                            <mat-tab-group color="accent">
-                              <mat-tab>
-                                <mat-list *ngFor="let user of users">
+
 
                                   <mat-list-item >
 
-                                    <div mat-line><a (click)="openDialogUser(user._id)"><img src="https://graph.facebook.com/{{user?.provider_userId}}/picture"   class="rounded-circle"></a></div>
-                                    <div mat-line>  {{user.data.job}} </div>
-                                    <div mat-column> <a (click)="openDialogUser(user._id)"><p class="text-bold text-primary">{{user.name}}</p></a></div>
+                                    <div mat-line><a (click)="openDialogUser(benchmark?.owner?._id)"><img src="https://graph.facebook.com/{{benchmark?.owner?.provider_userId}}/picture"   class="rounded-circle"></a></div>
+                                    <div mat-column> <a (click)="openDialogUser(benchmark?.owner?._id)"><p class="text-bold text-primary">{{benchmark?.owner?.name}}</p></a></div>
 
                                   </mat-list-item>
                                   <mat-divider></mat-divider>
-                                </mat-list>
-                              </mat-tab>
-                            </mat-tab-group>
+
                           </mat-expansion-panel>
 
                           </mat-accordion>
