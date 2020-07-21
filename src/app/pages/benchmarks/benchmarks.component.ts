@@ -8,9 +8,9 @@ import * as moment from 'moment';
 import { MatDialog, MatSliderChange, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSort } from '@angular/material/sort';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { Benchmark } from 'src/app/core/models/benchmark';
 import { ConfirmDialogModel, ComfirmDialogComponent } from 'src/app/popup/comfirm-dialog/comfirm-dialog.component';
 import { BenchmarkDetailsComponent } from 'src/app/popup/benchmark-details/benchmark-details.component';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-benchmarks',
@@ -26,13 +26,13 @@ export class BenchmarksComponent implements OnInit {
   isLoading = true;
   filterForm: FormGroup;
   displayedColumns: string[] = ['name', 'type', 'owner', 'tags', 'star'];
-  dataSource: MatTableDataSource<Benchmark>;
+  dataSource: MatTableDataSource<any>;
   benchmarkTypes: any[] = [
     { value: 'custom-benchmark	', name: 'custom-benchmark' },
     { value: 'sectorial-benchmark', name: 'sectorial-benchmark' },
     { value: 'regional-benchmark', name: 'regional-benchmark' }
   ];
-  benchmarks: Benchmark[] = [];
+  benchmarks: any[] ;
   pageEvent: PageEvent;
   datasource: null;
   pageIndex: number;
@@ -64,8 +64,21 @@ export class BenchmarksComponent implements OnInit {
       (response: any) => {
         if (response) {
           this.isLoading = false;
+          response.forEach( (elem: any) => {
+            console.log('tag', elem);
+            elem.tagNames = [];
+
+            elem.tags.forEach((tag: any) => {
+              elem.tagNames.push(tag.name);
+            });
+          });
+        //  this.benchmarks.tags =
           this.benchmarks = response;
-          this.dataSource = new MatTableDataSource<Benchmark>(this.benchmarks);
+
+
+          this.dataSource = new MatTableDataSource<any>(this.benchmarks);
+          this.benchmarks = response;
+          this.dataSource = new MatTableDataSource<any>(this.benchmarks);
         }
       },
       error => {
@@ -104,9 +117,19 @@ export class BenchmarksComponent implements OnInit {
           this.isLoading = false;
           this.length = rep.total;
           this.pageIndex = rep.pageIndex;
+          rep.benchmarks.forEach( (elem: any) => {
+            console.log('tag', elem);
+            elem.tagNames = [];
+
+            elem.tags.forEach((tag: any) => {
+              elem.tagNames.push(tag.name);
+            });
+          });
+        //  this.benchmarks.tags =
           this.benchmarks = rep.benchmarks;
-          this.dataSource = new MatTableDataSource<Benchmark>(this.benchmarks);
-          console.log('benchmarks', this.benchmarks);
+
+
+          this.dataSource = new MatTableDataSource<any>(this.benchmarks);
         }
       },
       error => {

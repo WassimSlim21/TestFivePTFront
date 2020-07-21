@@ -62,7 +62,7 @@
             Owner
           </th>
           <td mat-cell *matCellDef="let element">
-            {{element.owner}}
+            {{element?.owner?.name}}
           </td>
         </ng-container>
 
@@ -74,7 +74,7 @@
             Tags
           </th>
           <td mat-cell *matCellDef="let element">
-            {{element.tags}}
+            {{element.tagNames}}
           </td>
         </ng-container>
 

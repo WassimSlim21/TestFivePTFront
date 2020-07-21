@@ -46,7 +46,7 @@ export class BenchmarkDetailsComponent implements OnInit {
             this.benchmark = bench.benchmark;
             this.users = bench.users;
             this.socialAccounts = this.benchmark.social_accounts;
-
+            this.tags = bench.tags;
             this.socialAccounts.forEach(element => {
               if (element) {
                 this.tagsTotal = this.tagsTotal + element.tags.length;
