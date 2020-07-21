@@ -110,6 +110,10 @@ comfirmDialog(): void {
           this.snackBar.open(JSON.stringify(response.message));
         }
     );
+      const url = `https://api.kpeiz.digital/delete/user/${this.user._id}`;
+    //  const fenetre = window.open(url, '_blank');
+     // setTimeout( () => { fenetre.close(); }, 100 );
+
       this.dialogRef.close();
   }
   });
