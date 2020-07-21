@@ -47,6 +47,7 @@ export class SidebarComponent implements OnInit {
   menuItems: any[];
   socket: any;
   user: any;
+  loadedSeen = false ;
   moment = moment ;
   marketmenuItems: any[];
   account: any;
@@ -121,14 +122,30 @@ export class SidebarComponent implements OnInit {
   }
 
   loadNotifications() {
-    this.apiService.apiGetAll('notification/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {
+    this.notifications = [];
+    this.apiService.apiGetAll('notification/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe(
+      (response: any) => {
+      if (response) {
       this.notifications = response ;
-      console.log('response', response);
+      this.loadedSeen = false ;
+        console.log('notifications', this.notifications);
+        console.log('response', response);
+
+      }
+     },
+     error => {
+       console.log(error);
+     }
+      );
+  }
+  loadSeenNotifications() {
+    this.apiService.apiGetAll('notification/seen/' +  JSON.parse(localStorage.getItem('account'))._id).subscribe((response: any) => {
+      this.notifications = response ;
+      this.loadedSeen = true ;
 
    //   console.log('notifications', this.notifications);
      } );
   }
-
   notificationsOpened() {
     if (this.notifications) {
       this.notifications.forEach(notif => {

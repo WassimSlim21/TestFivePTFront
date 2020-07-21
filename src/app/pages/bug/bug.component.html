@@ -23,7 +23,7 @@
                       >
                         <img mat-list-avatar src="../../../assets/img/person.png" />
                         <h3 mat-line class="font-weight-bold text-danger"> {{bug?.name}} </h3>
-                        <h4 mat-line>assigned to :</h4>
+                        <h4 mat-line *ngIf="bug.account_assigned_id">assigned to :</h4>
                         <h3 mat-line class="font-weight-bold text-secondary">
                           <i class="material-icons"></i>
                           {{bug?.account_assigned_id?.userName}} </h3>

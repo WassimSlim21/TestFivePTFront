@@ -111,7 +111,10 @@
         <ng-container matColumnDef="picture">
           <th mat-header-cell *matHeaderCellDef> Picture </th>
           <td mat-cell *matCellDef="let element">
-            <img src="https://graph.facebook.com/{{element.provider_userId}}/picture?type=square" class="avatar"
+
+            <img *ngIf="element.provider_userId" src="https://graph.facebook.com/{{element.provider_userId}}/picture?type=square" class="avatar"
+              alt="Avatar">
+              <img *ngIf="!element.provider_userId" src="assets/img/person.png" class="avatar"
               alt="Avatar">
           </td>
         </ng-container>

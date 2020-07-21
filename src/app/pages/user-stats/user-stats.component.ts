@@ -96,6 +96,17 @@ export class UserStatsComponent implements OnInit {
     },
   ];
 
+
+  constructor(private userService: ApiService,
+              private router: Router, public dialog: MatDialog) { }
+
+  ngOnInit(): void {
+    this.getUsersWeeklyStats();
+    this.getUserPerPackStats();
+    this.getUsers();
+    this.getCompany();
+  }
+
   openDialog(users): void {
     const dialogRef = this.dialog.open(UsersStatsPopupComponent, {
       disableClose: false,
@@ -126,17 +137,6 @@ export class UserStatsComponent implements OnInit {
 
   public barChartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
   }
-
-  constructor(private userService: ApiService,
-              private router: Router, public dialog: MatDialog) { }
-
-  ngOnInit(): void {
-    this.getUsersWeeklyStats();
-    this.getUserPerPackStats();
-    this.getUsers();
-    this.getCompany();
-  }
-
 
   getUserPerPackStats() {
 
@@ -179,7 +179,6 @@ export class UserStatsComponent implements OnInit {
     const dialogRef = this.dialog.open(PackUserListComponent, {
       disableClose: false,
       height: 'auto',
-      maxHeight: '90%',
       width: 'auto',
       data: {
         stat: pack

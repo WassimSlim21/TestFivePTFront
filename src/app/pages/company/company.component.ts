@@ -44,17 +44,13 @@ export class CompanyComponent implements OnInit {
   packs: any;
 
   @Input() userId: any;
-  @HostListener('window:scroll') onScroll(e: Event): void {
-    console.log(this.getYPosition(e));
- }
   constructor(private companyService: ApiService, private router: Router, public dialog: MatDialog, private fb: FormBuilder) {
   }
   ngOnInit() {
 
-
-
     this.getCompanys(1);
-
+    console.log("heheheheheh")
+    document.body.scrollTo(0, 0);
     this.selectedOption = 'agency';
     this.filterForm = this.fb.group({
       name: new FormControl(),
@@ -121,7 +117,7 @@ export class CompanyComponent implements OnInit {
   }
 
 
-  openDialog(id): void {
+  openDialog(id, name): void {
     this.userId = id;
     const dialogRef = this.dialog.open(CompanyUsersComponent, {
       disableClose: false,
@@ -129,7 +125,9 @@ export class CompanyComponent implements OnInit {
       height : '50%' ,
       width : '50%',
       data: {
-        id
+        id,
+        name
+
       }
 
     });
