@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://kpeiz-crm.herokuapp.com/api/',
-  SOCKET_ENDPOINT: ' https://kpeiz-crm.herokuapp.com:3000'
+  apiUrl: 'https://server.dhia.tn:3003/api/',
+  SOCKET_ENDPOINT: 'https://server.dhia.tn:3003'
 };
