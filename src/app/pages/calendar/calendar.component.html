@@ -86,43 +86,43 @@
           <tr *ngIf="event.state == state">
             <td>
               <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="dateChanged(event,$event)"
-              [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" />
+              [disabled]="event?.account_id?._id!=myAccountId || event.state == 'Previous'" />
             </td>
             <td>
               <input type="text" class="form-control" [(ngModel)]="event.description" (keyup)="dateChanged(event,$event)"
-              [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" />
+              [disabled]="event?.account_id?._id!=myAccountId || event.state == 'Previous'" />
             </td>
             <td>
-              {{event.account_id.userName}}
+              {{event?.account_id?.userName}}
             </td>
             <td>
-              <input type="color" [(ngModel)]="event.color.primary" (change)="dateChanged(event,$event)"  [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" />
+              <input type="color" [(ngModel)]="event?.color.primary" (change)="dateChanged(event,$event)"  [disabled]="event?.account_id?._id!=myAccountId || event?.state == 'Previous'" />
             </td>
             <td>
               <input type="color" [(ngModel)]="event.color.secondary" (change)="dateChanged(event,$event)"
-              [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" />
+              [disabled]="event?.account_id._id!=myAccountId || event?.state == 'Previous'" />
             </td>
             <td>
               <input class="form-control" type="datetime-local"  [(ngModel)]="event.stringStart"
                 (ngModelChange)="dateChanged(event,$event)"
                 dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"
-                [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'"/>
+                [disabled]="event?.account_id?._id!=myAccountId || event?.state == 'Previous'"/>
             </td>
             <td>
               <input class="form-control" type="datetime-local"  [(ngModel)]="event.stringEnd"
                 (ngModelChange)="dateChanged(event,$event)"
                 dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Not set"
-                [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" />
+                [disabled]="event?.account_id?._id!=myAccountId || event.state == 'Previous'" />
             </td>
             <td>
 
-              <button class="btn btn-danger"  [disabled]="event.account_id._id!=myAccountId || event.state == 'Previous'" (click)="deleteEvent(event)">
+              <button class="btn btn-danger"  [disabled]="event?.account_id?._id!=myAccountId || event?.state == 'Previous'" (click)="deleteEvent(event)">
                 Delete
               </button>
             </td>
 
             <td>
-              <button class="btn btn-info"  [disabled]='event.reminded == true' (click)="remind(event)"><i class="fa fa-bell" ></i> Remind </button>
+              <button class="btn btn-info"  [disabled]='event?.reminded == true' (click)="remind(event)"><i class="fa fa-bell" ></i> Remind </button>
 
 
             </td>
