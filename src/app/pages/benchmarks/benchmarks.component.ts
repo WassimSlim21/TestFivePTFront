@@ -48,6 +48,7 @@ export class BenchmarksComponent implements OnInit {
   }
   ngOnInit() {
     this.getBenchmarks(1);
+    this.pageEvent.pageIndex = 1;
     this.filterForm = this.fb.group({
       name: new FormControl(),
       type: new FormControl(),
@@ -92,11 +93,12 @@ export class BenchmarksComponent implements OnInit {
     }
   }
 
-  onPaginateChange(event?: PageEvent) {
+  onPaginateChange(event: PageEvent) {
     this.pageSize = event.pageSize;
     if (event.pageIndex < 1) {
       event.pageIndex = event.pageIndex + 1;
     }
+    console.log('p',event.previousPageIndex);
     console.log("page Index", event.pageIndex);
 
     this.getBenchmarks(event.pageIndex);
@@ -131,7 +133,6 @@ export class BenchmarksComponent implements OnInit {
               elem.tagNames.push(tag.name);
             });
           });
-        //  this.benchmarks.tags =
           this.benchmarks = benchmarks.benchmarks;
 
 

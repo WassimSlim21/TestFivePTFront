@@ -108,7 +108,7 @@
     mode="indeterminate">
   </mat-progress-spinner>
 </mat-card>
-      <mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
+      <mat-paginator [length]="length + 1" [pageSize]="pageSize" [pageIndex]="pageIndex - 1" [pageSizeOptions]="pageSizeOptions"
       (page)="onPaginateChange($event)">
       </mat-paginator>
     </div>

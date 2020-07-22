@@ -179,6 +179,7 @@ export class FileComponent implements OnInit {
       });
     });
     this.files = [];
+    this.getAllFiles();
   }
 
   /** On Fle Dropped */
