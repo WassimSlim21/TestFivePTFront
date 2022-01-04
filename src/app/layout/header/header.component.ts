@@ -1,12 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { EditProfilepopupComponent } from 'src/app/popup/editprofile/edit-profilepopup.component';
 import { ApiService } from 'src/app/core/service/api.service';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { ROUTES } from '../sidebar/sidebar.component';
-import { environment } from 'src/environments/environment';
-import * as io from 'socket.io-client';
 import * as moment from 'moment';
 declare interface Notification {
   content: any;
@@ -27,7 +24,6 @@ export class HeaderComponent implements OnInit {
   moment = moment ;
   loadedSeen = false ;
   private listTitles: any[];
-  socket: any;
   notifications: Notification[];
   location: Location;
   // tslint:disable-next-line: variable-name
@@ -43,8 +39,6 @@ export class HeaderComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.setupSocketNotifHandler();
-    this.loadNotifications();
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
@@ -140,14 +134,6 @@ export class HeaderComponent implements OnInit {
 
   openDialog(): void {
     this.sidebarClose();
-    const dialogRef = this.dialog.open(EditProfilepopupComponent, {
-      disableClose: false,
-      width: '600px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
   }
 
 
@@ -159,13 +145,6 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  setupSocketNotifHandler() {
-    this.socket = io(environment.SOCKET_ENDPOINT);
-    this.socket.on('Notification', (data: any) => {
-      this.notifications = [];
-      this.loadNotifications();
-    });
-  }
 
   loadNotifications() {
     this.notifications = [];

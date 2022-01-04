@@ -4,10 +4,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 export const AdminLayoutRoutes: Routes = [
   {
     path: '', component: LayoutModule, canActivate: [AuthGuardService],
-    children: [
-
-
-    ]
+    children:[]
   }
   ];
 

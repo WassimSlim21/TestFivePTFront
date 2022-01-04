@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-import { Account } from '../models/account';
+import { User } from '../models/user';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { Observable } from 'rxjs';
@@ -19,13 +19,12 @@ export class ApiService {
 
 
 
-  user: Account;
+  user: User;
   users: any;
   jwtToken = null;
 
 
-  private apiUrl: string = environment.apiUrl;
-  private KpeizUrl: string = 'https://api.kpeiz.digital/' ;
+  private apiUrl: string = "http://localhost:3000/api/";
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) { }
 
 
@@ -33,9 +32,9 @@ export class ApiService {
   /* --------------------------------Authentification and Register Services ------------------ */
 
 
-/* -------Create new account -------- */
+/* -------Create new user -------- */
   public register(user: object) {
-    return this.http.post(this.apiUrl + 'account/register', user, {
+    return this.http.post(this.apiUrl + 'user/register', user, {
       headers: new HttpHeaders({
            'Content-Type':  'application/json',
          })
@@ -44,7 +43,7 @@ export class ApiService {
 /* ------update account -------- */
   update(account: object) {
 
-    return this.http.put(this.apiUrl + 'account/update' , account);
+    return this.http.put(this.apiUrl + 'user/update' , account);
   }
 
 
@@ -94,19 +93,24 @@ getCurrentUser() {
     return jwtHelper.decodeToken(token);
 }
 
+apiGetAll(endpoint) {
+  return this.http.get(this.apiUrl + endpoint);
+}
 
 
 sendCredential(userName: string, password: string): Observable<any> {
     const credentials = {userName, password};
 
-    return this.http.post<any>(this.apiUrl + 'account/login', credentials);
+    return this.http.post<any>(this.apiUrl + 'user/login', credentials);
+}
+
+
+apiGet(endpoint) {
+  return this.http.get(this.apiUrl + endpoint);
 }
 
 apiPost(endpoint, body) {
   return this.http.post(this.apiUrl + endpoint, body);
-}
-apiGetAll(endpoint) {
-  return this.http.get(this.apiUrl + endpoint);
 }
 apiPut(endpoint, body) {
   return this.http.put(this.apiUrl + endpoint, body);
@@ -114,14 +118,11 @@ apiPut(endpoint, body) {
 apiDelete(endpoint) {
   return this.http.delete(this.apiUrl + endpoint);
 }
-
 getUserAllData(id: string) {
   return this.http.get<any>(this.apiUrl + 'user/' + id );
 }
 
-getKpeizRoute(endpoint: string) {
-  return this.http.get(this.KpeizUrl + endpoint);
-}
+
 apiPostWithOptions( endpoint, body) {
   return this.http.post(this.apiUrl + endpoint, body);
 }

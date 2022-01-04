@@ -1,5 +1,56 @@
 <div class="main-content">
   <div class="container">
-    <app-user-stats></app-user-stats>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Listes Sondage</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>
+                    Title
+                  </th>
+                  <th>
+                    Description
+                  </th>
+                  <th>
+                    User
+                  </th>
+                  <th class="text-right">
+                    Created at
+                  </th>
+                  <th>
+                      Vote
+                  </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let sondage of sondages">
+                    <td>
+                      {{sondage?.title}}
+                    </td>
+                    <td>
+                      {{sondage?.description}}
+                    </td>
+                    <td>
+                      {{sondage?.user_id.userName}}
+                    </td>
+                    <td class="text-right">
+                      {{moment(sondage?.created_at).toString()}}
+                    </td>
+
+                    <td>
+                      <button mat-button class="btn btn-warning" (click)="openDialog(sondage._id)">Vote</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

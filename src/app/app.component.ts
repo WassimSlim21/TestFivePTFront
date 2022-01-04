@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SocketioService } from './core/service/socketio.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +8,8 @@ import { SocketioService } from './core/service/socketio.service';
 export class AppComponent implements OnInit {
   title = 'crm-project';
 
-  constructor(private socketService: SocketioService ) {}
+  constructor( ) {}
   ngOnInit() {
-    this.socketService.setupSocketConnection();
-
 
   }
   onActivate(event) {
